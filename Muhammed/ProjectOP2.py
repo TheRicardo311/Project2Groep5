@@ -40,7 +40,7 @@ def ver():
 def checkcor():
     if x > (650,200) and x <(600,150):
         a = a[1]
-
+#pie
             
 
 program()
