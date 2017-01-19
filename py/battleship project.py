@@ -1,8 +1,14 @@
 import pygame
+import random
 import psycopg2
+import time
 
+bgrandom = random.randint(0, 1)
 
 pygame.init()
+
+white = (255,255,255)
+black = (0,0,0)
 
 class Menu:
     def __init__(self):
@@ -22,9 +28,14 @@ class Menu:
 
 
 
+
     def draw(self):
         # background
-        bg = pygame.image.load("background.jpg")
+        global bgrandom
+        if bgrandom == 1:
+            bg = pygame.image.load("background.jpg")
+        else:
+            bg = pygame.image.load("Background2.jpg")
         self.screen.blit(bg,(0,0))
         # title
         self.start_text = self.fontTitle.render("Battleport",
@@ -65,19 +76,37 @@ class Game:
     def __init__(self):
         #schermgrootte
         width = 1920
-        heigth = 1080
-        size = (width, heigth)
+        height = 1080
+        size = (width, height)
         #font
         self.font = pygame.font.Font("DroidSans.ttf", 30)
 
 
         self.screen = pygame.display.set_mode(size)
 
+        self.boot = boot(20, 20, 0)
+        self.boot1 = boot(20, 150, 0)
+
     def update(self):
         button (1720, 16, 150, 50, program_instructions)
         button(1720, 50, 140, 50, pygame.QUIT)
+        self.boot.updateboot()
 
     def draw(self):
+        self.screen.fill((0,0,0))
+
+        self.hor()
+        self.ver()
+
+    def hor(self):
+        for y in range(864, 0, -43):
+            pygame.draw.lines(self.screen, white, True, [(200, y), (1620, y)], 4)
+
+    def ver(self):
+        for x in range(200, 1630, 71):
+            pygame.draw.lines(self.screen, white, True, [(x, 0), (x, 864)], 4)
+
+
         self.start_text = self.font.render("Instructions",
                                            1, (255, 255, 255))
         self.screen.blit(self.start_text, (1720, 16))
@@ -85,6 +114,9 @@ class Game:
         self.exit_text = self.font.render("Exit Game",
                                           1, (255, 255, 255))
         self.screen.blit(self.exit_text, (1720, 50))
+
+        self.boot.draw(self.screen)
+        self.boot1.draw(self.screen)
         #flip
         pygame.display.flip()
 
@@ -93,6 +125,26 @@ class Game:
         while not process_events():
             self.update()
             self.draw()
+
+class Instructions:
+    def __init__(self):
+        width = 1000
+        heigth = 1080
+        size = (width, heigth)
+        self.screen = pygame.display.set_mode(size)
+
+    def update(self):
+        button(150, 150, 50, 50, pygame.QUIT)
+
+    def draw(self):
+        self.screen.fill((0,0,0))
+
+    def instructions_loop(self):
+        while not process_events():
+            self.update()
+            self.draw
+        else:
+            Game()
 
 class Termination:
         def __init__(self):
@@ -138,17 +190,52 @@ class Termination:
         def termination_quit(self):
             quit()
 
+class boot:
+    def __init__(self, x, y, r):
+        self.x = x
+        self.y = y
+        self.r = r
+        self.color = (0 ,255, 0)
+        self.o = False
+        self.p = False
 
+    def updateboot(self):
+        click = pygame.mouse.get_pressed()
+        mouse = pygame.mouse.get_pos()
+        if self.x + 100 > mouse[0] > self.x and self.y + 100 > mouse[0] > self.x and self.p == False:
+            if click[0] == 1:
+                self.color = (0,0,0)
+                self.p = True
+        elif click[0] == 1 and self.o == False and self.color == (0,0,0):
+            if 269 > mouse[0] > 204 and 46 > mouse[1] > 6:
+                self.x = 203
+                self.y = 6
+                self.color = (0, 255, 0)
+                self.o = True
+
+
+
+
+
+
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.color,
+                           (int(self.x), int(self.y), 69, 124), int(self.r))
 
 #button functie
 def button(x, y, w, h, action=None):
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
-    print(mouse)
     if x + w > mouse[0] > x and y+h > mouse[1] > y:
         if click[0] == 1 and action != None:
             action()
 
+def mouse_down():
+    for event in pygame.event.get():
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            return True
+    return False
 #check voor quit
 def process_events():
     for event in pygame.event.get():
@@ -175,8 +262,10 @@ def program_quit():
 
 
 
+
 def program_instructions():
-    return 0
+    instructions = Instructions()
+    instructions.instructions_loop()
 
 
 #aanroepen van startup functie
