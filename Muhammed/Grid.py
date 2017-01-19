@@ -15,7 +15,7 @@ def program():
     pygame.init()
 
 
-    while process_events():
+    while not process_events():
         screen.fill(white)
         pygame.draw.lines(screen,black,True,[(0,0),(0,800)], 7)
         pygame.draw.lines(screen,black,True,[(0,0),(1200,0)], 7)
