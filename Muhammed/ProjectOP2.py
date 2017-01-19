@@ -1,4 +1,5 @@
 import pygame
+
 WIDTH = 1200
 HEIGHT = 800
 SIZE = (WIDTH,HEIGHT)
@@ -30,17 +31,11 @@ def program():
         pygame.display.flip()
 
 def hor():
-    for y in range(650,0,-50):
+    for y in range(650,0,-1):
         pygame.draw.lines(screen,black,True,[(200,y),(950,y)], 4)
         
 def ver():
-    for x in range(200,1000,50):
-        pygame.draw.lines(screen,black,True,[(x,50),(x,650)],4)
-
-def checkcor():
-    if x > (650,200) and x <(600,150):
-        a = a[1]
-#pie
-            
+    for x in range(200,1000,10):
+        pygame.draw.lines(screen,black,True,[(x,50),(x,650)],4)   
 
 program()
