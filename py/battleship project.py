@@ -47,7 +47,7 @@ class Menu:
 
     def update(self):
         #buttons aanmaken met button functie
-        button(260, 600, 450, 50, pygame.QUIT)
+        button(260, 600, 450, 50, program_quit)
         button(260, 440, 500, 50, program2)
         button(1820, 16, 100, 50, program_instructions)
 
@@ -56,6 +56,7 @@ class Menu:
         while not process_events():
             self.draw()
             self.update()
+        quit()
     def quit_menu(self):
         # afsluiten van menu
         quit()
@@ -66,7 +67,7 @@ class Game:
         width = 1920
         heigth = 1080
         size = (width, heigth)
-
+        #font
         self.font = pygame.font.Font("DroidSans.ttf", 30)
 
 
@@ -92,6 +93,52 @@ class Game:
         while not process_events():
             self.update()
             self.draw()
+
+class Termination:
+        def __init__(self):
+            width = 500
+            heigth = 300
+            size = (width, heigth)
+
+            self.font = pygame.font.Font("Capture_It.ttf", 30)
+
+            self.fonttitle = pygame.font.Font("Capture_It.ttf", 30)
+
+            self.screen = pygame.display.set_mode(size)
+
+        def update(self):
+            button(150, 150, 50, 50, pygame.QUIT)
+            button(300, 150, 50, 50, program)
+
+
+        def draw(self):
+            bg = pygame.image.load("termination_background.PNG")
+            self.screen.blit(bg, (0, 0))
+
+            self.exit_text = self.font.render("Yes",
+                                              1, (255, 255, 255))
+            self.screen.blit(self.exit_text, (150, 150))
+
+            self.exit_text = self.font.render("No",
+                                              1, (255, 255, 255))
+            self.screen.blit(self.exit_text, (300, 150))
+
+            self.exit_text = self.fonttitle.render("Are you sure you want to quit?",
+                                              1, (255, 255, 255))
+            self.screen.blit(self.exit_text, (11, 70))
+
+            pygame.display.flip()
+
+
+        def termination_loop(self):
+            while not process_events():
+                self.update()
+                self.draw()
+
+        def termination_quit(self):
+            quit()
+
+
 
 #button functie
 def button(x, y, w, h, action=None):
@@ -119,6 +166,14 @@ def program2():
     game.game_loop()
     menu = Menu()
     menu.quit_menu()
+#startup termination screen
+def program_quit():
+    termination = Termination()
+    termination.termination_loop()
+    menu = Menu()
+    menu.quit_menu()
+
+
 
 def program_instructions():
     return 0
