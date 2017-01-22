@@ -71,7 +71,7 @@ def program():
                         (x,y+20), 
                         (x,y+20)]
 
-
+        #tekent bootje
         pygame.draw.rect(screen, black, (x-shipheight, y, shipwidth , shipheight))
         pygame.draw.line(screen, black,positionguns2[controlguns], positionguns[controlguns],gunswidth) 
         
@@ -80,7 +80,7 @@ def program():
     def shoot(xy,tankx,tanky,turPos):
         fire = True
         
-        startingshell = list(xy)
+        startschot = list(xy)
         print("fire",xy)
         
         while fire:
@@ -88,20 +88,20 @@ def program():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     quit()
-            
-            print(startingshell[0],startingshell[1])
-            pygame.draw.circle(screen, (0,0,255),(startingshell[0],startingshell[1]),5)  
+            #print de kogels
+            print(startschot[0],startschot[1])
+            pygame.draw.circle(screen, (0,0,255),(startschot[0],startschot[1]),5)  
         
-            startingshell[0] -= 5
+            startschot[0] -= 5
             
-            if startingshell[1] > height:
+            if startschot[1] > height:
                 fire = False
             pygame.display.update()    
     while not process_events():
         screen.fill((255, 255, 255))
         gun = ship(shipx,shipy,gunposition)
         
-
+        #besturing kanon
         keys = pygame.key.get_pressed()
         if keys[pygame.K_DOWN]:
             changeposition = 1
