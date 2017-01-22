@@ -1,44 +1,13 @@
 import math
 import pygame
-class Player:
 
-    def __init__(self, x, y, r):
-        self.x = x
-
-        self.y = y
-
-        self.r = r
-
-    def update(self):
-        keys = pygame.key.get_pressed()
-
-        if keys[pygame.K_LEFT]:
-
-            self.x -= 1
-
-        elif keys[pygame.K_RIGHT]:
-
-            self.x += 1
-
-
-
-        if keys[pygame.K_UP]:
-
-            self.y -= 1
-
-        elif keys[pygame.K_DOWN]:
-
-            self.y += 1
-
-    
-    def draw(self, screen):
-
-        pygame.draw.circle(screen, (0, 255, 0),
-
-                           (int(self.x), int(self.y)), int(self.r))
+black = (0,0,0)
+clock = pygame.time.Clock()
+                    
 
 def process_events():
-
+    
+    
     for event in pygame.event.get():
 
         if event.type == pygame.QUIT:
@@ -51,7 +20,10 @@ def process_events():
 
     return False
 
+   
 
+
+    
 
 
 
@@ -71,42 +43,94 @@ def program():
 
     pygame.init()
 
-    
-
     # Set the resolution
 
     screen = pygame.display.set_mode(size)
-
-    
-
     # Set up the default font
-
     font = pygame.font.Font(None, 30)
-
+    # Create the ship
+    shipx = width * 0.5
+    shipy = height * 0.5
+    shipwidth = 80
+    shipheight= 40
+    gunswidth = 10
+    weels = 30
+    changeposition = 0
+    gunposition = 0
     
+    def ship(x,y,controlguns):
+        x = int(x)
+        y = int(y)
+        
+        positionguns = [(x,y-30),
+                        (x,y), 
+                        (x-70,y+20), 
+                        (x+70,y+20)]
+        positionguns2 = [(x,y),
+                        (x,y+70), 
+                        (x,y+20), 
+                        (x,y+20)]
 
 
-
-    
-
-    # Create the player
-
-    player = Player(width * 0.2, height * 0.5, width * 0.1)
-
-
-
+        pygame.draw.rect(screen, black, (x-shipheight, y, shipwidth , shipheight))
+        pygame.draw.line(screen, black,positionguns2[controlguns], positionguns[controlguns],gunswidth) 
+        
+        return positionguns[controlguns]
+   
+    def shoot(xy,tankx,tanky,turPos):
+        fire = True
+        
+        startingshell = list(xy)
+        print("fire",xy)
+        
+        while fire:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+            
+            print(startingshell[0],startingshell[1])
+            pygame.draw.circle(screen, (0,0,255),(startingshell[0],startingshell[1]),5)  
+        
+            startingshell[0] -= 5
+            
+            if startingshell[1] > height:
+                fire = False
+            pygame.display.update()    
     while not process_events():
-
-        # Update entities
-
-        player.update()
         screen.fill((255, 255, 255))
+        gun = ship(shipx,shipy,gunposition)
+        
 
-        # Draw the entities
-        player.draw(screen)
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_DOWN]:
+            changeposition = 1
+            
+        elif keys[pygame.K_UP]:
+            changeposition = 0
+        elif keys[pygame.K_RIGHT]:
+            changeposition = -1
+            
+        elif keys[pygame.K_LEFT]:
+            changeposition = 2
+        
+        elif keys[pygame.K_SPACE]:
+            shoot(gun,shipx,shipy,gunposition)
+        
 
-     
+
+       
+        # Draw the cannons
+        gunposition = int(changeposition)
+        ship(shipx,shipy,gunposition)
     
+ 
+        # draw cannons
+        
+       
+        
+        #move cannons
+
         # Flip the screen
         pygame.display.flip()
 
