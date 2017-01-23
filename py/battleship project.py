@@ -4,7 +4,7 @@ import psycopg2
 import time
 
 bgrandom = random.randint(0, 1)
-
+quit_check = False
 pygame.init()
 
 white = (255,255,255)
@@ -25,6 +25,10 @@ class Menu:
         self.font = pygame.font.Font("Capture_it_2.ttf", 70)
 
         self.fontinstructions = pygame.font.Font("DroidSans.ttf", 30)
+
+        self.fontsaus = pygame.font.Font("Capture_It.ttf", 30)
+
+        self.fonttitle = pygame.font.Font("Capture_It.ttf", 30)
 
 
 
@@ -62,6 +66,57 @@ class Menu:
         button(260, 440, 500, 50, program2)
         button(1820, 16, 100, 50, program_instructions)
 
+    def update_termination(self):
+        button(750, 500, 50, 50, pygame.QUIT)
+        button(1000, 500, 50, 50, program)
+        button(1187, 270, 51, 41, program)
+
+    def draw_termination(self):
+        global bgrandom
+        if bgrandom == 1:
+            bg = pygame.image.load("background.jpg")
+        else:
+            bg = pygame.image.load("Background2.jpg")
+        self.screen.blit(bg, (0, 0))
+        # title
+        self.start_text = self.fontTitle.render("Battleport",
+                                                1, (255, 255, 255))
+        self.screen.blit(self.start_text, (260, 140))
+        # start game tekst voor knop
+        self.start_text = self.font.render("Start Game",
+                                           1, (255, 255, 255))
+        self.screen.blit(self.start_text, (260, 440))
+        # exit game tekst voor knop
+        self.exit_text = self.font.render("Exit Game",
+                                          1, (255, 255, 255))
+        self.screen.blit(self.exit_text, (260, 600))
+
+        self.start_text = self.fontinstructions.render("Instructions",
+                                                       1, (255, 255, 255))
+        self.screen.blit(self.start_text, (1720, 16))
+        # flip
+        bg = pygame.image.load("termination_background.PNG")
+        self.screen.blit(bg, (600, 270))
+
+        self.exit_text = self.fontsaus.render("Yes",
+                                          1, (255, 255, 255))
+        self.screen.blit(self.exit_text, (750, 500))
+
+        self.exit_text = self.fontsaus.render("No",
+                                          1, (255, 255, 255))
+        self.screen.blit(self.exit_text, (1000, 500))
+
+        self.exit_text = self.fonttitle.render("Are you sure you want to quit?",
+                                               1, (255, 255, 255))
+        self.screen.blit(self.exit_text, (670, 350))
+
+        pygame.display.flip()
+
+    def termination_loop(self):
+        while not process_events():
+            self.update_termination()
+            self.draw_termination()
+
     def menu_loop(self):
         #menu functionality loop
         while not process_events():
@@ -79,46 +134,135 @@ class Game:
         height = 1080
         size = (width, height)
         #font
-        self.font = pygame.font.Font("DroidSans.ttf", 30)
+        self.font = pygame.font.Font("DroidSans.ttf", 25)
+
+        self.titlefont = pygame.font.Font("Capture_it.ttf", 70)
 
 
         self.screen = pygame.display.set_mode(size)
 
-        self.boot = boot(20, 20, 0)
-        self.boot1 = boot(20, 150, 0)
-
     def update(self):
-        button (1720, 16, 150, 50, program_instructions)
-        button(1720, 50, 140, 50, pygame.QUIT)
-        self.boot.updateboot()
+        global quit_check
+        quit_check = False
+        button(1720, 16, 150, 30, program_instructions)
+        button(1720, 50, 140, 30, pygame.QUIT)
+        button(1720, 84, 200, 30, program)
+
 
     def draw(self):
         self.screen.fill((0,0,0))
-
-        self.hor()
-        self.ver()
-
-    def hor(self):
-        for y in range(864, 0, -43):
-            pygame.draw.lines(self.screen, white, True, [(200, y), (1620, y)], 4)
-
-    def ver(self):
-        for x in range(200, 1630, 71):
-            pygame.draw.lines(self.screen, white, True, [(x, 0), (x, 864)], 4)
-
-
         self.start_text = self.font.render("Instructions",
                                            1, (255, 255, 255))
-        self.screen.blit(self.start_text, (1720, 16))
+        self.screen.blit(self.start_text, (1700, 16))
+
+        self.exit_text = self.font.render("Back to main menu",
+                                          1, (255, 255, 255))
+        self.screen.blit(self.exit_text, (1700, 84))
 
         self.exit_text = self.font.render("Exit Game",
                                           1, (255, 255, 255))
-        self.screen.blit(self.exit_text, (1720, 50))
+        self.screen.blit(self.exit_text, (1700, 50))
 
-        self.boot.draw(self.screen)
-        self.boot1.draw(self.screen)
+
+
         #flip
         pygame.display.flip()
+
+    def update_instructions(self):
+        button1(1720, 100, 50, 50)
+
+
+    def draw_instructions(self):
+        bg = pygame.image.load("rules_background.jpg")
+        self.screen.blit(bg, (0,0))
+
+        self.start_text = self.font.render("Quit",
+                                           1, (255, 255, 255))
+        self.screen.blit(self.start_text, (1720, 100))
+
+        self.start_text = self.titlefont.render("Rules",
+                                           1, (255, 255, 255))
+        self.screen.blit(self.start_text, (100, 100))
+
+        self.start_text = self.font.render("-Om te beginnen trekt elke speler om de beurt 1 kaart, totdat ze 2 kaarten hebben.",
+                                           1, (255, 255, 255))
+        self.screen.blit(self.start_text, (100, 200))
+
+        self.start_text = self.font.render("-Daarna plaatst elke speler om de beurt zijn/haar schepen in het speelveld, met de achterkant van de schepen tegen de beginlijn aan.",
+                                           1, (255, 255, 255))
+        self.screen.blit(self.start_text, (100, 250))
+
+        self.start_text = self.font.render("-Wanneer je aan beurt bent mag je al je schepen verplaatsen",
+                                           1, (255, 255, 255))
+        self.screen.blit(self.start_text, (100, 300))
+
+        self.start_text = self.font.render("-Ook kun je de positie van je schepen veranderen, wanneer je dit doet telt dat als 1 stap",
+                                           1, (255, 255, 255))
+        self.screen.blit(self.start_text, (100, 350))
+
+        self.start_text = self.font.render("-Wanneer een schip in zijn aanvalspositie staat (verticaal) heeft het schip zijn standaard aanval bereik.",
+                                           1, (255, 255, 255))
+        self.screen.blit(self.start_text, (150, 400))
+
+        self.start_text = self.font.render("-Wanneer een schip in zijn verdedigingspositite staat (horizontaal) mag deze niet verplaatst worden. ",
+                                           1, (255, 255, 255))
+        self.screen.blit(self.start_text, (150, 430))
+
+        self.start_text = self.font.render("-Spelers mogen 2 keer per beurt aanvallen. aanvallen kan alleen wanneer een schip van de tegenstander in het bereik staat van een ",
+                                           1, (255, 255, 255))
+        self.screen.blit(self.start_text, (100, 480))
+
+        self.start_text = self.font.render("-een van jouw schepen. Maar per boot mag je maar 1 keer aanvallen.",
+                                           1, (255, 255, 255))
+        self.screen.blit(self.start_text, (100, 510))
+
+        self.start_text = self.font.render("-Aan het begin van elke beurt trekt de speler aan beurt een kaart..",
+                                           1, (255, 255, 255))
+        self.screen.blit(self.start_text, (100, 560))
+
+        self.start_text = self.font.render("-Wanneer er een valstrik-kaart wordt getrokken moet deze kaart geplaatst worden op het speelveld in de bijbehorende trapveld.",
+                                           1, (255, 255, 255))
+        self.screen.blit(self.start_text, (150, 610))
+
+        self.start_text = self.font.render("-Valstrik-kaarten mogen altijd geactiveerd worden, ook wanneer de tegenstander aan de beurt is.",
+                                           1, (255, 255, 255))
+        self.screen.blit(self.start_text, (150, 640))
+
+        self.start_text = self.font.render("-Een speler mag maximaal 6 kaarten in z’n handen hebben, wanneer een speler z’n 7de kaart trekt moet hij deze in de “weggooistapel stoppen",
+                                           1, (255, 255, 255))
+        self.screen.blit(self.start_text, (100, 690))
+
+        self.start_text = self.font.render("-De spelers mogen per beurt maar 2 kaarten gebruiken ",
+                                           1, (255, 255, 255))
+        self.screen.blit(self.start_text, (100, 740))
+
+        self.start_text = self.font.render("-Wanneer alle kaarten in de normale stapel zijn gebruikt wordt de weggooistapel geschud en dient deze te worden gebruikt als de nieuwe “normale” stapel ",
+                                           1, (255, 255, 255))
+        self.screen.blit(self.start_text, (100, 790))
+
+        self.start_text = self.font.render("-Wanneer een speler de overkant haalt met een van z’n schepen mag hij een speciale kaart trekken",
+                                           1, (255, 255, 255))
+        self.screen.blit(self.start_text, (100, 840))
+
+        self.start_text = self.font.render("-Wanneer het een perk-kaart is wordt de kaart toegewezen aan het schip die de overkant heeft gehaald. De effect van de kaart blijft de rest van het spel actief.",
+                                           1, (255, 255, 255))
+        self.screen.blit(self.start_text, (100, 870))
+
+        self.start_text = self.font.render("-Wanneer een schip wordt vernietigd wordt dezelfde schip een obstakel. ander schepen kunnen niet door obstakels varen. ",
+                                           1, (255, 255, 255))
+        self.screen.blit(self.start_text, (100, 920))
+
+        self.start_text = self.font.render("-een speler wint nadat hij/zij alle schepen van de tegenstander heeft vernietigd.",
+                                           1, (255, 255, 255))
+        self.screen.blit(self.start_text, (100, 970))
+
+
+
+
+
+
+        pygame.display.flip()
+
 
     def game_loop(self):
         #game functionality loop
@@ -126,110 +270,33 @@ class Game:
             self.update()
             self.draw()
 
-class Instructions:
-    def __init__(self):
-        width = 1000
-        heigth = 1080
-        size = (width, heigth)
-        self.screen = pygame.display.set_mode(size)
-
-    def update(self):
-        button(150, 150, 50, 50, pygame.QUIT)
-
-    def draw(self):
-        self.screen.fill((0,0,0))
-
     def instructions_loop(self):
         while not process_events():
-            self.update()
-            self.draw
-        else:
-            Game()
-
-class Termination:
-        def __init__(self):
-            width = 500
-            heigth = 300
-            size = (width, heigth)
-
-            self.font = pygame.font.Font("Capture_It.ttf", 30)
-
-            self.fonttitle = pygame.font.Font("Capture_It.ttf", 30)
-
-            self.screen = pygame.display.set_mode(size)
-
-        def update(self):
-            button(150, 150, 50, 50, pygame.QUIT)
-            button(300, 150, 50, 50, program)
+            self.update_instructions()
+            self.draw_instructions()
+            if quit_check == True:
+                break
 
 
-        def draw(self):
-            bg = pygame.image.load("termination_background.PNG")
-            self.screen.blit(bg, (0, 0))
-
-            self.exit_text = self.font.render("Yes",
-                                              1, (255, 255, 255))
-            self.screen.blit(self.exit_text, (150, 150))
-
-            self.exit_text = self.font.render("No",
-                                              1, (255, 255, 255))
-            self.screen.blit(self.exit_text, (300, 150))
-
-            self.exit_text = self.fonttitle.render("Are you sure you want to quit?",
-                                              1, (255, 255, 255))
-            self.screen.blit(self.exit_text, (11, 70))
-
-            pygame.display.flip()
-
-
-        def termination_loop(self):
-            while not process_events():
-                self.update()
-                self.draw()
-
-        def termination_quit(self):
-            quit()
-
-class boot:
-    def __init__(self, x, y, r):
-        self.x = x
-        self.y = y
-        self.r = r
-        self.color = (0 ,255, 0)
-        self.o = False
-        self.p = False
-
-    def updateboot(self):
-        click = pygame.mouse.get_pressed()
-        mouse = pygame.mouse.get_pos()
-        if self.x + 100 > mouse[0] > self.x and self.y + 100 > mouse[0] > self.x and self.p == False:
-            if click[0] == 1:
-                self.color = (0,0,0)
-                self.p = True
-        elif click[0] == 1 and self.o == False and self.color == (0,0,0):
-            if 269 > mouse[0] > 204 and 46 > mouse[1] > 6:
-                self.x = 203
-                self.y = 6
-                self.color = (0, 255, 0)
-                self.o = True
-
-
-
-
-
-
-
-    def draw(self, screen):
-        pygame.draw.rect(screen, self.color,
-                           (int(self.x), int(self.y), 69, 124), int(self.r))
 
 #button functie
 def button(x, y, w, h, action=None):
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
+    print(mouse)
     if x + w > mouse[0] > x and y+h > mouse[1] > y:
         if click[0] == 1 and action != None:
             action()
+
+def button1(x, y, w, h):
+    global quit_check
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+    print(mouse)
+    if x + w > mouse[0] > x and y+h > mouse[1] > y:
+        if click[0] == 1:
+            quit_check = True
+    return quit_check
 
 def mouse_down():
     for event in pygame.event.get():
@@ -255,17 +322,15 @@ def program2():
     menu.quit_menu()
 #startup termination screen
 def program_quit():
-    termination = Termination()
-    termination.termination_loop()
     menu = Menu()
-    menu.quit_menu()
+    menu.termination_loop()
 
 
 
 
 def program_instructions():
-    instructions = Instructions()
-    instructions.instructions_loop()
+    game = Game()
+    game.instructions_loop()
 
 
 #aanroepen van startup functie
