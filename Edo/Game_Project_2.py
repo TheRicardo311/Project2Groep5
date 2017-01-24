@@ -2,6 +2,7 @@ import math
 import pygame
 
 black = (0,0,0)
+red = (255,100,100)
 clock = pygame.time.Clock()
                     
 
@@ -43,41 +44,65 @@ def program():
     # Create the ship
     shipx = width * 0.5
     shipy = height * 0.5
-    shipwidth = 80
-    shipheight= 40
-    gunswidth = 10
-    weels = 30
+
+    shipwidth = 100
+    shipheight = 50
+    
+    gunswidth = 0
+    fire_power = 1
     changeposition = 0
     gunposition = 0
-    width1 = 100
-    height1 = 100
+
     value = 0
-    value1 = 0
+    value1 = -5
     def ship(x,y,controlguns):
         x = int(x)
         y = int(y)
         
-        positionguns = [(x,y-30),
-                        (x,y), 
-                        (x-70,y+20), 
-                        (x+70,y+20)]
+        positionguns = [(x,y-25),
+                        (x,y+75), 
+                        (x-50,y+25), 
+                        (x+50,y+25)]
         positionguns2 = [(x,y),
-                        (x,y+70), 
-                        (x,y+20), 
-                        (x,y+20)]
+                        (x,y+50), 
+                        (x-150,y+25), 
+                        (x+150,y+25)]
 
         #tekent bootje
-        pygame.image.load('boat.png'),
-        pygame.draw.line(screen, black,positionguns2[controlguns], positionguns[controlguns],gunswidth) 
+        pygame.draw.rect(screen, black, (x-shipheight, y, shipwidth , shipheight))
+        pygame.draw.line(screen, (255,255,255),positionguns[controlguns],positionguns2[controlguns] ,gunswidth) 
         
         return positionguns[controlguns]
-   
-    def shoot(xy,tankx,tanky,turPos):
+    def ship2(x,y,controlguns):
+        x = int(x)
+        y = int(y)
+        
+        positionguns = [(x-1,y-1),
+                        (x-1,y+50), 
+                        (x-50,y+24), 
+                        (x+50,y+24)]
+        positionguns2 = [(x-1,y-100),
+                        (x-1,y+150), 
+                        (x-150,y+24), 
+                        (x+150,y+24)]
+
+        #tekent bootje
+        pygame.draw.rect(screen, black, (x-shipheight, y, shipwidth , shipheight))
+        pygame.draw.line(screen, (0,255,0),positionguns[controlguns],positionguns2[controlguns] ,gunswidth) 
+        
+        return positionguns[controlguns]
+    def enemyship(x,y):
+        x = int(x)
+        y = int(y)
+          
+
+        #tekent bootje
+
+        pygame.draw.rect(screen, (255,0,0), (x-shipheight, y, shipwidth , shipheight))
+           
+    def shoot(xy,tankx,tanky,turPos,gun_power):
         fire = True
-        hallo = (pygame.key.get_pressed()[pygame.K_RIGHT])
-        hallo1 = (pygame.key.get_pressed()[pygame.K_LEFT])
-        doei =  (pygame.key.get_pressed()[pygame.K_UP])
-        doei1 = (pygame.key.get_pressed()[pygame.K_DOWN])
+        
         startschot = list(xy)
         print("fire",xy)
         
@@ -88,55 +113,59 @@ def program():
                     quit()
             #print de kogels
             print(startschot[0],startschot[1])
-            pygame.draw.circle(screen, (0,0,255),(startschot[0],startschot[1]),5)  
+            pygame.draw.circle(screen, (255,0,0),(startschot[0],startschot[1]),gunswidth//3)  
             
             startschot[0] += value
             startschot[1] += value1
-            
-            if startschot[0] > 640:
+            #Range beperken
+            if startschot[0] > (shipx + 130):
                 fire = False 
-            if startschot[0] < 0:
+            if startschot[0] < (shipx - 130):
                 fire = False
-            if startschot[1] > 640:
+            if startschot[1] > (shipy + 130):
                 fire = False
-            if startschot[1] < 0:
+            if startschot[1] < (shipy - 80):
                 fire = False
             pygame.display.update()    
+            clock.tick(20)
+            
+    
+
     while not process_events():
         screen.fill((255, 255, 255))
         gun = ship(shipx,shipy,gunposition)
-     
+        enemyship(height*0.5, width*0.7)
         #besturing kanon
         keys = pygame.key.get_pressed()
         if keys[pygame.K_DOWN]:
             changeposition = 1
             value = 0
             value1 = 5
-
+            gunswidth = 100
         elif keys[pygame.K_UP]:
             changeposition = 0
             value = 0
             value1 = -5
-   
+            gunswidth = 100 
         elif keys[pygame.K_RIGHT]:
             changeposition = -1
             value = 5
             value1 = 0
-      
+            gunswidth = 50
         elif keys[pygame.K_LEFT]:
             changeposition = 2
             value = -5
             value1 = 0
-  
+            gunswidth = 50
         elif keys[pygame.K_SPACE]:
-            shoot(gun,shipx,shipy,gunposition)
-        
+            shoot(gun,shipx,shipy,gunposition,fire_power)
+            shoot = False
         # Draw the cannons
         gunposition = int(changeposition)
         ship(shipx,shipy,gunposition)        
-        
+        ship2(shipx,shipy,gunposition)
         #move cannons
-        clock.tick(10)
+        
         # Flip the screen
         pygame.display.flip()
 

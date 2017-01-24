@@ -485,4 +485,4 @@ def program_victory():
     victory.victory_loop()
 
 #aanroepen van startup functie
-program_victory()
+program()
