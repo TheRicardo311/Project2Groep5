@@ -1,12 +1,11 @@
 import pygame
- 
+
 # Kleuren
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 YELLOW = (255,255,0)
- 
 # Lengte en breedte van grid
 WIDTH = 50
 HEIGHT = 50
@@ -33,6 +32,8 @@ def drawgrid():
                 color = WHITE
                 if grid[row][column] == 1:
                     color = GREEN
+                elif grid[row][column] == 2:
+                    color = YELLOW
                 pygame.draw.rect(screen,color,[(MARGIN + WIDTH) * column+200 + MARGIN,(MARGIN + HEIGHT) * row + MARGIN,WIDTH,HEIGHT])
                 
 
@@ -50,7 +51,8 @@ def message_display(text):
 
                       
 def loop():
-    boat =  "Drie"
+    color = GREEN
+    boat = ""
     check = False
     while not check:
         for event in pygame.event.get():  
@@ -61,45 +63,79 @@ def loop():
                 column = (pos[0] - 200) // (WIDTH + MARGIN)
                 row = pos[1] // (HEIGHT + MARGIN)
                 if pos[0] < 199:
-                    if press == True and pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 250 and pos[1] <= 360:
+                    if pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 250 and pos[1] <= 360:
+                        boat = "DrieGroen"
+                    elif pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 40 and pos[1] <= 180:
+                        boat = "Vier1Groen"
+                    elif pos[0] >= 50 and pos[0] <= 90 and pos[1] >= 50 and pos[1] <= 190:
+                        boat = "Vier2Groen"
+                    elif pos[0] >= 50 and pos[0] <= 90 and pos[1] >= 250 and pos[1] <= 450:
+                        boat = "VijfGroen"
+                    elif pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 650 and pos[1] <= 760:
+                        boat = "DrieGeel"
+                    elif pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 890 and pos[1] <= 1030:
+                        boat = "Vier1Geel"
+                    elif pos[0] >= 50 and pos[0] <= 90 and pos[1] >= 890 and pos[1] <= 1030:
+                        boat = "Vier2Geel"
+                    elif pos[0] >= 50 and pos[0] <= 90 and pos[1] >= 650 and pos[1] <= 850:
+                        boat = "VijfGeel"
+
                 if pos[0] > 199  and pos[0] < 1300:
-                    for x in range(4):
-                        if boat == "Drie":
+                    for x in range(8):
+                        if boat == "DrieGroen":
                             grid[row][column] = 1
                             grid[row+1][column] = 1
                             grid[row+2][column] = 1
-                            boat = "Vier1"
-                        elif boat == "Vier1":
-                            grid[row][column] = 1
-                            grid[row+1][column] = 1
-                            grid[row+2][column] = 1
-                            grid[row+3][column] = 1
-                            boat = "Vier2"
-                        elif boat == "Vier2":
+                        elif boat == "Vier1Groen":
                             grid[row][column] = 1
                             grid[row+1][column] = 1
                             grid[row+2][column] = 1
                             grid[row+3][column] = 1
-                            boat = "Vijf"
-                        elif boat == "Vijf":
+                        elif boat == "Vier2Groen":
+                            grid[row][column] = 1
+                            grid[row+1][column] = 1
+                            grid[row+2][column] = 1
+                            grid[row+3][column] = 1
+                        elif boat == "VijfGroen":
                             grid[row][column] = 1
                             grid[row+1][column] = 1
                             grid[row+2][column] = 1
                             grid[row+3][column] = 1
                             grid[row+4][column] = 1
-                            boat = "Drie"
+                        elif boat == "DrieGeel":
+                            grid[row][column] = 2
+                            grid[row+1][column] = 2
+                            grid[row+2][column] = 2
+                        elif boat == "Vier1Geel":
+                            grid[row][column] = 2
+                            grid[row+1][column] = 2
+                            grid[row+2][column] = 2
+                            grid[row+3][column] = 2
+                        elif boat == "Vier2Geel":
+                            grid[row][column] = 2
+                            grid[row+1][column] = 2
+                            grid[row+2][column] = 2
+                            grid[row+3][column] = 2
+                        elif boat == "VijfGeel":
+                            grid[row][column] = 2
+                            grid[row+1][column] = 2
+                            grid[row+2][column] = 2
+                            grid[row+3][column] = 2
+                            grid[row+4][column] = 2
                         break
+
                 print("Click ", pos, "Grid coordinates: ", row, column)
         
         screen.fill(BLACK)
         drawgrid()
-        press = pygame.mouse.get_pressed
+        press = pygame.mouse.get_pressed()
         pos = pygame.mouse.get_pos()
-        boat3 = pygame.draw.rect(screen,GREEN,(130,250,40,110))
-        if press == True and pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 250 and pos[1] <= 360:
-            boat3 = pygame.draw.rect(screen,BLACK,(130,250,40,110))
+        boat3 = pygame.draw.rect(screen,color,(130,250,40,110))
+        if press[0] == 1 and pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 250 and pos[1] <= 360:
+            color = BLACK
+            block = pygame.draw.rect(screen,color,(130,250,40,110))
         boat4 = pygame.draw.rect(screen,GREEN,(130,50,40,140))
-        if press==True and pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 40 and pos[1] <= 180:
+        if press[0] == 1 and pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 40 and pos[1] <= 180:
              block2 = pygame.draw.rect(screen,BLACK,(130,50,40,140))
         boat4x = pygame.draw.rect(screen,GREEN,(50,50,40,140))
         if press and pos[0] >= 50 and pos[0] <= 90 and pos[1] >= 50 and pos[1] <= 190:
@@ -107,6 +143,7 @@ def loop():
         boat5 = pygame.draw.rect(screen,GREEN,(50,250,40,200));
         if press and pos[0] >= 50 and pos[0] <= 90 and pos[1] >= 250 and pos[1] <= 450:
              block4 = pygame.draw.rect(screen,BLACK,(50,250,40,200))
+        
         
         boat33 = pygame.draw.rect(screen,YELLOW,(130,650,40,110))
         if press and pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 650 and pos[1] <= 760:
