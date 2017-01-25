@@ -14,7 +14,7 @@ class rules2:
         self.RED = (255, 0, 0)
         self.bg = pygame.image.load("bgscherm2.jpg")
         self.ak = pygame.image.load("anker3.png")
-        self.p1 = pygame.image.load("firstpagerules.png")
+        self.p1 = pygame.image.load("firstpagerulesgoed.png")
         
         #font text
         
