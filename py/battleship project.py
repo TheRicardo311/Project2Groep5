@@ -7,8 +7,22 @@ bgrandom = random.randint(0, 1)
 quit_check = False
 pygame.init()
 
+
+
 white = (255,255,255)
 black = (0,0,0)
+green = (0,255,0)
+YELLOW = (255, 255, 0)
+
+color = green
+color1 = green
+color2 = green
+color3 = green
+
+color4 = YELLOW
+color5 = YELLOW
+color6 = YELLOW
+color7 = YELLOW
 
 class Menu:
     def __init__(self):
@@ -87,11 +101,11 @@ class Menu:
                                                 1, (255, 255, 255))
         self.screen.blit(self.start_text, (260, 140))
         # start game tekst voor knop
-        self.start_text = self.font.render("Start Game",
+        self.start_text = self.font1.render("Start Game",
                                            1, (255, 255, 255))
         self.screen.blit(self.start_text, (260, 440))
         # exit game tekst voor knop
-        self.exit_text = self.font.render("Exit Game",
+        self.exit_text = self.font1.render("Exit Game",
                                           1, (255, 255, 255))
         self.screen.blit(self.exit_text, (260, 600))
 
@@ -247,10 +261,22 @@ class Menu:
 
 class Game:
     def __init__(self):
+        self.WIDTH = 50
+        self.HEIGHT = 50
+        self.MARGIN = 5
+
+        self.BLACK = (0, 0, 0)
+        self.WHITE = (255, 255, 255)
+        self.GREEN = (0, 255, 0)
+        self.RED = (255, 0, 0)
+        self.YELLOW = (255, 255, 0)
         #schermgrootte
         width = 1920
-        height = 1080
+        height = 1050
         size = (width, height)
+
+
+
         #font
         self.font = pygame.font.Font("DroidSans.ttf", 25)
 
@@ -258,6 +284,15 @@ class Game:
 
 
         self.screen = pygame.display.set_mode(size)
+
+        self.grid = []
+        for self.row in range(20):
+            self.grid.append([])
+            for self.column in range(20):
+                self.grid[self.row].append(0)
+
+    def boot(self):
+        self.boat = ""
 
     def update(self):
         global quit_check
@@ -267,8 +302,88 @@ class Game:
         button(1720, 84, 200, 30, program)
 
 
+        pos = pygame.mouse.get_pos()
+        print(pos)
+        press = pygame.mouse.get_pressed()
+        if press[0] == 1:
+                self.column = (pos[0] - 200) // (self.WIDTH + self.MARGIN)
+                self.row = pos[1] // (self.HEIGHT + self.MARGIN)
+                if pos[0] < 199:
+                    if pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 250 and pos[1] <= 360:
+                        self.boat = "DrieGroen"
+                    elif pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 40 and pos[1] <= 180:
+                        self.boat = "Vier1Groen"
+                    elif pos[0] >= 50 and pos[0] <= 90 and pos[1] >= 50 and pos[1] <= 190:
+                        self.boat = "Vier2Groen"
+                    elif pos[0] >= 50 and pos[0] <= 90 and pos[1] >= 250 and pos[1] <= 450:
+                        self.boat = "VijfGroen"
+                    elif pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 650 and pos[1] <= 760:
+                        self.boat = "DrieGeel"
+                    elif pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 890 and pos[1] <= 1030:
+                        self.boat = "Vier1Geel"
+                    elif pos[0] >= 50 and pos[0] <= 90 and pos[1] >= 890 and pos[1] <= 1030:
+                        self.boat = "Vier2Geel"
+                    elif pos[0] >= 50 and pos[0] <= 90 and pos[1] >= 650 and pos[1] <= 850:
+                        self.boat = "VijfGeel"
+
+                if pos[0] > 199  and pos[0] < 1300:
+                    for x in range(8):
+                        if self.boat == "DrieGroen":
+                            self.grid[self.row][self.column] = 1
+                            self.grid[self.row+1][self.column] = 1
+                            self.grid[self.row+2][self.column] = 1
+                        elif self.boat == "Vier1Groen":
+                            self.grid[self.row][self.column] = 1
+                            self.grid[self.row+1][self.column] = 1
+                            self.grid[self.row+2][self.column] = 1
+                            self.grid[self.row+3][self.column] = 1
+                        elif self.boat == "Vier2Groen":
+                            self.grid[self.row][self.column] = 1
+                            self.grid[self.row+1][self.column] = 1
+                            self.grid[self.row+2][self.column] = 1
+                            self.grid[self.row+3][self.column] = 1
+                        elif self.boat == "VijfGroen":
+                            self.grid[self.row][self.column] = 1
+                            self.grid[self.row+1][self.column] = 1
+                            self.grid[self.row+2][self.column] = 1
+                            self.grid[self.row+3][self.column] = 1
+                            self.grid[self.row+4][self.column] = 1
+                        elif self.boat == "DrieGeel":
+                            self.grid[self.row][self.column] = 2
+                            self.grid[self.row+1][self.column] = 2
+                            self.grid[self.row+2][self.column] = 2
+                        elif self.boat == "Vier1Geel":
+                            self.grid[self.row][self.column] = 2
+                            self.grid[self.row+1][self.column] = 2
+                            self.grid[self.row+2][self.column] = 2
+                            self.grid[self.row+3][self.column] = 2
+                        elif self.boat == "Vier2Geel":
+                            self.grid[self.row][self.column] = 2
+                            self.grid[self.row+1][self.column] = 2
+                            self.grid[self.row+2][self.column] = 2
+                            self.grid[self.row+3][self.column] = 2
+                        elif self.boat == "VijfGeel":
+                            self.grid[self.row][self.column] = 2
+                            self.grid[self.row+1][self.column] = 2
+                            self.grid[self.row+2][self.column] = 2
+                            self.grid[self.row+3][self.column] = 2
+                            self.grid[self.row+4][self.column] = 2
+                        print(self.boat)
+                        break
+        for self.row in range(20):
+            for self.column in range(20):
+                color0 = self.WHITE
+                if self.grid[self.row][self.column] == 1:
+                    color0 = self.GREEN
+                elif self.grid[self.row][self.column] == 2:
+                    color0 = self.YELLOW
+                pygame.draw.rect(self.screen, color0,
+                            [(self.MARGIN + self.WIDTH) * self.column + 200 + self.MARGIN, (self.MARGIN + self.HEIGHT) * self.row + self.MARGIN, self.WIDTH,
+                                    self.HEIGHT])
+
+
     def draw(self):
-        self.screen.fill((0,0,0))
+        global color, color1, color2, color3, color4, color5, color6, color7
         self.start_text = self.font.render("Instructions",
                                            1, (255, 255, 255))
         self.screen.blit(self.start_text, (1700, 16))
@@ -281,10 +396,50 @@ class Game:
                                           1, (255, 255, 255))
         self.screen.blit(self.exit_text, (1700, 50))
 
+        press = pygame.mouse.get_pressed()
+        pos = pygame.mouse.get_pos()
+        boat3 = pygame.draw.rect(self.screen, color, (130, 250, 40, 110))
+        if press[0] == 1 and pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 250 and pos[1] <= 360:
+            color = self.BLACK
+            block1 = pygame.draw.rect(self.screen, color, (130, 250, 40, 110))
+        boat4 = pygame.draw.rect(self.screen, color1, (130, 50, 40, 140))
+        if press[0] == 1 and pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 40 and pos[1] <= 180:
+            color1 = self.BLACK
+            block2 = pygame.draw.rect(self.screen, color1, (130, 50, 40, 140))
+        boat4x = pygame.draw.rect(self.screen, color2, (50, 50, 40, 140))
+        if press[0] == 1 and pos[0] >= 50 and pos[0] <= 90 and pos[1] >= 50 and pos[1] <= 190:
+            color2 = self.BLACK
+            block3 = pygame.draw.rect(self.screen, color2, (50, 50, 40, 140))
+        boat5 = pygame.draw.rect(self.screen, color3, (50, 250, 40, 200));
+        if press[0] == 1 and pos[0] >= 50 and pos[0] <= 90 and pos[1] >= 250 and pos[1] <= 450:
+            color3 = self.BLACK
+            block4 = pygame.draw.rect(self.screen, color3, (50, 250, 40, 200))
 
+        boat33 = pygame.draw.rect(self.screen, color4, (130, 650, 40, 110))
+        if press[0] == 1 and pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 650 and pos[1] <= 760:
+            color4 = self.BLACK
+            block11 = pygame.draw.rect(self.screen, color4, (130, 650, 40, 110))
+        boat44 = pygame.draw.rect(self.screen, color5, (130, 890, 40, 140));
+        if press[0] == 1 and pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 890 and pos[1] <= 1030:
+            color5 = self.BLACK
+            block22 = pygame.draw.rect(self.screen, color5, (130, 890, 40, 140))
+        boat44x = pygame.draw.rect(self.screen, color6, (50, 890, 40, 140))
+        if press[0] == 1 and pos[0] >= 50 and pos[0] <= 90 and pos[1] >= 890 and pos[1] <= 1030:
+            color6 = self.BLACK
+            block33 = pygame.draw.rect(self.screen, color6, (50, 890, 40, 140))
+        boat55 = pygame.draw.rect(self.screen, color7, (50, 650, 40, 200))
+        if press[0] == 1 and pos[0] >= 50 and pos[0] <= 90 and pos[1] >= 650 and pos[1] <= 850:
+            color7 = self.BLACK
+            block44 = pygame.draw.rect(self.screen, color7, (50, 650, 40, 200))
 
-        #flip
         pygame.display.flip()
+
+
+
+
+
+
+
 
     def update_rules(self):
         button1(1720, 100, 50, 50)
@@ -430,7 +585,6 @@ class VictoryScreen:
 def button(x, y, w, h, action=None):
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
-    print(mouse)
     if x + w > mouse[0] > x and y+h > mouse[1] > y:
         if click[0] == 1 and action != None:
             action()
@@ -439,7 +593,6 @@ def button1(x, y, w, h):
     global quit_check
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
-    print(mouse)
     if x + w > mouse[0] > x and y+h > mouse[1] > y:
         if click[0] == 1:
             quit_check = True
@@ -464,6 +617,7 @@ def program():
 #startup van game
 def program2():
     game = Game()
+    game.boot
     game.game_loop()
     menu = Menu()
     menu.quit_menu()
