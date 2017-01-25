@@ -486,3 +486,4 @@ def program_victory():
 
 #aanroepen van startup functie
 program()
+
