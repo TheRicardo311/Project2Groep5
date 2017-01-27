@@ -1,6 +1,5 @@
 import pygame
 import random
-
 import time
 
 bgrandom = random.randint(0, 1)
@@ -216,7 +215,7 @@ class Menu:
         self.screen.blit(self.start_text, (150, 640))
 
         self.start_text = self.font.render(
-            "-Een speler mag maximaal 6 kaarten in z’n handen hebben, wanneer een speler z’n 7de kaart trekt moet hij deze in de “weggooistapel stoppen",
+            "-Een speler mag maximaal 6 kaarten in z�n handen hebben, wanneer een speler z�n 7de kaart trekt moet hij deze in de �weggooistapel stoppen",
             1, (255, 255, 255))
         self.screen.blit(self.start_text, (100, 690))
 
@@ -225,12 +224,12 @@ class Menu:
         self.screen.blit(self.start_text, (100, 740))
 
         self.start_text = self.font.render(
-            "-Wanneer alle kaarten in de normale stapel zijn gebruikt wordt de weggooistapel geschud en dient deze te worden gebruikt als de nieuwe “normale” stapel ",
+            "-Wanneer alle kaarten in de normale stapel zijn gebruikt wordt de weggooistapel geschud en dient deze te worden gebruikt als de nieuwe �normale� stapel ",
             1, (255, 255, 255))
         self.screen.blit(self.start_text, (100, 790))
 
         self.start_text = self.font.render(
-            "-Wanneer een speler de overkant haalt met een van z’n schepen mag hij een speciale kaart trekken",
+            "-Wanneer een speler de overkant haalt met een van z�n schepen mag hij een speciale kaart trekken",
             1, (255, 255, 255))
         self.screen.blit(self.start_text, (100, 840))
 
@@ -1004,7 +1003,7 @@ class Game:
                                            1, (255, 255, 255))
         self.screen.blit(self.start_text, (150, 640))
 
-        self.start_text = self.font.render("-Een speler mag maximaal 6 kaarten in z’n handen hebben, wanneer een speler z’n 7de kaart trekt moet hij deze in de “weggooistapel stoppen",
+        self.start_text = self.font.render("-Een speler mag maximaal 6 kaarten in z�n handen hebben, wanneer een speler z�n 7de kaart trekt moet hij deze in de �weggooistapel stoppen",
                                            1, (255, 255, 255))
         self.screen.blit(self.start_text, (100, 690))
 
@@ -1012,11 +1011,11 @@ class Game:
                                            1, (255, 255, 255))
         self.screen.blit(self.start_text, (100, 740))
 
-        self.start_text = self.font.render("-Wanneer alle kaarten in de normale stapel zijn gebruikt wordt de weggooistapel geschud en dient deze te worden gebruikt als de nieuwe “normale” stapel ",
+        self.start_text = self.font.render("-Wanneer alle kaarten in de normale stapel zijn gebruikt wordt de weggooistapel geschud en dient deze te worden gebruikt als de nieuwe �normale� stapel ",
                                            1, (255, 255, 255))
         self.screen.blit(self.start_text, (100, 790))
 
-        self.start_text = self.font.render("-Wanneer een speler de overkant haalt met een van z’n schepen mag hij een speciale kaart trekken",
+        self.start_text = self.font.render("-Wanneer een speler de overkant haalt met een van z�n schepen mag hij een speciale kaart trekken",
                                            1, (255, 255, 255))
         self.screen.blit(self.start_text, (100, 840))
 

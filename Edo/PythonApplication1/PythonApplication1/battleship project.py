@@ -1,6 +1,6 @@
 import pygame
 import random
-
+import psycopg2
 import time
 
 bgrandom = random.randint(0, 1)
