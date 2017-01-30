@@ -1,0 +1,45 @@
+import pygame
+from pygame.locals import *
+import sys
+import time
+import psycopg2
+
+# Initialise Database
+
+def init_database(command):
+# Connect and set up cursor
+    connection = psycopg2.connect("dbname=Project user=postgres password='karaman70'")
+    cursor = connection.cursor()
+    cursor.execute(command)
+    connection.commit()
+
+# Save results
+    result = None
+    try:
+        result = cursor.fetchall()
+    except psycopg2.ProgrammingError:
+        pass
+
+# Close connection
+    cursor.close()
+    connection.close()
+    return result
+
+# Uploads a score into the database
+
+def upload_db(score,naam):
+
+    init_database("UPDATE users SET score = " + str(score) + " WHERE name = '"+naam+"' ")
+
+# Downloads data from database
+
+def download_db():
+
+    return init_database("SELECT * FROM users")
+
+#voorbeelden invoer en uitvoer
+
+upload_db(200,"Piet")
+upload_db(100,"Jan")
+upload_db(50,"Fred")
+print(download_db())
