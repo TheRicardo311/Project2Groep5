@@ -430,8 +430,17 @@ class Game:
                     self.Player1.Furgo.moves -= 1
                     time.sleep(1)
 
-                elif self.column == self.Player1.Intensity.pos_column and self.row == self.Player1.Intensity.pos_row and x == False and y == False and z == False and u == False and self.Player1.Intensity.moves !=0:
+                elif self.column == self.Player1.Intensity.pos_column and self.row == self.Player1.Intensity.pos_row and x == False and y == False and z == False and u == False and self.Player1.Intensity.moves !=0 and self.Player1.Intensity.pos_off == True:
                     self.Player1.Intensity.pos_off = False
+                    self.boat = "Vier1GroenDef"
+                    self.Player1.Intensity.moves -= 1
+                    time.sleep(1)
+
+                elif self.column == self.Player1.Intensity.pos_column and self.row == self.Player1.Intensity.pos_row and x == False and y == False and z == False and u == False and self.Player1.Intensity.moves !=0 and self.Player1.Intensity.pos_off == False:
+                    self.Player1.Intensity.pos_off = True
+                    self.boat = "Vier1GroenOff"
+                    self.Player1.Intensity.moves -= 1
+                    time.sleep(1)
 
                 elif self.column == self.Player1.Silver.pos_column and self.row == self.Player1.Silver.pos_row and x == False and y == False and z == False and u == False and self.Player1.Silver.moves !=0:
                     self.Player1.Silver.pos_off = False
@@ -474,6 +483,7 @@ class Game:
                             self.Player1.Intensity.pos_column = self.column
                             self.boat = ""
                             y = False
+                            time.sleep(1)
 
 
                     elif self.boat == "Vier2Groen" and z == True and self.turn_player == "player1":
@@ -498,7 +508,7 @@ class Game:
                         elif self.grid[self.row][self.column] == 1 or self.grid[self.row + 1][self.column] == 1 or self.grid[self.row + 2][self.column] == 1 or \
                                         self.grid[self.row + 3][self.column] == 1 or self.grid[self.row + 4][self.column] == 1:
                             print("Oops there is already a boat here, Try again!")
-                        else:
+                        elif self.row == 0:
                             self.grid[self.row][self.column] = 1
                             self.grid[self.row + 1][self.column] = 1
                             self.grid[self.row + 2][self.column] = 1
@@ -510,9 +520,9 @@ class Game:
                             u = False
 
                     elif self.boat == "DrieGeel" and v == True and self.turn_player == "player2":
-                        if self.row >= 19:
+                        if self.row == 20:
                             print("Oops you went out the playfield, Try again!")
-                        else:
+                        elif self.row ==18:
                             self.grid[self.row][self.column] = 2
                             self.grid[self.row - 1][self.column] = 2
                             self.grid[self.row - 2][self.column] = 2
@@ -522,9 +532,9 @@ class Game:
                             v = False
 
                     elif self.boat == "Vier1Geel" and w == True and self.turn_player == "player2":
-                        if self.row >= 19:
+                        if self.row == 20:
                             print("Oops you went out the playfield, Try again!")
-                        else:
+                        elif self.row == 18:
                             self.grid[self.row][self.column] = 2
                             self.grid[self.row - 1][self.column] = 2
                             self.grid[self.row - 2][self.column] = 2
@@ -536,9 +546,9 @@ class Game:
 
 
                     elif self.boat == "Vier2Geel" and t == True and self.turn_player == "player2":
-                        if self.row >= 19:
+                        if self.row == 20:
                             print("Oops you went out the playfield, Try again!")
-                        else:
+                        elif self.row == 18:
                             self.grid[self.row][self.column] = 2
                             self.grid[self.row - 1][self.column] = 2
                             self.grid[self.row - 2][self.column] = 2
@@ -549,9 +559,9 @@ class Game:
                             t = False
 
                     elif self.boat == "VijfGeel" and s == True and self.turn_player == "player2":
-                        if self.row >= 19:
+                        if self.row == 20:
                             print("Oops you went out the playfield, Try again!")
-                        else:
+                        elif self.row == 18:
                             self.grid[self.row][self.column] = 2
                             self.grid[self.row - 1][self.column] = 2
                             self.grid[self.row - 2][self.column] = 2
@@ -605,14 +615,12 @@ class Game:
             self.grid[self.Player1.Furgo.pos_row][self.Player1.Furgo.pos_column +2] = 1
             self.grid[self.Player1.Furgo.pos_row +1][self.Player1.Furgo.pos_column] = 3
             self.grid[self.Player1.Furgo.pos_row +2][self.Player1.Furgo.pos_column] = 3
-            lmao = 0
         elif self.Player1.Furgo.pos_off == True and self.boat == "DrieGroenOff" and self.Player1.Furgo.moves != 0 and self.Player1.Furgo.hp != 0 and self.turn_player == "player1":
             self.grid[self.Player1.Furgo.pos_row][self.Player1.Furgo.pos_column +1] = 3
             self.grid[self.Player1.Furgo.pos_row][self.Player1.Furgo.pos_column +2] = 3
             self.grid[self.Player1.Furgo.pos_row +1][self.Player1.Furgo.pos_column] = 1
             self.grid[self.Player1.Furgo.pos_row +2][self.Player1.Furgo.pos_column] = 1
             self.grid[self.Player1.Furgo.pos_row][self.Player1.Furgo.pos_column] = 1
-            xD == 0
         elif self.Player1.Furgo.hp == 0:
             self.grid[self.Player1.Furgo.pos_row][self.Player1.Furgo.pos_column] = 3
             self.grid[self.Player1.Furgo.pos_row + 1][self.Player1.Furgo.pos_column] = 3
@@ -665,6 +673,22 @@ class Game:
             self.Player1.Intensity.pos_column -= 1
             self.Player1.Intensity.moves -= 1
             time.sleep(1)
+        elif self.Player1.Intensity.pos_off == False and self.boat == "Vier1GroenDef" and self.Player1.Intensity.moves != 0 and self.Player1.Intensity.hp != 0 and self.turn_player == "player1":
+            self.grid[self.Player1.Intensity.pos_row][self.Player1.Intensity.pos_column] = 1
+            self.grid[self.Player1.Intensity.pos_row][self.Player1.Intensity.pos_column +1] = 1
+            self.grid[self.Player1.Intensity.pos_row][self.Player1.Intensity.pos_column +2] = 1
+            self.grid[self.Player1.Intensity.pos_row ][self.Player1.Intensity.pos_column +3] = 1
+            self.grid[self.Player1.Intensity.pos_row +1][self.Player1.Intensity.pos_column] = 3
+            self.grid[self.Player1.Intensity.pos_row +2][self.Player1.Intensity.pos_column] = 3
+            self.grid[self.Player1.Intensity.pos_row + 3][self.Player1.Intensity.pos_column] = 3
+        elif self.Player1.Intensity.pos_off == True and self.boat == "Vier1GroenOff" and self.Player1.Intensity.moves != 0 and self.Player1.Intensity.hp != 0 and self.turn_player == "player1":
+            self.grid[self.Player1.Intensity.pos_row][self.Player1.Intensity.pos_column +1] = 3
+            self.grid[self.Player1.Intensity.pos_row][self.Player1.Intensity.pos_column +2] = 3
+            self.grid[self.Player1.Intensity.pos_row][self.Player1.Intensity.pos_column + 3] = 3
+            self.grid[self.Player1.Intensity.pos_row +1][self.Player1.Intensity.pos_column] = 1
+            self.grid[self.Player1.Intensity.pos_row +2][self.Player1.Intensity.pos_column] = 1
+            self.grid[self.Player1.Intensity.pos_row +3][self.Player1.Intensity.pos_column] = 1
+            self.grid[self.Player1.Intensity.pos_row][self.Player1.Intensity.pos_column] = 1
         elif self.Player1.Intensity.hp == 0:
             self.grid[self.Player1.Intensity.pos_row][self.Player1.Intensity.pos_column] = 3
             self.grid[self.Player1.Intensity.pos_row + 1][self.Player1.Intensity.pos_column] = 3
@@ -714,6 +738,22 @@ class Game:
             self.Player1.Silver.pos_column -= 1
             self.Player1.Silver.moves -= 1
             time.sleep(1)
+        elif self.Player1.Silver.pos_off == False and self.boat == "Vier2GroenDef" and self.Player1.Silver.moves != 0 and self.Player1.Silver.hp != 0 and self.turn_player == "player1":
+            self.grid[self.Player1.Silver.pos_row][self.Player1.Silver.pos_column] = 1
+            self.grid[self.Player1.Silver.pos_row][self.Player1.Silver.pos_column +1] = 1
+            self.grid[self.Player1.Silver.pos_row][self.Player1.Silver.pos_column +2] = 1
+            self.grid[self.Player1.Silver.pos_row ][self.Player1.Silver.pos_column +3] = 1
+            self.grid[self.Player1.Silver.pos_row +1][self.Player1.Silver.pos_column] = 3
+            self.grid[self.Player1.Silver.pos_row +2][self.Player1.Silver.pos_column] = 3
+            self.grid[self.Player1.Silver.pos_row + 3][self.Player1.Silver.pos_column] = 3
+        elif self.Player1.Silver.pos_off == True and self.boat == "Vier2GroenOff" and self.Player1.Silver.moves != 0 and self.Player1.Silver.hp != 0 and self.turn_player == "player1":
+            self.grid[self.Player1.Silver.pos_row][self.Player1.Silver.pos_column +1] = 3
+            self.grid[self.Player1.Silver.pos_row][self.Player1.Silver.pos_column +2] = 3
+            self.grid[self.Player1.Silver.pos_row][self.Player1.Silver.pos_column + 3] = 3
+            self.grid[self.Player1.Silver.pos_row +1][self.Player1.Silver.pos_column] = 1
+            self.grid[self.Player1.Silver.pos_row +2][self.Player1.Silver.pos_column] = 1
+            self.grid[self.Player1.Silver.pos_row +3][self.Player1.Silver.pos_column] = 1
+            self.grid[self.Player1.Silver.pos_row][self.Player1.Silver.pos_column] = 1
         elif self.Player1.Silver.hp == 0:
             self.grid[self.Player1.Silver.pos_row][self.Player1.Silver.pos_column] = 3
             self.grid[self.Player1.Silver.pos_row + 1][self.Player1.Silver.pos_column] = 3
@@ -769,6 +809,26 @@ class Game:
             self.Player1.Merapi.pos_column -= 1
             self.Player1.Merapi.moves -= 1
             time.sleep(1)
+        elif self.Player1.Merapi.pos_off == False and self.boat == "VijfGroenDef" and self.Player1.Merapi.moves != 0 and self.Player1.Merapi.hp != 0 and self.turn_player == "player1":
+            self.grid[self.Player1.Merapi.pos_row][self.Player1.Merapi.pos_column] = 1
+            self.grid[self.Player1.Merapi.pos_row][self.Player1.Merapi.pos_column + 1] = 1
+            self.grid[self.Player1.Merapi.pos_row][self.Player1.Merapi.pos_column + 2] = 1
+            self.grid[self.Player1.Merapi.pos_row][self.Player1.Merapi.pos_column + 3] = 1
+            self.grid[self.Player1.Merapi.pos_row][self.Player1.Merapi.pos_column + 4] = 1
+            self.grid[self.Player1.Merapi.pos_row + 1][self.Player1.Merapi.pos_column] = 3
+            self.grid[self.Player1.Merapi.pos_row + 2][self.Player1.Merapi.pos_column] = 3
+            self.grid[self.Player1.Merapi.pos_row + 3][self.Player1.Merapi.pos_column] = 3
+            self.grid[self.Player1.Merapi.pos_row+ 4][self.Player1.Merapi.pos_column ] = 3
+        elif self.Player1.Merapi.pos_off == True and self.boat == "VijfGroenOff" and self.Player1.Merapi.moves != 0 and self.Player1.Merapi.hp != 0 and self.turn_player == "player1":
+            self.grid[self.Player1.Merapi.pos_row][self.Player1.Merapi.pos_column + 1] = 3
+            self.grid[self.Player1.Merapi.pos_row][self.Player1.Merapi.pos_column + 2] = 3
+            self.grid[self.Player1.Merapi.pos_row][self.Player1.Merapi.pos_column + 3] = 3
+            self.grid[self.Player1.Merapi.pos_row][self.Player1.Merapi.pos_column + 4] = 3
+            self.grid[self.Player1.Merapi.pos_row + 1][self.Player1.Merapi.pos_column] = 1
+            self.grid[self.Player1.Merapi.pos_row + 2][self.Player1.Merapi.pos_column] = 1
+            self.grid[self.Player1.Merapi.pos_row + 3][self.Player1.Merapi.pos_column] = 1
+            self.grid[self.Player1.Merapi.pos_row + 4][self.Player1.Merapi.pos_column] = 1
+            self.grid[self.Player1.Merapi.pos_row][self.Player1.Merapi.pos_column] = 1
         elif self.Player1.Merapi.hp == 0:
             self.grid[self.Player1.Merapi.pos_row][self.Player1.Merapi.pos_column] = 3
             self.grid[self.Player1.Merapi.pos_row + 1][self.Player1.Merapi.pos_column] = 3
@@ -965,6 +1025,26 @@ class Game:
             self.Player2.Merapi.pos_column -= 1
             self.Player2.Merapi.moves -= 1
             time.sleep(1)
+        elif self.Player2.Merapi.pos_off == False and self.boat == "VijfGeelDef" and self.Player2.Merapi.moves != 0 and self.Player2.Merapi.hp != 0 and self.turn_player == "Player2":
+            self.grid[self.Player2.Merapi.pos_row][self.Player2.Merapi.pos_column] = 1
+            self.grid[self.Player2.Merapi.pos_row][self.Player2.Merapi.pos_column + 1] = 1
+            self.grid[self.Player2.Merapi.pos_row][self.Player2.Merapi.pos_column + 2] = 1
+            self.grid[self.Player2.Merapi.pos_row][self.Player2.Merapi.pos_column + 3] = 1
+            self.grid[self.Player2.Merapi.pos_row][self.Player2.Merapi.pos_column + 4] = 1
+            self.grid[self.Player2.Merapi.pos_row + 1][self.Player2.Merapi.pos_column] = 3
+            self.grid[self.Player2.Merapi.pos_row + 2][self.Player2.Merapi.pos_column] = 3
+            self.grid[self.Player2.Merapi.pos_row + 3][self.Player2.Merapi.pos_column] = 3
+            self.grid[self.Player2.Merapi.pos_row + 4][self.Player2.Merapi.pos_column] = 3
+        elif self.Player2.Merapi.pos_off == True and self.boat == "VijfGeelOff" and self.Player2.Merapi.moves != 0 and self.Player2.Merapi.hp != 0 and self.turn_player == "Player2":
+            self.grid[self.Player2.Merapi.pos_row][self.Player2.Merapi.pos_column + 1] = 3
+            self.grid[self.Player2.Merapi.pos_row][self.Player2.Merapi.pos_column + 2] = 3
+            self.grid[self.Player2.Merapi.pos_row][self.Player2.Merapi.pos_column + 3] = 3
+            self.grid[self.Player2.Merapi.pos_row][self.Player2.Merapi.pos_column + 4] = 3
+            self.grid[self.Player2.Merapi.pos_row + 1][self.Player2.Merapi.pos_column] = 1
+            self.grid[self.Player2.Merapi.pos_row + 2][self.Player2.Merapi.pos_column] = 1
+            self.grid[self.Player2.Merapi.pos_row + 3][self.Player2.Merapi.pos_column] = 1
+            self.grid[self.Player2.Merapi.pos_row + 4][self.Player2.Merapi.pos_column] = 1
+            self.grid[self.Player2.Merapi.pos_row][self.Player2.Merapi.pos_column] = 1
         elif self.Player2.Merapi.hp == 0:
             self.grid[self.Player2.Merapi.pos_row][self.Player2.Merapi.pos_column] = 3
             self.grid[self.Player2.Merapi.pos_row + 1][self.Player2.Merapi.pos_column] = 3
