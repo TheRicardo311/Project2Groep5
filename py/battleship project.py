@@ -4,7 +4,10 @@ import psycopg2
 import time
 
 bgrandom = random.randint(0, 1)
-quit_check = False
+bgrandommusic = random.randint(0,2)
+quit_check = True
+quit_checkmenu = False
+game_quit = False
 pygame.init()
 
 x = True
@@ -15,6 +18,8 @@ v = True
 w = True
 t = True
 s = True
+
+victory_quit = True
 
 lmao = 0
 xD = 0
@@ -34,14 +39,14 @@ color5 = YELLOW
 color6 = YELLOW
 color7 = YELLOW
 
+
 class Menu:
     def __init__(self):
-        global color, color1, color2, color3, color4, color5, color6, color7, green, YELLOW
+        global color, color1, color2, color3, color4, color5, color6, color7, green, YELLOW , bgrandommusic
         #schermgrootte
         width = 1920
         heigth = 1080
         size = (width, heigth)
-
 
         self.screen = pygame.display.set_mode(size)
         #title font
@@ -58,6 +63,7 @@ class Menu:
         self.titlefont = pygame.font.Font("Capture_it.ttf", 70)
 
         self.font1 = pygame.font.Font("Capture_it.ttf", 70)
+
 
         color = green
         color1 = green
@@ -76,6 +82,8 @@ class Menu:
             bg = pygame.image.load("background.jpg")
         else:
             bg = pygame.image.load("Background2.jpg")
+
+
         self.screen.blit(bg,(0,0))
         # title
         self.start_text = self.fontTitle.render("Battleport",
@@ -101,7 +109,8 @@ class Menu:
         #buttons aanmaken met button functie
         button(260, 600, 450, 50, program_quit)
         button(260, 440, 500, 50, program2)
-        button(1720, 16, 165, 50, program_rules1)
+        button2(1720, 16, 165, 50)
+
 
     def update_termination(self):
         button(750, 500, 50, 50, pygame.QUIT)
@@ -258,24 +267,35 @@ class Menu:
             self.draw_termination()
 
     def menu_loop(self):
+        global quit_checkmenu
+        if bgrandommusic == 0:
+            pygame.mixer.init()
+            pygame.mixer.music.load("bgmusic1.ogg")
+            pygame.mixer.music.play()
+
+        if bgrandommusic == 1:
+            pygame.mixer.init()
+            pygame.mixer.music.load("bgmusic2.ogg")
+            pygame.mixer.music.play()
+
+        if bgrandommusic == 2:
+            pygame.mixer.init()
+            pygame.mixer.music.load("bgmusic3.ogg")
+            pygame.mixer.music.play()
+
         #menu functionality loop
-        while not process_events():
-            self.draw()
-            self.update()
-        quit()
-
-
-    def rules_loop1(self):
-        global quit_check
-        quit_check = False
-        while not process_events():
-            self.update_rules1()
-            self.draw_rules1()
+        while not process_events() or quit_checkmenu == True:
+            global game_quit
             if quit_check == True:
-                break
+                self.draw()
+                self.update()
+            if quit_check == False:
+                self.update_rules1()
+                self.draw_rules1()
 
     def quit_menu(self):
         # afsluiten van menu
+        quit_check = True
         quit()
 
 class Game:
@@ -307,6 +327,7 @@ class Game:
 
         self.titlefont = pygame.font.Font("Capture_it.ttf", 70)
 
+        self.game_quit = False
 
         self.screen = pygame.display.set_mode(size)
 
@@ -323,12 +344,22 @@ class Game:
 
     def turnend_player1(self):
         self.turn_player = "player2"
+        self.Player1.Furgo.moves = 3
+        self.Player1.Intensity.moves = 2
+        self.Player1.Silver.moves = 2
+        self.Player1.Merapi.moves = 1
         time.sleep(1)
 
     def turnend_player2(self):
         self.turn_player = "player1"
         self.turn += 1
+        self.Player2.Furgo.moves = 3
+        self.Player2.Intensity.moves = 2
+        self.Player2.Silver.moves = 2
+        self.Player2.Merapi.moves = 1
+        print(self.Player2.Furgo.moves)
         time.sleep(1)
+
 
     def player1_turn(self):
         mouse = pygame.mouse.get_pos()
@@ -348,8 +379,6 @@ class Game:
     def update(self):
         global x, y, z, u, v, w, t, s, lmao, xD
         self.screen.fill((0,0,0))
-        global quit_check
-        quit_check = False
         button(1720, 16, 150, 30, program_rules)
         button(1720, 50, 140, 30, pygame.QUIT)
         button(1720, 84, 200, 30, program)
@@ -1134,6 +1163,14 @@ class Game:
                 self.player1_turn()
             else:
                 self.player2_turn()
+            if self.Player1.Furgo.hp == 0 and self.Player1.Intensity.hp == 0 and self.Player1.Silver.hp == 0 and self.Player1.Merapi.hp == 0 or self.Player2.Furgo.hp == 0 and self.Player2.Intensity.hp == 0 and self.Player2.Silver.hp == 0 and self.Player2.Merapi.hp == 0:
+                program_victory()
+
+            if self.game_quit == True:
+                break
+
+            if game_quit == True:
+                break
 
     def rules_loop(self):
         while not process_events():
@@ -1142,8 +1179,6 @@ class Game:
             if quit_check == True:
                 break
 
-    def quit_game(self):
-        quit()
 
 class VictoryScreen:
     def __init__(self):
@@ -1155,25 +1190,78 @@ class VictoryScreen:
         self.bg = pygame.image.load("VictoryImage.PNG")
         self.bg = self.bg.convert()
         self.i = 0
+        self.x = -400
+        self.y = -800
+        self.z = -400
+        self.a = 5
+        self.font = pygame.font.Font("Capture_It.ttf", 50)
+
+        self.victory_quit = True
 
 
     def draw(self):
-        if not self.i == 255:
+        if self.i < 255:
             self.screen.fill((0, 0, 0))
             self.bg.set_alpha(self.i)
             self.screen.blit(self.bg, (0,0))
             self.i += 1
             pygame.time.delay(5)
 
-            pygame.display.flip()
+
+        self.screen.blit(self.bg, (0, 0))
+
+        if self.x != 480 and self.i == 255:
+            self.start_text = self.font.render(
+                "Play again",
+                1, (255, 255, 255))
+            self.screen.blit(self.start_text, (self.x, 800))
+            self.x +=2
+
+        if self.y != 150 and self.i == 255:
+            self.start_text = self.font.render(
+                "Main Menu",
+                1, (255, 255, 255))
+            self.screen.blit(self.start_text, (self.y, 700))
+            self.y += 2
+
+        if self.z != 800 and self.i == 255:
+            self.start_text = self.font.render(
+                "High Score",
+                1, (255, 255, 255))
+            self.screen.blit(self.start_text, (self.z, 700))
+            self.z += 2
+
+
+        self.start_text = self.font.render(
+            "Main Menu",
+            1, (255, 255, 255))
+        self.screen.blit(self.start_text, (self.y, 700))
+
+        self.start_text = self.font.render(
+            "Play again",
+            1, (255, 255, 255))
+        self.screen.blit(self.start_text, (self.x, 800))
+
+        self.start_text = self.font.render(
+            "High Score",
+            1, (255, 255, 255))
+        self.screen.blit(self.start_text, (self.z, 700))
+
+        pygame.display.flip()
 
     def update(self):
-        button(10,10,10,10)
+        button(800 ,700, 300 ,50, program2)
+        button(150, 700, 300, 50,)
+        button(480, 800, 300, 50, game_reset)
 
     def victory_loop(self):
-        while not process_events():
+        global victory_quit
+        while process_events() == False:
             self.update()
             self.draw()
+            if self.victory_quit == False:
+                break
+
 
 class Player:
     def __init__(self, name, kleur):
@@ -1197,10 +1285,6 @@ class Boat:
         self.pos_row = 0
         self.pos_column = 0
 
-        keys = pygame.key.get_pressed()
-        print(keys)
-        #if keys[K_LEFT]:
-            #self.pos.row += 1
 
 
 #button functie
@@ -1209,6 +1293,10 @@ def button(x, y, w, h, action=None):
     click = pygame.mouse.get_pressed()
     if x + w > mouse[0] > x and y+h > mouse[1] > y:
         if click[0] == 1 and action != None:
+            pygame.mixer.init()
+            pygame.mixer.music.load("MenuBlip.ogg")
+            pygame.mixer.music.play()
+            time.sleep(0.3)
             action()
 
 def button1(x, y, w, h):
@@ -1218,6 +1306,15 @@ def button1(x, y, w, h):
     if x + w > mouse[0] > x and y+h > mouse[1] > y:
         if click[0] == 1:
             quit_check = True
+    return quit_check
+
+def button2(x, y, w, h):
+    global quit_check
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+    if x + w > mouse[0] > x and y+h > mouse[1] > y:
+        if click[0] == 1:
+            quit_check = False
     return quit_check
 
 def mouse_down():
@@ -1235,18 +1332,24 @@ def process_events():
     return False
 #STARTUP VAN MENU
 def program():
-    global x
+    global x, quit_check, game_quit
     x = True
+    game = Game()
+    game_quit = True
     menu = Menu()
     menu.menu_loop()
+    quit_check = True
 #startup van game
 def program2():
+    global game_quit
     game = Game()
+    game_quit = False
     game.turn()
     game.boat()
     game.game_loop()
     menu = Menu()
     menu.quit_menu()
+    quit_checkmenu = True
 #startup termination screen
 def program_quit():
     menu = Menu()
@@ -1261,10 +1364,11 @@ def program_rules1():
     menu.rules_loop1()
 
 def program_victory():
-    victory = VictoryScreen()
-    victory.victory_loop()
     game = Game()
-    game.quit_game()
+    game.game_quit = True
+    victory = VictoryScreen()
+    victory.victory = True
+    victory.victory_loop()
 
 def program_kleur():
     global color, color1, color2, color3, color4, color5, color6, color7, green, YELLOW
@@ -1277,6 +1381,62 @@ def program_kleur():
     color5 = YELLOW
     color6 = YELLOW
     color7 = YELLOW
+
+def game_reset():
+    global color, color1, color2, color3, color4, color5, color6, color7, green, YELLOW, x, y, z, u, w, v, w, t, s, victory_quit
+    victory = VictoryScreen()
+
+    victory.victory_quit = False
+    x = True
+    y = True
+    z = True
+    u = True
+    v = True
+    w = True
+    t = True
+    s = True
+    color = green
+    color1 = green
+    color2 = green
+    color3 = green
+
+    color4 = YELLOW
+    color5 = YELLOW
+    color6 = YELLOW
+    color7 = YELLOW
+
+
+
+    game = Game()
+
+    game.Player1.Furgo = Boat(2, 3, 2, 1)
+    game.Player1.Intensity = Boat(3, 2, 3, 1)
+    game.Player1.Silver = Boat(3, 2, 3, 1, )
+    game.Player1.Merapi = Boat(4, 1, 4, 1, )
+
+    game.Player2.Furgo = Boat(2, 3, 2, 1)
+    game.Player2.Intensity = Boat(3, 2, 3, 1)
+    game.Player2.Silver = Boat(3, 2, 3, 1, )
+    game.Player2.Merapi = Boat(4, 1, 4, 1, )
+
+    game.Player1.score = 0
+
+    game.Player2.score = 0
+
+    game.turn = 1
+
+    game.turn_player = "player1"
+
+    game.game_quit = False
+
+    game.game_loop()
+
+
+
+
+
+
+
 
 #aanroepen van startup functie
 program()
