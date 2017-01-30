@@ -11,4 +11,4 @@ def BgMusic(self, bgMusic):
     pygame.mixer.music.play()
 
 
-BgMusic(bgMusic)
+bgMusic(bgMusic)
