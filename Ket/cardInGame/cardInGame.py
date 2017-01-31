@@ -1,11 +1,17 @@
 import pygame
+import time
+import random
+
 
 # Kleuren
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
-GREEN = (0, 255, 0)
-RED = (255, 0, 0)
+GREEN = (0, 200, 0)
+RED = (200, 0, 0)
 YELLOW = (255,255,0)
+bright_red = (255, 0, 0)
+bright_green = (0, 255, 0)
+
 # Lengte en breedte van grid
 WIDTH = 50
 HEIGHT = 50
@@ -18,10 +24,8 @@ SIZE = [SCREENWIDTH, SCREENHEIGHT]
 screen = pygame.display.set_mode(SIZE)
 
 #kaarten
-offensive = pygame.image.load("attackcard.png")
-defence = pygame.image.load("defencecard.png")
-helpcard = pygame.image.load("helpcard.png")
-specialcard = pygame.image.load("specialcard.png")
+offensive = pygame.image.load("gamecard.png")
+
 
 
 #Grid aanmaken
@@ -42,17 +46,29 @@ def drawgrid():
                 elif grid[row][column] == 2:
                     color = YELLOW
                 pygame.draw.rect(screen,color,[(MARGIN + WIDTH) * column+200 + MARGIN,(MARGIN + HEIGHT) * row + MARGIN,WIDTH,HEIGHT])
+ 
 
 
+
+#kaart menu
 def cardsdraw():
-    screen.blit(offensive, [1200,-100])
-    screen.blit(defence, [1200,130])
-    screen.blit(helpcard, [1200,355])
-    screen.blit(specialcard, [1200,580])
+    screen.blit(offensive, [1200, 300])
     font = pygame.font.SysFont('Goudy Stout', 20, True, False)
     text1 = font.render(" Pick Up A Card",True,WHITE)
-    screen.blit(text1, [1440,50])
-    
+    text2 = font.render(" ---------- Cards in hand ----------",True,WHITE)
+    text3 = font.render(" P1:",True,GREEN)
+    text4 = font.render(" P2:",True,YELLOW)
+    text5 = font.render(" __________________________________________________",True,WHITE)
+
+    screen.blit(text1, [1428,450])
+    screen.blit(text2, [1310,700])
+    screen.blit(text3, [1300,800])
+    screen.blit(text4, [1300,900])
+    screen.blit(text5, [1300,1000])
+
+
+
+
                 
 
 # Functions for text : Display Turn text
@@ -79,6 +95,7 @@ def loop():
     color7 = YELLOW
     boat = ""
     check = False
+    pause = False
     while not check:
         for event in pygame.event.get():  
             if event.type == pygame.QUIT:
@@ -89,8 +106,10 @@ def loop():
                 row = pos[1] // (HEIGHT + MARGIN)
 
 
-                
-                     
+
+
+           
+
 
                 if pos[0] < 199:
                     if pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 250 and pos[1] <= 360:
@@ -221,9 +240,70 @@ def loop():
         screen.fill(BLACK)
         drawgrid()
         cardsdraw()
+        
 
         press = pygame.mouse.get_pressed()
         pos = pygame.mouse.get_pos()
+
+
+        #select cards buttons
+
+        #normal cards
+        if 1320 + 100 > pos[0] > 1300 and 625 + 50 > pos[1] > 625:
+            pygame.draw.rect(screen, bright_green, (1320, 625, 100, 50))
+       
+        else:
+            pygame.draw.rect(screen, GREEN, (1320, 625, 100, 50))
+        smallText = pygame.font.Font("freesansbold.ttf", 20)
+        textSurf, textRect = text_objects("Normal", smallText)
+        textRect.center = ( (1320 + (100 / 2)), (625 + (50 / 2)) )
+        screen.blit(textSurf, textRect)
+
+        #special cards
+        if 1790 + 100 > pos[0] > 1780 and 625 + 50 > pos[1] > 625:
+            pygame.draw.rect(screen, bright_red, (1790, 625, 100, 50))
+       
+        else:
+            pygame.draw.rect(screen, RED, (1790, 625, 100, 50))
+        smallText = pygame.font.Font("freesansbold.ttf", 20)
+        textSurf, textRect = text_objects("Special", smallText)
+        textRect.center = ( (1790 + (100 / 2)), (625 + (50 / 2)) )
+        screen.blit(textSurf, textRect)
+        #print (pos)
+
+        def choosenormal():
+
+            normalCard = ('FMJ Upgrade', 'Riffling', 'Advanced Riffling', 'Naval Mine', 'EMP Upgrade', 'Reinforced Hull', 'Sonar', 'Smoke Screen', 'Sabotage', 'Backup', 'Extra Fuel', 'Rally', 'Adrenaline Rush')
+            normal = False
+            if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 620 and pos[1] <= 675:
+                font = pygame.font.SysFont('Arial', 10, True, False)
+                K1 = font.render("Normal Choice",True,WHITE)
+                normal = True
+                print (normal)        
+                
+                
+
+                
+
+        def chooseSpec():
+            if press[0] == 1 and pos[0] >= 1790 and pos[0] <= 1880 and pos[1] >= 620 and pos[1] <= 675:
+                font = pygame.font.SysFont('Arial', 20, True, False)
+                K2 = font.render("Special Choice",True,WHITE)
+                screen.blit(K2, [1300, 150])
+                
+                specialCard = ['Repair', 'Flak Armor', 'Far Sight', 'Aluminium Bull', 'Jack Sparrow']
+                from random import randrange
+                random_index = randrange(0,len(specialCard))
+                print (specialCard[random_index])
+        
+
+                
+                
+            
+                
+        
+
+
         boat3 = pygame.draw.rect(screen,color,(130,250,40,110))
         if press[0] == 1 and pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 250 and pos[1] <= 360:
             color = BLACK
@@ -259,9 +339,31 @@ def loop():
             color7 = BLACK
             block44 = pygame.draw.rect(screen,color7,(50,650,40,200))
 
+
+
+        
+
+        
+
+
+
+
+        
+
+
+
+            
+
+            
+
         
         message_display("VS")
+        cardsdraw()
+        choosenormal()
+        chooseSpec()
         pygame.display.flip()
+        
+        
 
 
 pygame.init()
