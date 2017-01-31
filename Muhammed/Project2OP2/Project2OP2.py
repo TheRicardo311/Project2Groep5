@@ -46,29 +46,26 @@ def delete_db(player1,player2):
 
 def read_db():
 
-    return init_database("SELECT * FROM users")
+    return init_database("SELECT * FROM users ORDER BY score")
 
 score = read_db()
 
 def show_scores():
     lijst=[]
     for i in score:
-        x = "{} got {} points".format(i[1],i[0])
+        x = "{} played {} turn(s)".format(i[1],i[0])
         lijst.append(x)
- 
-    for x in lijst:
-        print(x)
     return lijst
    
 
 
 player1 = "Anton"
 player2 = "Rico"
-punten = 0
-update_db(punten,player1)
-update_db(punten,player2)
+punten1 = 5
+punten2 = 0
 show_scores()
-
+#insert_db(punten1,player1)
+#insert_db(punten2,player2)
 #delete_db(player1,player2)
 
 
@@ -110,8 +107,38 @@ def drawgrid():
                     color = GREEN
                 elif grid[row][column] == 2:
                     color = YELLOW
-                pygame.draw.rect(screen,color,[(MARGIN + WIDTH) * column +200 + MARGIN,(MARGIN + HEIGHT) * row + MARGIN,WIDTH,HEIGHT])
+                pygame.draw.rect(screen,color,[(MARGIN + WIDTH) * column + 200 + MARGIN,(MARGIN + HEIGHT) * row + MARGIN,WIDTH,HEIGHT])
                 
+def texthighscore():
+    z=200
+    defaultfont = pygame.font.get_default_font()
+    fontrenderer = pygame.font.Font(defaultfont,30)
+    a = show_scores()
+    for x in a:
+        g = fontrenderer.render(x,1,BLACK)
+        screen.blit(g,(1355,z))
+        z+=50
+
+def numberhighscore():
+    z=200
+    defaultfont = pygame.font.get_default_font()
+    fontrenderer = pygame.font.Font(defaultfont,30)
+    a = show_scores()
+    b = 1
+    for x in a:
+        g = fontrenderer.render(str(b)+".",1,BLACK)
+        screen.blit(g,(1325,z))
+        z+=50
+        b+=1
+
+def texthigh():
+    pygame.display.set_caption('HighScore')
+ 
+    defaultfont = pygame.font.get_default_font()
+    fontrenderer = pygame.font.Font(defaultfont,85)
+
+    label3 = fontrenderer.render("HighScore",1,BLACK)
+    screen.blit(label3,(1400,15))
 
 # Functions for text : Display Turn text
 def text_objects(text, font):
@@ -126,7 +153,7 @@ def message_display(text,x,y):
 
     
 
-                      
+turn = 1                    
 def loop():
     color = GREEN
     color1 = GREEN
@@ -137,10 +164,13 @@ def loop():
     color6 = YELLOW
     color7 = YELLOW
     boat = ""
+    global turn
+    global punten1
+    global punten2
+    global player1
+    global player2
 
 
-
-    turn = 1
 
 
     check = False
@@ -329,21 +359,17 @@ def loop():
 
         if press[0] == 1 and pos[0] >= 100 and pos[0] <= 180 and pos[1] >= 533 and pos[1] <= 568 and turn == 1:
             turn = 2
-            print("GREEN turn is over")
-
+            update_db(punten1+1,player1)
         elif press[0] == 1 and pos[0] >= 100 and pos[0] <= 180 and pos[1] >= 533 and pos[1] <= 568 and turn == 2:
             turn = 1
-            print("YELLOW turn is over")
+            update_db(punten2+1,player2)
 
-        pygame.display.set_caption('HighScore')
- 
- 
-        defaultfont = pygame.font.get_default_font()
-        fontrenderer = pygame.font.Font(defaultfont,85)
- 
-        #highscorelabel
-        label3 = fontrenderer.render("HighScore",1,BLACK)
-        screen.blit(label3,(1400,15))
+
+                    
+        texthigh()
+        texthighscore()
+        numberhighscore()
+
 
         message_display("End Turn",1780,500)
         message_display("VS",1850,500)
