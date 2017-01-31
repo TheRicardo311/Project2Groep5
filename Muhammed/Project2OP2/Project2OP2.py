@@ -25,9 +25,9 @@ def init_database(command):
     connection.close()
     return result
 
-# Uploads a score into the database
+# Updates a score in the database
 
-def upload_db(score,naam):
+def update_db(score,naam):
 
     init_database("UPDATE users SET score = " + str(score) + " WHERE name = '"+naam+"' ")
 
@@ -46,20 +46,31 @@ def delete_db(player1,player2):
 
 def read_db():
 
-    print(init_database("SELECT * FROM users"))
+    return init_database("SELECT * FROM users")
+
+score = read_db()
+
+def show_scores():
+    lijst=[]
+    for i in score:
+        x = "{} got {} points".format(i[1],i[0])
+        lijst.append(x)
+ 
+    for x in lijst:
+        print(x)
+    return lijst
+   
 
 
-
-player1 = "Mo"
-player2 = "Slak"
+player1 = "Anton"
+player2 = "Rico"
 punten = 0
+update_db(punten,player1)
+update_db(punten,player2)
+show_scores()
 
-delete_db(player1,player2)
+#delete_db(player1,player2)
 
-insert_db(punten,player1)
-insert_db(punten,player2)
-
-read_db()
 
 
 
@@ -127,11 +138,10 @@ def loop():
     color7 = YELLOW
     boat = ""
 
-    playerchoose = int(input("Who wants to start, GREEN(1) or YELLOW(2)?"))
-    if playerchoose == 1 or playerchoose == 2:
-        turn = playerchoose
-    else:
-        playerchoose = int(input("Who wants to start, GREEN(1) or YELLOW(2)?"))
+
+
+    turn = 1
+
 
     check = False
     while not check:
@@ -278,8 +288,7 @@ def loop():
         
         screen.fill(BLACK)
         drawgrid()
-
-
+        
         press = pygame.mouse.get_pressed()
         pos = pygame.mouse.get_pos()
         boat3 = pygame.draw.rect(screen,color,(130,250,40,110))
@@ -325,6 +334,16 @@ def loop():
         elif press[0] == 1 and pos[0] >= 100 and pos[0] <= 180 and pos[1] >= 533 and pos[1] <= 568 and turn == 2:
             turn = 1
             print("YELLOW turn is over")
+
+        pygame.display.set_caption('HighScore')
+ 
+ 
+        defaultfont = pygame.font.get_default_font()
+        fontrenderer = pygame.font.Font(defaultfont,85)
+ 
+        #highscorelabel
+        label3 = fontrenderer.render("HighScore",1,BLACK)
+        screen.blit(label3,(1400,15))
 
         message_display("End Turn",1780,500)
         message_display("VS",1850,500)
