@@ -1486,7 +1486,7 @@ class Game:
                                       (self.MARGIN + self.HEIGHT) * self.row + self.MARGIN, self.WIDTH,
                                       self.HEIGHT])
             if self.turn_player == "player1":
-            ###1/8
+                ###1/8
                 if self.hehe == 2:
                     self.FireFurgoY = self.Player1.Furgo.pos_row * (self.HEIGHT + self.MARGIN) + 5
                     self.FireFurgoX = self.Player1.Furgo.pos_column * (self.WIDTH + self.MARGIN) + 200
@@ -1502,12 +1502,24 @@ class Game:
                 if self.hehe == 1:
 
                     pygame.draw.rect(self.screen, self.RED,
-                                    (self.x_x, self.FireFurgoY, 50, (55 * self.Player1.Furgo.length)), 0)
+                                     (self.x_x, self.FireFurgoY, 50, (55 * self.Player1.Furgo.length)), 0)
 
                     self.exdee += 1
                     self.x_x -= 1
                     if self.Player1.Furgo.pos_column - 1 == self.Player2.Furgo.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row + 2 or self.Player1.Furgo.pos_column - 1 == self.Player2.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row + 2:
                         self.Player2.Furgo.hp -= 1
+                        self.hehe = 3
+                        self.x_y = 0
+                    elif self.Player1.Furgo.pos_column - 1 == self.Player2.Intensity.pos_column and self.Player2.Intensity.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Intensity.pos_row + 2 or self.Player1.Furgo.pos_column - 1 == self.Player2.Intensity.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Intensity.pos_row <= self.Player1.Furgo.pos_row + 2:
+                        self.Player2.Intensity.hp -= 1
+                        self.hehe = 3
+                        self.x_y = 0
+                    elif self.Player1.Furgo.pos_column - 1 == self.Player2.Silver.pos_column and self.Player2.Silver.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Silver.pos_row + 2 or self.Player1.Furgo.pos_column - 1 == self.Player2.Silver.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Furgo.pos_row + 2:
+                        self.Player2.Silver.hp -= 1
+                        self.hehe = 3
+                        self.x_y = 0
+                    elif self.Player1.Furgo.pos_column - 1 == self.Player2.Merapi.pos_column and self.Player2.Merapi.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Merapi.pos_row + 2 or self.Player1.Furgo.pos_column - 1 == self.Player2.Merapi.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Merapi.pos_row <= self.Player1.Furgo.pos_row + 2:
+                        self.Player2.Merapi.hp -= 1
                         self.hehe = 3
                         self.x_y = 0
                     if self.exdee == (self.Player1.Furgo.atk_range * 55):
@@ -1520,6 +1532,18 @@ class Game:
                     self.x_x += 1
                     if self.Player1.Furgo.pos_column + 1 == self.Player2.Furgo.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row + 2 or self.Player1.Furgo.pos_column + 1 == self.Player2.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row + 2:
                         self.Player2.Furgo.hp -= 1
+                        self.hehe = 3
+                        self.x_y = 0
+                    elif self.Player1.Furgo.pos_column + 1 == self.Player2.Intensity.pos_column and self.Player2.Intensity.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Intensity.pos_row + 2 or self.Player1.Furgo.pos_column + 1 == self.Player2.Intensity.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Intensity.pos_row <= self.Player1.Furgo.pos_row + 2:
+                        self.Player2.Intensity.hp -= 1
+                        self.hehe = 3
+                        self.x_y = 0
+                    elif self.Player1.Furgo.pos_column + 1 == self.Player2.Silver.pos_column and self.Player2.Silver.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Silver.pos_row + 2 or self.Player1.Furgo.pos_column + 1 == self.Player2.Silver.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Furgo.pos_row + 2:
+                        self.Player2.Silver.hp -= 1
+                        self.hehe = 3
+                        self.x_y = 0
+                    elif self.Player1.Furgo.pos_column + 1 == self.Player2.Merapi.pos_column and self.Player2.Merapi.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Merapi.pos_row + 2 or self.Player1.Furgo.pos_column + 1 == self.Player2.Merapi.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Merapi.pos_row <= self.Player1.Furgo.pos_row + 2:
+                        self.Player2.Merapi.hp -= 1
                         self.hehe = 3
                         self.x_y = 0
                     if self.exdee == (self.Player1.Furgo.atk_range * 55):
@@ -1545,8 +1569,20 @@ class Game:
 
                     self.exdee2 += 1
                     self.x_x1 -= 1
-                    if self.Player1.Intensity.pos_column - 1 == self.Player2.Intensity.pos_column and self.Player2.Intensity.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Intensity.pos_row + 3 or self.Player1.Intensity.pos_column - 1 == self.Player2.Intensity.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Intensity.pos_row <= self.Player1.Intensity.pos_row + 3:
+                    if self.Player1.Intensity.pos_column - 1 == self.Player2.Furgo.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Furgo.pos_row + 3 or self.Player1.Intensity.pos_column - 1 == self.Player2.Furgo.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Intensity.pos_row + 3:
+                        self.Player2.Furgo.hp -= 1
+                        self.hehe2 = 3
+                        self.x_y2 = 0
+                    elif self.Player1.Intensity.pos_column - 1 == self.Player2.Intensity.pos_column and self.Player2.Intensity.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Intensity.pos_row + 3 or self.Player1.Intensity.pos_column - 1 == self.Player2.Intensity.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Intensity.pos_row <= self.Player1.Intensity.pos_row + 3:
                         self.Player2.Intensity.hp -= 1
+                        self.hehe2 = 3
+                        self.x_y2 = 0
+                    elif self.Player1.Intensity.pos_column - 1 == self.Player2.Silver.pos_column and self.Player2.Silver.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Silver.pos_row + 3 or self.Player1.Intensity.pos_column - 1 == self.Player2.Silver.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Intensity.pos_row + 3:
+                        self.Player2.Silver.hp -= 1
+                        self.hehe2 = 3
+                        self.x_y2 = 0
+                    elif self.Player1.Intensity.pos_column - 1 == self.Player2.Merapi.pos_column and self.Player2.Merapi.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Merapi.pos_row + 3 or self.Player1.Intensity.pos_column - 1 == self.Player2.Merapi.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Merapi.pos_row <= self.Player1.Intensity.pos_row + 3:
+                        self.Player2.Merapi.hp -= 1
                         self.hehe2 = 3
                         self.x_y2 = 0
                     if self.exdee2 == (self.Player1.Intensity.atk_range * 55):
@@ -1557,8 +1593,20 @@ class Game:
                                      (self.x_x1, self.FireIntensityY, 50, (55 * self.Player1.Intensity.length)), 0)
                     self.exdee2 += 1
                     self.x_x1 += 1
-                    if self.Player1.Intensity.pos_column + 1 == self.Player2.Intensity.pos_column and self.Player2.Intensity.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Intensity.pos_row + 3 or self.Player1.Intensity.pos_column + 1 == self.Player2.Intensity.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Intensity.pos_row <= self.Player1.Intensity.pos_row + 3:
+                    if self.Player1.Intensity.pos_column + 1 == self.Player2.Furgo.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Furgo.pos_row + 3 or self.Player1.Intensity.pos_column + 1 == self.Player2.Furgo.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Intensity.pos_row + 3:
+                        self.Player2.Furgo.hp -= 1
+                        self.hehe2 = 3
+                        self.x_y2 = 0
+                    elif self.Player1.Intensity.pos_column + 1 == self.Player2.Intensity.pos_column and self.Player2.Intensity.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Intensity.pos_row + 3 or self.Player1.Intensity.pos_column + 1 == self.Player2.Intensity.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Intensity.pos_row <= self.Player1.Intensity.pos_row + 3:
                         self.Player2.Intensity.hp -= 1
+                        self.hehe2 = 3
+                        self.x_y2 = 0
+                    elif self.Player1.Intensity.pos_column + 1 == self.Player2.Silver.pos_column and self.Player2.Silver.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Silver.pos_row + 3 or self.Player1.Intensity.pos_column + 1 == self.Player2.Silver.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Intensity.pos_row + 3:
+                        self.Player2.Silver.hp -= 1
+                        self.hehe2 = 3
+                        self.x_y2 = 0
+                    elif self.Player1.Intensity.pos_column + 1 == self.Player2.Merapi.pos_column and self.Player2.Merapi.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Merapi.pos_row + 3 or self.Player1.Intensity.pos_column + 1 == self.Player2.Merapi.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Merapi.pos_row <= self.Player1.Intensity.pos_row + 3:
+                        self.Player2.Merapi.hp -= 1
                         self.hehe2 = 3
                         self.x_y2 = 0
                     if self.exdee2 == (self.Player1.Intensity.atk_range * 55):
@@ -1584,8 +1632,20 @@ class Game:
 
                     self.exdee3 += 1
                     self.x_x2 -= 1
-                    if self.Player1.Silver.pos_column - 1 == self.Player2.Silver.pos_column and self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row + 3 or self.Player1.Silver.pos_column - 1 == self.Player2.Silver.pos_column and self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row + 3:
+                    if self.Player1.Silver.pos_column - 1 == self.Player2.Furgo.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Furgo.pos_row + 3 or self.Player1.Silver.pos_column - 1 == self.Player2.Furgo.pos_column and self.Player1.Silver.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Silver.pos_row + 3:
+                        self.Player2.Furgo.hp -= 1
+                        self.hehe3 = 3
+                        self.x_y3 = 0
+                    elif self.Player1.Silver.pos_column - 1 == self.Player2.Intensity.pos_column and self.Player2.Intensity.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Intensity.pos_row + 3 or self.Player1.Silver.pos_column - 1 == self.Player2.Intensity.pos_column and self.Player1.Silver.pos_row <= self.Player2.Intensity.pos_row <= self.Player1.Silver.pos_row + 3:
+                        self.Player2.Intensity -= 1
+                        self.hehe3 = 3
+                        self.x_y3 = 0
+                    elif self.Player1.Silver.pos_column - 1 == self.Player2.Silver.pos_column and self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row + 3 or self.Player1.Silver.pos_column - 1 == self.Player2.Silver.pos_column and self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row + 3:
                         self.Player2.Silver.hp -= 1
+                        self.hehe3 = 3
+                        self.x_y3 = 0
+                    elif self.Player1.Silver.pos_column - 1 == self.Player2.Merapi.pos_column and self.Player2.Merapi.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Merapi.pos_row + 3 or self.Player1.Silver.pos_column - 1 == self.Player2.Merapi.pos_column and self.Player1.Silver.pos_row <= self.Player2.Merapi.pos_row <= self.Player1.Silver.pos_row + 3:
+                        self.Player2.Merapi.hp -= 1
                         self.hehe3 = 3
                         self.x_y3 = 0
                     if self.exdee3 == (self.Player1.Silver.atk_range * 55):
@@ -1596,8 +1656,20 @@ class Game:
                                      (self.x_x2, self.FireSilverY, 50, (55 * self.Player1.Silver.length)), 0)
                     self.exdee3 += 1
                     self.x_x2 += 1
-                    if self.Player1.Silver.pos_column + 1 == self.Player2.Silver.pos_column and self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row + 3 or self.Player1.Silver.pos_column + 1 == self.Player2.Silver.pos_column and self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row + 3:
+                    if self.Player1.Silver.pos_column + 1 == self.Player2.Furgo.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Furgo.pos_row + 3 or self.Player1.Silver.pos_column + 1 == self.Player2.Furgo.pos_column and self.Player1.Silver.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Silver.pos_row + 3:
+                        self.Player2.Furgo.hp -= 1
+                        self.hehe3 = 3
+                        self.x_y3 = 0
+                    elif self.Player1.Silver.pos_column + 1 == self.Player2.Intensity.pos_column and self.Player2.Intensity.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Intensity.pos_row + 3 or self.Player1.Silver.pos_column + 1 == self.Player2.Intensity.pos_column and self.Player1.Silver.pos_row <= self.Player2.Intensity.pos_row <= self.Player1.Silver.pos_row + 3:
+                        self.Player2.Intensity -= 1
+                        self.hehe3 = 3
+                        self.x_y3 = 0
+                    elif self.Player1.Silver.pos_column + 1 == self.Player2.Silver.pos_column and self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row + 3 or self.Player1.Silver.pos_column + 1 == self.Player2.Silver.pos_column and self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row + 3:
                         self.Player2.Silver.hp -= 1
+                        self.hehe3 = 3
+                        self.x_y3 = 0
+                    elif self.Player1.Silver.pos_column + 1 == self.Player2.Merapi.pos_column and self.Player2.Merapi.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Merapi.pos_row + 3 or self.Player1.Silver.pos_column + 1 == self.Player2.Merapi.pos_column and self.Player1.Silver.pos_row <= self.Player2.Merapi.pos_row <= self.Player1.Silver.pos_row + 3:
+                        self.Player2.Merapi.hp -= 1
                         self.hehe3 = 3
                         self.x_y3 = 0
                     if self.exdee3 == (self.Player1.Silver.atk_range * 55):
@@ -1623,7 +1695,19 @@ class Game:
 
                     self.exdee4 += 1
                     self.x_x3 -= 1
-                    if self.Player1.Merapi.pos_column - 1 == self.Player2.Merapi.pos_column and self.Player2.Merapi.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Merapi.pos_row + 4 or self.Player1.Merapi.pos_column - 1 == self.Player2.Merapi.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Merapi.pos_row <= self.Player1.Merapi.pos_row + 4:
+                    if self.Player1.Merapi.pos_column - 1 == self.Player2.Furgo.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Furgo.pos_row + 4 or self.Player1.Merapi.pos_column - 1 == self.Player2.Furgo.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Merapi.pos_row + 4:
+                        self.Player2.Furgo.hp -= 1
+                        self.hehe4 = 3
+                        self.x_y4 = 0
+                    elif self.Player1.Merapi.pos_column - 1 == self.Player2.Intensity.pos_column and self.Player2.Intensity.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Intensity.pos_row + 4 or self.Player1.Merapi.pos_column - 1 == self.Player2.Intensity.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Intensity.pos_row <= self.Player1.Merapi.pos_row + 4:
+                        self.Player2.Intensity.hp -= 1
+                        self.hehe4 = 3
+                        self.x_y4 = 0
+                    elif self.Player1.Merapi.pos_column - 1 == self.Player2.Silver.pos_column and self.Player2.Silver.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Silver.pos_row + 4 or self.Player1.Merapi.pos_column - 1 == self.Player2.Silver.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Merapi.pos_row + 4:
+                        self.Player2.Silver.hp -= 1
+                        self.hehe4 = 3
+                        self.x_y4 = 0
+                    elif self.Player1.Merapi.pos_column - 1 == self.Player2.Merapi.pos_column and self.Player2.Merapi.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Merapi.pos_row + 4 or self.Player1.Merapi.pos_column - 1 == self.Player2.Merapi.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Merapi.pos_row <= self.Player1.Merapi.pos_row + 4:
                         self.Player2.Merapi.hp -= 1
                         self.hehe4 = 3
                         self.x_y4 = 0
@@ -1635,14 +1719,26 @@ class Game:
                                      (self.x_x3, self.FireMerapiY, 50, (55 * self.Player1.Merapi.length)), 0)
                     self.exdee4 += 1
                     self.x_x3 += 1
-                    if self.Player1.Merapi.pos_column + 1 == self.Player2.Merapi.pos_column and self.Player2.Merapi.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Merapi.pos_row + 4 or self.Player1.Merapi.pos_column + 1 == self.Player2.Merapi.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Merapi.pos_row <= self.Player1.Merapi.pos_row + 4:
+                    if self.Player1.Merapi.pos_column + 1 == self.Player2.Furgo.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Furgo.pos_row + 4 or self.Player1.Merapi.pos_column + 1 == self.Player2.Furgo.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Merapi.pos_row + 4:
+                        self.Player2.Furgo.hp -= 1
+                        self.hehe4 = 3
+                        self.x_y4 = 0
+                    elif self.Player1.Merapi.pos_column + 1 == self.Player2.Intensity.pos_column and self.Player2.Intensity.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Intensity.pos_row + 4 or self.Player1.Merapi.pos_column + 1 == self.Player2.Intensity.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Intensity.pos_row <= self.Player1.Merapi.pos_row + 4:
+                        self.Player2.Intensity.hp -= 1
+                        self.hehe4 = 3
+                        self.x_y4 = 0
+                    elif self.Player1.Merapi.pos_column + 1 == self.Player2.Silver.pos_column and self.Player2.Silver.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Silver.pos_row + 4 or self.Player1.Merapi.pos_column + 1 == self.Player2.Silver.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Merapi.pos_row + 4:
+                        self.Player2.Silver.hp -= 1
+                        self.hehe4 = 3
+                        self.x_y4 = 0
+                    elif self.Player1.Merapi.pos_column + 1 == self.Player2.Merapi.pos_column and self.Player2.Merapi.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Merapi.pos_row + 4 or self.Player1.Merapi.pos_column + 1 == self.Player2.Merapi.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Merapi.pos_row <= self.Player1.Merapi.pos_row + 4:
                         self.Player2.Merapi.hp -= 1
                         self.hehe4 = 3
                         self.x_y4 = 0
                     if self.exdee4 == (self.Player1.Merapi.atk_range * 55):
                         self.hehe4 = 3
 
-            ###5/8
+                        ###5/8
             if self.hehe5 == 2:
                 self.FireFurgoYGeel = self.Player2.Furgo.pos_row * (self.HEIGHT + self.MARGIN) + 5
                 self.FireFurgoX = self.Player2.Furgo.pos_column * (self.WIDTH + self.MARGIN) + 200
@@ -1666,6 +1762,18 @@ class Game:
                     self.Player1.Furgo.hp -= 1
                     self.hehe5 = 3
                     self.x_y5 = 0
+                elif self.Player2.Furgo.pos_column - 1 == self.Player1.Intensity.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Intensity.pos_row + 2 or self.Player2.Furgo.pos_column - 1 == self.Player1.Intensity.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Furgo.pos_row + 2:
+                    self.Player1.Intensity.hp -= 1
+                    self.hehe5 = 3
+                    self.x_y5 = 0
+                elif self.Player2.Furgo.pos_column - 1 == self.Player1.Silver.pos_column and self.Player1.Silver.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Silver.pos_row + 2 or self.Player2.Furgo.pos_column - 1 == self.Player1.Silver.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Furgo.pos_row + 2:
+                    self.Player1.Silver.hp -= 1
+                    self.hehe5 = 3
+                    self.x_y5 = 0
+                elif self.Player2.Furgo.pos_column - 1 == self.Player1.Merapi.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Merapi.pos_row + 2 or self.Player2.Furgo.pos_column - 1 == self.Player1.Merapi.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Furgo.pos_row + 2:
+                    self.Player1.Merapi.hp -= 1
+                    self.hehe5 = 3
+                    self.x_y5 = 0
                 if self.exdee5 == (self.Player2.Furgo.atk_range * 55):
                     self.hehe5 = 3
             if self.hehe5 == 4:
@@ -1678,10 +1786,22 @@ class Game:
                     self.Player1.Furgo.hp -= 1
                     self.hehe5 = 3
                     self.x_y5 = 0
+                elif self.Player2.Furgo.pos_column + 1 == self.Player1.Intensity.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Intensity.pos_row + 2 or self.Player2.Furgo.pos_column + 1 == self.Player1.Intensity.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Furgo.pos_row + 2:
+                    self.Player1.Intensity.hp -= 1
+                    self.hehe5 = 3
+                    self.x_y5 = 0
+                elif self.Player2.Furgo.pos_column + 1 == self.Player1.Silver.pos_column and self.Player1.Silver.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Silver.pos_row + 2 or self.Player2.Furgo.pos_column + 1 == self.Player1.Silver.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Furgo.pos_row + 2:
+                    self.Player1.Silver.hp -= 1
+                    self.hehe5 = 3
+                    self.x_y5 = 0
+                elif self.Player2.Furgo.pos_column + 1 == self.Player1.Merapi.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Merapi.pos_row + 2 or self.Player2.Furgo.pos_column + 1 == self.Player1.Merapi.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Furgo.pos_row + 2:
+                    self.Player1.Merapi.hp -= 1
+                    self.hehe5 = 3
+                    self.x_y5 = 0
                 if self.exdee5 == (self.Player2.Furgo.atk_range * 55):
                     self.hehe5 = 3
 
-            ###6/8
+                    ###6/8
             if self.hehe6 == 2:
                 self.FireIntensityYGeel = self.Player2.Intensity.pos_row * (self.HEIGHT + self.MARGIN) + 5
                 self.FireIntensityX = self.Player2.Intensity.pos_column * (self.WIDTH + self.MARGIN) + 200
@@ -1701,8 +1821,20 @@ class Game:
 
                 self.exdee6 += 1
                 self.x_x5 -= 1
-                if self.Player2.Intensity.pos_column - 1 == self.Player1.Intensity.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Intensity.pos_row <= self.Player1.Intensity.pos_row + 3 or self.Player2.Intensity.pos_column - 1 == self.Player1.Intensity.pos_column and self.Player2.Intensity.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Intensity.pos_row + 3:
+                if self.Player2.Intensity.pos_column - 1 == self.Player1.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Intensity.pos_row <= self.Player1.Furgo.pos_row + 3 or self.Player2.Intensity.pos_column - 1 == self.Player1.Furgo.pos_column and self.Player2.Intensity.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Intensity.pos_row + 3:
+                    self.Player1.Furgo.hp -= 1
+                    self.hehe6 = 3
+                    self.x_y6 = 0
+                elif self.Player2.Intensity.pos_column - 1 == self.Player1.Intensity.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Intensity.pos_row <= self.Player1.Intensity.pos_row + 3 or self.Player2.Intensity.pos_column - 1 == self.Player1.Intensity.pos_column and self.Player2.Intensity.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Intensity.pos_row + 3:
                     self.Player1.Intensity.hp -= 1
+                    self.hehe6 = 3
+                    self.x_y6 = 0
+                elif self.Player2.Intensity.pos_column - 1 == self.Player1.Silver.pos_column and self.Player1.Silver.pos_row <= self.Player2.Intensity.pos_row <= self.Player1.Silver.pos_row + 3 or self.Player2.Intensity.pos_column - 1 == self.Player1.Silver.pos_column and self.Player2.Intensity.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Intensity.pos_row + 3:
+                    self.Player1.Silver.hp -= 1
+                    self.hehe6 = 3
+                    self.x_y6 = 0
+                elif self.Player2.Intensity.pos_column - 1 == self.Player1.Merapi.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Intensity.pos_row <= self.Player1.Merapi.pos_row + 3 or self.Player2.Intensity.pos_column - 1 == self.Player1.Merapi.pos_column and self.Player2.Intensity.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Intensity.pos_row + 3:
+                    self.Player1.Merapi.hp -= 1
                     self.hehe6 = 3
                     self.x_y6 = 0
                 if self.exdee6 == (self.Player2.Intensity.atk_range * 55):
@@ -1713,14 +1845,26 @@ class Game:
                                  (self.x_x5, self.FireIntensityYGeel, 50, (55 * self.Player1.Intensity.length)), 0)
                 self.exdee6 += 1
                 self.x_x5 += 1
-                if self.Player2.Intensity.pos_column + 1 == self.Player1.Intensity.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Intensity.pos_row <= self.Player1.Intensity.pos_row + 3 or self.Player2.Intensity.pos_column + 1 == self.Player1.Intensity.pos_column and self.Player2.Intensity.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Intensity.pos_row + 3:
+                if self.Player2.Intensity.pos_column + 1 == self.Player1.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Intensity.pos_row <= self.Player1.Furgo.pos_row + 3 or self.Player2.Intensity.pos_column + 1 == self.Player1.Furgo.pos_column and self.Player2.Intensity.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Intensity.pos_row + 3:
+                    self.Player1.Furgo.hp -= 1
+                    self.hehe6 = 3
+                    self.x_y6 = 0
+                elif self.Player2.Intensity.pos_column + 1 == self.Player1.Intensity.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Intensity.pos_row <= self.Player1.Intensity.pos_row + 3 or self.Player2.Intensity.pos_column + 1 == self.Player1.Intensity.pos_column and self.Player2.Intensity.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Intensity.pos_row + 3:
                     self.Player1.Intensity.hp -= 1
+                    self.hehe6 = 3
+                    self.x_y6 = 0
+                elif self.Player2.Intensity.pos_column + 1 == self.Player1.Silver.pos_column and self.Player1.Silver.pos_row <= self.Player2.Intensity.pos_row <= self.Player1.Silver.pos_row + 3 or self.Player2.Intensity.pos_column + 1 == self.Player1.Silver.pos_column and self.Player2.Intensity.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Intensity.pos_row + 3:
+                    self.Player1.Silver.hp -= 1
+                    self.hehe6 = 3
+                    self.x_y6 = 0
+                elif self.Player2.Intensity.pos_column + 1 == self.Player1.Merapi.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Intensity.pos_row <= self.Player1.Merapi.pos_row + 3 or self.Player2.Intensity.pos_column + 1 == self.Player1.Merapi.pos_column and self.Player2.Intensity.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Intensity.pos_row + 3:
+                    self.Player1.Merapi.hp -= 1
                     self.hehe6 = 3
                     self.x_y6 = 0
                 if self.exdee6 == (self.Player1.Intensity.atk_range * 55):
                     self.hehe6 = 3
 
-            ###7/8
+                    ###7/8
             if self.hehe7 == 2:
                 self.FireSilverYGeel = self.Player2.Silver.pos_row * (self.HEIGHT + self.MARGIN) + 5
                 self.FireSilverX = self.Player2.Silver.pos_column * (self.WIDTH + self.MARGIN) + 200
@@ -1740,8 +1884,20 @@ class Game:
 
                 self.exdee7 += 1
                 self.x_x6 -= 1
-                if self.Player2.Silver.pos_column - 1 == self.Player1.Silver.pos_column and self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row + 3 or self.Player2.Silver.pos_column - 1 == self.Player1.Silver.pos_column and self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row + 2:
+                if self.Player2.Silver.pos_column - 1 == self.Player1.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Furgo.pos_row + 3 or self.Player2.Silver.pos_column - 1 == self.Player1.Furgo.pos_column and self.Player2.Silver.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Silver.pos_row + 2:
+                    self.Player2.Furgo.hp -= 1
+                    self.hehe7 = 3
+                    self.x_y7 = 0
+                elif self.Player2.Silver.pos_column - 1 == self.Player1.Intensity.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Intensity.pos_row + 3 or self.Player2.Silver.pos_column - 1 == self.Player1.Intensity.pos_column and self.Player2.Silver.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Silver.pos_row + 2:
+                    self.Player2.Intensity.hp -= 1
+                    self.hehe7 = 3
+                    self.x_y7 = 0
+                elif self.Player2.Silver.pos_column - 1 == self.Player1.Silver.pos_column and self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row + 3 or self.Player2.Silver.pos_column - 1 == self.Player1.Silver.pos_column and self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row + 2:
                     self.Player2.Silver.hp -= 1
+                    self.hehe7 = 3
+                    self.x_y7 = 0
+                elif self.Player2.Silver.pos_column - 1 == self.Player1.Merapi.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Merapi.pos_row + 3 or self.Player2.Silver.pos_column - 1 == self.Player1.Merapi.pos_column and self.Player2.Silver.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Silver.pos_row + 2:
+                    self.Player2.Merapi.hp -= 1
                     self.hehe7 = 3
                     self.x_y7 = 0
                 if self.exdee7 == (self.Player2.Silver.atk_range * 55):
@@ -1752,14 +1908,26 @@ class Game:
                                  (self.x_x6, self.FireSilverYGeel, 50, (55 * self.Player2.Silver.length)), 0)
                 self.exdee7 += 1
                 self.x_x6 += 1
-                if self.Player2.Silver.pos_column + 1 == self.Player1.Silver.pos_column and self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row + 3 or self.Player2.Silver.pos_column + 1 == self.Player1.Silver.pos_column and self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row + 3:
-                    self.Player1.Silver.hp -= 1
+                if self.Player2.Silver.pos_column + 1 == self.Player1.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Furgo.pos_row + 3 or self.Player2.Silver.pos_column + 1 == self.Player1.Furgo.pos_column and self.Player2.Silver.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Silver.pos_row + 2:
+                    self.Player2.Furgo.hp -= 1
+                    self.hehe7 = 3
+                    self.x_y7 = 0
+                elif self.Player2.Silver.pos_column + 1 == self.Player1.Intensity.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Intensity.pos_row + 3 or self.Player2.Silver.pos_column + 1 == self.Player1.Intensity.pos_column and self.Player2.Silver.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Silver.pos_row + 2:
+                    self.Player2.Intensity.hp -= 1
+                    self.hehe7 = 3
+                    self.x_y7 = 0
+                elif self.Player2.Silver.pos_column + 1 == self.Player1.Silver.pos_column and self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row + 3 or self.Player2.Silver.pos_column + 1 == self.Player1.Silver.pos_column and self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row + 2:
+                    self.Player2.Silver.hp -= 1
+                    self.hehe7 = 3
+                    self.x_y7 = 0
+                elif self.Player2.Silver.pos_column + 1 == self.Player1.Merapi.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Merapi.pos_row + 3 or self.Player2.Silver.pos_column + 1 == self.Player1.Merapi.pos_column and self.Player2.Silver.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Silver.pos_row + 2:
+                    self.Player2.Merapi.hp -= 1
                     self.hehe7 = 3
                     self.x_y7 = 0
                 if self.exdee7 == (self.Player2.Silver.atk_range * 55):
                     self.hehe7 = 3
 
-            ###8/8
+                    ###8/8
             if self.hehe8 == 2:
                 self.FireMerapiYGeel = self.Player2.Merapi.pos_row * (self.HEIGHT + self.MARGIN) + 5
                 self.FireMerapiX = self.Player2.Merapi.pos_column * (self.WIDTH + self.MARGIN) + 200
@@ -1779,7 +1947,19 @@ class Game:
 
                 self.exdee8 += 1
                 self.x_x7 -= 1
-                if self.Player2.Merapi.pos_column - 1 == self.Player1.Merapi.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Merapi.pos_row <= self.Player1.Merapi.pos_row + 4 or self.Player2.Merapi.pos_column - 1 == self.Player1.Merapi.pos_column and self.Player2.Merapi.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Merapi.pos_row + 4:
+                if self.Player2.Merapi.pos_column - 1 == self.Player1.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Merapi.pos_row <= self.Player1.Furgo.pos_row + 4 or self.Player2.Merapi.pos_column - 1 == self.Player1.Furgo.pos_column and self.Player2.Merapi.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Merapi.pos_row + 4:
+                    self.Player1.Furgo.hp -= 1
+                    self.hehe8 = 3
+                    self.x_y8 = 0
+                elif self.Player2.Merapi.pos_column - 1 == self.Player1.Intensity.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Merapi.pos_row <= self.Player1.Intensity.pos_row + 4 or self.Player2.Merapi.pos_column - 1 == self.Player1.Intensity.pos_column and self.Player2.Merapi.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Merapi.pos_row + 4:
+                    self.Player1.Intensity.hp -= 1
+                    self.hehe8 = 3
+                    self.x_y8 = 0
+                elif self.Player2.Merapi.pos_column - 1 == self.Player1.Silver.pos_column and self.Player1.Silver.pos_row <= self.Player2.Merapi.pos_row <= self.Player1.Silver.pos_row + 4 or self.Player2.Merapi.pos_column - 1 == self.Player1.Silver.pos_column and self.Player2.Merapi.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Merapi.pos_row + 4:
+                    self.Player1.Silver.hp -= 1
+                    self.hehe8 = 3
+                    self.x_y8 = 0
+                elif self.Player2.Merapi.pos_column - 1 == self.Player1.Merapi.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Merapi.pos_row <= self.Player1.Merapi.pos_row + 4 or self.Player2.Merapi.pos_column - 1 == self.Player1.Merapi.pos_column and self.Player2.Merapi.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Merapi.pos_row + 4:
                     self.Player1.Merapi.hp -= 1
                     self.hehe8 = 3
                     self.x_y8 = 0
@@ -1791,7 +1971,19 @@ class Game:
                                  (self.x_x7, self.FireMerapiYGeel, 50, (55 * self.Player2.Merapi.length)), 0)
                 self.exdee8 += 1
                 self.x_x7 += 1
-                if self.Player2.Merapi.pos_column + 1 == self.Player1.Merapi.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Merapi.pos_row <= self.Player1.Merapi.pos_row + 4 or self.Player2.Merapi.pos_column + 1 == self.Player1.Merapi.pos_column and self.Player2.Merapi.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Merapi.pos_row + 4:
+                if self.Player2.Merapi.pos_column + 1 == self.Player1.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Merapi.pos_row <= self.Player1.Furgo.pos_row + 4 or self.Player2.Merapi.pos_column + 1 == self.Player1.Furgo.pos_column and self.Player2.Merapi.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Merapi.pos_row + 4:
+                    self.Player1.Furgo.hp -= 1
+                    self.hehe8 = 3
+                    self.x_y8 = 0
+                elif self.Player2.Merapi.pos_column + 1 == self.Player1.Intensity.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Merapi.pos_row <= self.Player1.Intensity.pos_row + 4 or self.Player2.Merapi.pos_column + 1 == self.Player1.Intensity.pos_column and self.Player2.Merapi.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Merapi.pos_row + 4:
+                    self.Player1.Intensity.hp -= 1
+                    self.hehe8 = 3
+                    self.x_y8 = 0
+                elif self.Player2.Merapi.pos_column + 1 == self.Player1.Silver.pos_column and self.Player1.Silver.pos_row <= self.Player2.Merapi.pos_row <= self.Player1.Silver.pos_row + 4 or self.Player2.Merapi.pos_column + 1 == self.Player1.Silver.pos_column and self.Player2.Merapi.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Merapi.pos_row + 4:
+                    self.Player1.Silver.hp -= 1
+                    self.hehe8 = 3
+                    self.x_y8 = 0
+                elif self.Player2.Merapi.pos_column + 1 == self.Player1.Merapi.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Merapi.pos_row <= self.Player1.Merapi.pos_row + 4 or self.Player2.Merapi.pos_column + 1 == self.Player1.Merapi.pos_column and self.Player2.Merapi.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Merapi.pos_row + 4:
                     self.Player1.Merapi.hp -= 1
                     self.hehe8 = 3
                     self.x_y8 = 0
@@ -2110,76 +2302,33 @@ class Game:
             self.screen.blit(self.start_text, (100, 300))
 
             self.start_text = self.font.render(
-                "-Ook kun je de positie van je schepen veranderen, wanneer je dit doet telt dat als 1 stap",
+                "(-Ook kun je de positie van je schepen veranderen, wanneer je dit doet telt dat als 1 stap)(Kan wel, werkt niet),
                 1, (255, 255, 255))
             self.screen.blit(self.start_text, (100, 350))
 
             self.start_text = self.font.render(
-                "-Wanneer een schip in zijn aanvalspositie staat (verticaal) heeft het schip zijn standaard aanval bereik.",
+                "-De bereik van een aanval staat gelijk aan de lengte van de boot..",
                 1, (255, 255, 255))
             self.screen.blit(self.start_text, (150, 400))
 
             self.start_text = self.font.render(
-                "-Wanneer een schip in zijn verdedigingspositite staat (horizontaal) mag deze niet verplaatst worden. ",
-                1, (255, 255, 255))
-            self.screen.blit(self.start_text, (150, 430))
-
-            self.start_text = self.font.render(
-                "-Spelers mogen 2 keer per beurt aanvallen. aanvallen kan alleen wanneer een schip van de tegenstander in het bereik staat van een ",
+                "aanvallen kan alleen wanneer een schip van de tegenstander in het bereik staat van een een van jouw schepen. ",
                 1, (255, 255, 255))
             self.screen.blit(self.start_text, (100, 480))
 
-            self.start_text = self.font.render("-een van jouw schepen. Maar per boot mag je maar 1 keer aanvallen.",
+            self.start_text = self.font.render("-Maar per boot mag je maar 1 keer aanvallen.",
                                                1, (255, 255, 255))
             self.screen.blit(self.start_text, (100, 510))
 
-            self.start_text = self.font.render("-Aan het begin van elke beurt trekt de speler aan beurt een kaart..",
+            self.start_text = self.font.render("-Aan het begin van elke beurt trekt de speler aan beurt een kaart.",
                                                1, (255, 255, 255))
             self.screen.blit(self.start_text, (100, 560))
 
-            self.start_text = self.font.render(
-                "-Wanneer er een valstrik-kaart wordt getrokken moet deze kaart geplaatst worden op het speelveld in de bijbehorende trapveld.",
-                1, (255, 255, 255))
-            self.screen.blit(self.start_text, (150, 610))
 
             self.start_text = self.font.render(
-                "-Valstrik-kaarten mogen altijd geactiveerd worden, ook wanneer de tegenstander aan de beurt is.",
+                "Een speler wint nadat hij/zij alle schepen van de tegenstander heeft vernietigd.",
                 1, (255, 255, 255))
-            self.screen.blit(self.start_text, (150, 640))
-
-            self.start_text = self.font.render(
-                "-Een speler mag maximaal 6 kaarten in z’n handen hebben, wanneer een speler z’n 7de kaart trekt moet hij deze in de “weggooistapel stoppen",
-                1, (255, 255, 255))
-            self.screen.blit(self.start_text, (100, 690))
-
-            self.start_text = self.font.render("-De spelers mogen per beurt maar 2 kaarten gebruiken ",
-                                               1, (255, 255, 255))
-            self.screen.blit(self.start_text, (100, 740))
-
-            self.start_text = self.font.render(
-                "-Wanneer alle kaarten in de normale stapel zijn gebruikt wordt de weggooistapel geschud en dient deze te worden gebruikt als de nieuwe “normale” stapel ",
-                1, (255, 255, 255))
-            self.screen.blit(self.start_text, (100, 790))
-
-            self.start_text = self.font.render(
-                "-Wanneer een speler de overkant haalt met een van z’n schepen mag hij een speciale kaart trekken",
-                1, (255, 255, 255))
-            self.screen.blit(self.start_text, (100, 840))
-
-            self.start_text = self.font.render(
-                "-Wanneer het een perk-kaart is wordt de kaart toegewezen aan het schip die de overkant heeft gehaald. De effect van de kaart blijft de rest van het spel actief.",
-                1, (255, 255, 255))
-            self.screen.blit(self.start_text, (100, 870))
-
-            self.start_text = self.font.render(
-                "-Wanneer een schip wordt vernietigd wordt dezelfde schip een obstakel. ander schepen kunnen niet door obstakels varen. ",
-                1, (255, 255, 255))
-            self.screen.blit(self.start_text, (100, 920))
-
-            self.start_text = self.font.render(
-                "-een speler wint nadat hij/zij alle schepen van de tegenstander heeft vernietigd.",
-                1, (255, 255, 255))
-            self.screen.blit(self.start_text, (100, 970))
+            self.screen.blit(self.start_text, (100, 610))
 
 
         if self.pause == True:
