@@ -18,6 +18,26 @@ w = True
 t = True
 s = True
 
+highscore_quit = True
+
+color8 = bright_green = (0, 255, 0)
+color9 = bright_yew = (255,255,0)
+#kaart lijst en teksten --------------------------------------------------------------
+cards = ['FMJ Upgrade', 'Reinforced Hull', 'Backup']
+p1 = ("player 1 cards: ")
+p2 = ("player 2 cards: ")
+
+white = (255,255,255)
+black = (0,0,0)
+green = (0,255,0)
+green2 = (0,200,0) #------------------kleur voor kaart
+YELLOW = (255, 255, 0)
+YELLOW2 = (255, 255, 0) #------ kleur voor kaart
+red = (255, 0, 0)
+bright_yew = (255,255,0)
+bright_red = (255, 0, 0)
+bright_green = (0, 255, 0)
+
 Pause = True
 
 victory_quit = True
@@ -40,6 +60,76 @@ color4 = YELLOW
 color5 = YELLOW
 color6 = YELLOW
 color7 = YELLOW
+
+
+def init_database(command):
+    # Connect and set up cursor
+    connection = psycopg2.connect("dbname=Project user=postgres password='1234'")
+    cursor = connection.cursor()
+    cursor.execute(command)
+    connection.commit()
+
+    # Save results
+    result = None
+    try:
+        result = cursor.fetchall()
+    except psycopg2.ProgrammingError:
+        pass
+
+    # Close connection
+    cursor.close()
+    connection.close()
+    return result
+
+
+# Updates a score in the database
+def update_db(score, naam):
+    init_database("UPDATE users SET score = " + str(score) + " WHERE name = '" + naam + "' ")
+
+
+def update_dbx(nummer):
+    init_database("UPDATE nummers SET id = " + str(nummer) + "")
+
+
+# Insert data in db
+def insert_db(score, naam):
+    init_database("INSERT INTO users VALUES (" + str(score) + " ,'" + naam + "')")
+
+
+# Delete data from db
+
+def delete_db(player1, player2):
+    init_database("DELETE FROM users WHERE name = '" + player1 + "' or name = '" + player2 + "'")
+
+
+# Read data from database
+
+def read_db():
+    return init_database("SELECT * FROM users ORDER BY score LIMIT 10")
+
+
+scoree = read_db()
+
+
+def read_dbid():
+    return init_database("SELECT * FROM nummers LIMIT 10")
+
+
+nummeruit = read_dbid()
+
+
+def haalnummereruit():
+    for i in nummeruit:
+        a = "{}".format(i[0])
+    return a
+
+
+def show_scores():
+    lijst = []
+    for i in scoree:
+        x = "{} finished in {} turn(s)".format(i[1], i[0])
+        lijst.append(x)
+    return lijst
 
 
 class Menu:
@@ -362,7 +452,12 @@ class Game:
         self.GREEN = (0, 255, 0)
         self.RED = (255, 0, 0)
         self.YELLOW = (255, 255, 0)
+        self.bright_yew = (255, 255, 0)
+        self.bright_red = (255, 0, 0)
+        self.bright_green = (0, 255, 0)
         self.w = 0
+        self.scorep1 = 1
+        self.scorep2 = 1
 
         ###1/8
         self.hehe = 2
@@ -446,6 +541,29 @@ class Game:
 
         self.font1 = pygame.font.Font("Capture_it.ttf", 70)
         self.game_quit = False
+        self.lexD = 0
+
+        self.lexD1 = 0
+
+        # kaarten text set up--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        self.font2 = pygame.font.SysFont('Goudy Stout', 20, True, False)
+        self.font3 = pygame.font.SysFont('Arial', 17, True, False)
+        self.textcard1 = self.font2.render(" ---------- Cards in hand ----------", True, self.WHITE)
+        self.textcard3 = self.font2.render(" P1:", True, self.GREEN)
+        self.textcard4 = self.font2.render(" P2:", True, self.YELLOW)
+
+        self.cards = ['FMJ Upgrade', 'Reinforced Hull', 'Backup']
+        self.p1 = ("player 1 cards: ")
+        self.p2 = ("player 2 cards: ")
+        self.card3 = self.font2.render("<+>", 1, self.WHITE)  # om kaarten te onderscheiden
+
+        self.p1rand1 = random.choice(cards)
+        self.p1rand2 = random.choice(cards)
+        self.p1rand3 = random.choice(cards)
+
+        self.p1k1 = self.font3.render(self.p1rand1, 1, self.WHITE)
+        self.p1k2 = self.font3.render(self.p1rand2, 1, self.WHITE)
+        self.p1k3 = self.font3.render(self.p1rand3, 1, self.WHITE)
 
         self.screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
 
@@ -454,6 +572,11 @@ class Game:
             self.grid.append([])
             for self.column in range(20):
                 self.grid[self.row].append(0)
+
+        def text_objects(self, text, font):
+            self.textSurface = self.font.render(text, True, WHITE)
+
+            return self.textSurface, self.textSurface.get_rect()
 
 
     def turn(self):
@@ -505,6 +628,12 @@ class Game:
 
     def update(self):
         global x, y, z, u, v, w, t, s, lmao, xD, Pause
+        global cards, p1, p2  # voor de kaarten lijst en p1 / p2
+
+        # random kaarten van lijst
+        self.p1rand1 = random.choice(cards)
+        self.p1rand2 = random.choice(cards)
+        self.p1rand3 = random.choice(cards)
         if Pause == True or self.pause == False:
             self.screen.fill((0,0,0))
             button(1720, 16, 150, 30, program_rules)
@@ -1656,6 +1785,20 @@ class Game:
                 if self.exdee8 == (self.Player2.Merapi.atk_range * 55):
                     self.hehe8 = 3
 
+            gameplaybg = pygame.image.load(
+                "gamecard.png")  # game card loaden en printen -------------------------------------------------------------------------------------------------------------------------
+            self.screen.blit(gameplaybg, [1270, 400])
+
+            pos = pygame.mouse.get_pos()
+            press = pygame.mouse.get_pressed()
+            if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 620 and pos[1] <= 675:
+                print("start Card #1", p1, random.choice(cards))
+                print("start Card #2", p1, random.choice(cards))
+                self.lexD = 2
+            if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 710 and pos[1] <= 775:
+                print("Normal Card #1", p1, random.choice(cards))
+                self.lexD1 = 1
+
         else:
             button(1720, 100, 50, 50, back_game)
 
@@ -1671,7 +1814,16 @@ class Game:
 
 
     def draw(self):
-        global color, color1, color2, color3, color4, color5, color6, color7, pause
+        global color, color1, color2, color3, color4, color5, color6, color7, pause, bright_green, color9, green2, YELLOW2
+        self.BLACK = (0, 0, 0)
+        self.WHITE = (255, 255, 255)
+        self.GREEN = (0, 255, 0)
+        self.RED = (255, 0, 0)
+        self.YELLOW = (255, 255, 0)
+        self.bright_yew = (255, 255, 0)
+        self.bright_red = (255, 0, 0)
+        self.bright_green = (0, 255, 0)
+
         if Pause == True:
             self.start_text = self.font.render("Instructions",
                                                1, (255, 255, 255))
@@ -1745,6 +1897,20 @@ class Game:
                 else:
                     self.screen.blit(self.square, (1310, 190))
 
+            # kaart button text
+            self.textcard5 = self.font3.render("P1 CARDS",
+                                               1, (255, 255, 255))
+            self.textcard6 = self.font3.render(" P1 start cards", 1, (255, 255, 255))
+            self.textcard7 = self.font3.render("NORMAL", 1, (255, 255, 255))
+            self.textcard8 = self.font3.render(" P1 -- (1 CARD)", 1, (255, 255, 255))
+
+            # kaart text menu tekenen ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+            self.screen.blit(self.textcard1, [1310, 780])
+            self.screen.blit(self.textcard3, [1300, 850])
+            self.screen.blit(self.textcard4, [1300, 950])
+            # self.screen.blit(self.textcard5, [1320,725])
+
 
             press = pygame.mouse.get_pressed()
             pos = pygame.mouse.get_pos()
@@ -1792,6 +1958,40 @@ class Game:
             if press[0] == 1 and pos[0] >= 50 and pos[0] <= 90 and pos[1] >= 650 and pos[
                 1] <= 850 and self.turn_player == "player2":
                 self.ship9 = self.blank
+
+            if 1320 + 100 > pos[0] > 1300 and 725 + 50 > pos[1] > 725:
+
+                pygame.draw.rect(self.screen, bright_green, (1320, 725, 100, 50))
+                self.screen.blit(self.textcard7, [1335, 740])
+                self.screen.blit(self.textcard6, [1318, 700])
+            else:
+                pygame.draw.rect(self.screen, green2, (1320, 725, 100, 50))
+                self.screen.blit(self.textcard5, [1335, 740])
+                self.screen.blit(self.textcard6, [1318, 700])
+
+                #   select cards button   normal cards    player 1 - 1 kaart kiezen
+
+            if 1320 + 100 > pos[0] > 1300 and 630 + 50 > pos[1] > 630:
+                pygame.draw.rect(self.screen, bright_green, (1320, 630, 100, 50))
+                self.screen.blit(self.textcard7, [1335, 640])
+                self.screen.blit(self.textcard8, [1318, 605])
+
+
+            else:
+                pygame.draw.rect(self.screen, green2, (1320, 630, 100, 50))
+                self.screen.blit(self.textcard5, [1335, 640])
+                self.screen.blit(self.textcard8, [1318, 605])
+
+
+            if self.lexD == 2:
+                self.screen.blit(self.p1k3, [1685, 803])
+            if self.lexD1 == 1:
+                self.screen.blit(self.p1k1, [1400, 803])
+                self.screen.blit(self.p1k2, [1560, 803])
+
+
+                # kaart klikken voor kaart ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
         elif Pause == False:
             bg = pygame.image.load("rules_background.jpg")
@@ -1890,6 +2090,8 @@ class Game:
                 "-een speler wint nadat hij/zij alle schepen van de tegenstander heeft vernietigd.",
                 1, (255, 255, 255))
             self.screen.blit(self.start_text, (100, 970))
+
+
         if self.pause == True:
 
             # background
@@ -1912,6 +2114,7 @@ class Game:
             self.start_textt = self.fontTitle.render("'CLICK HERE'",
                                                      1, (255, 255, 255))
             self.screen.blit(self.start_textt, (500, 800))
+
         pygame.display.flip()
 
 
@@ -1930,6 +2133,8 @@ class Game:
                 self.player2_turn()
             if self.Player1.Furgo.hp == 0 and self.Player1.Intensity.hp == 0 and self.Player1.Silver.hp == 0 and self.Player1.Merapi.hp == 0 or self.Player2.Furgo.hp == 0 and self.Player2.Intensity.hp == 0 and self.Player2.Silver.hp == 0 and self.Player2.Merapi.hp == 0:
                 program_victory()
+                insert_db(self.turn, "Game " + str(int(haalnummereruit()) + 1) + " ")
+                update_dbx(str(int(haalnummereruit()) + 1))
 
             if self.game_quit == True:
                 break
@@ -1947,6 +2152,55 @@ class Game:
             if quit_check == True:
                 break
 
+class HighscoreScreen:
+    def __init__(self):
+        width = 1300
+        height = 1000
+        size = ( width , height )
+        self.screen = pygame.display.set_mode(size)
+        self.bg = pygame.image.load("rules_background.jpg")
+        self.bg = self.bg.convert()
+        self.font = pygame.font.Font("Capture_It.ttf",50)
+        self.highscore_quit = True
+
+    def draw(self):
+        self.screen.fill((0,0,0))
+        self.screen.blit(self.bg,(0,0))
+        self.defaultfont = pygame.font.get_default_font()
+        self.fontrenderer = pygame.font.Font(self.defaultfont,30)
+        self.highscorerender = pygame.font.Font(self.defaultfont,80)
+        self.z=200
+        self.b = 1
+        self.a = show_scores()
+        for x in self.a:
+            g = self.fontrenderer.render(x,1,white)
+            nummer = self.fontrenderer.render(str(self.b)+".",1,white)
+            self.screen.blit(g,(500,self.z))
+            self.screen.blit(nummer,(457,self.z))
+            self.z+=50
+            self.b+=1
+        pygame.display.set_caption('HighScore')
+        label3 = self.highscorerender.render("HighScore",1,white)
+        self.screen.blit(label3,(483,50))
+
+        self.start_text = self.font.render(
+            "Main Menu",
+            1, (255, 255, 255))
+        self.screen.blit(self.start_text, (500, 750))
+
+
+        pygame.display.flip()
+
+    def update(self):
+        button(500, 750, 275, 50, program)
+
+    def highscore_loop(self):
+        global highscore_quit
+        while process_events() == False:
+            self.update()
+            self.draw()
+            if self.highscore_quit == False:
+                break
 
 class VictoryScreen:
     def __init__(self):
@@ -2022,7 +2276,7 @@ class VictoryScreen:
         pygame.display.flip()
 
     def update(self):
-        button(800 ,700, 300 ,50)
+        button(800 ,700, 300 ,50, program_highscore)
         button(150, 700, 300, 50, program)
         button(480, 800, 300, 50, game_reset)
 
@@ -2209,6 +2463,12 @@ def programAI():
     menu.AI_troll()
     menu.AI_loop()
 
+def program_highscore():
+    game = Game()
+    game.game_quit = True
+    highscore = HighscoreScreen()
+    highscore.highscore = True
+    highscore.highscore_loop()
 
 def back_game():
     global Pause

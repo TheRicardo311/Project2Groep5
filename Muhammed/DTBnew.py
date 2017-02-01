@@ -43,7 +43,7 @@ color7 = YELLOW
 
 def init_database(command):
 # Connect and set up cursor
-    connection = psycopg2.connect("dbname=Project user=postgres password='karaman70'")
+    connection = psycopg2.connect("dbname=Project user=postgres password='1234'")
     cursor = connection.cursor()
     cursor.execute(command)
     connection.commit()
@@ -76,7 +76,7 @@ def insert_db(score,naam):
 # Delete data from db
 
 def delete_db(player1,player2):
-    
+
     init_database("DELETE FROM users WHERE name = '"+player1+"' or name = '"+player2+"'")
 
 # Read data from database

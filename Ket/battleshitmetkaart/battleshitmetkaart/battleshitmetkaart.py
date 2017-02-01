@@ -414,6 +414,10 @@ class Game:
 
         self.titlefont = pygame.font.Font("Capture_it.ttf", 70)
 
+        self.lexD = 0
+
+        self.lexD1 = 0
+
         
         #kaarten text set up--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         self.font2 = pygame.font.SysFont('Goudy Stout', 20, True, False)
@@ -504,14 +508,12 @@ class Game:
         gameplaybg = pygame.image.load("gamecard.png") #game card loaden en printen -------------------------------------------------------------------------------------------------------------------------
         self.screen.fill((0,0,0))
         self.screen.blit(gameplaybg, [1200, 400])
-        self.event = pygame.event.get()
 
 
         #random kaarten van lijst
         self.p1rand1 = random.choice(cards)
         self.p1rand2 = random.choice(cards)
         self.p1rand3 = random.choice(cards)
-        self.lexD = False
         
         button(1720, 16, 150, 30, program_rules)
         button(1720, 50, 140, 30, pygame.QUIT)
@@ -1667,6 +1669,16 @@ class Game:
             if self.exdee8 == (self.Player2.Merapi.atk_range * 55):
                 self.hehe8 = 3
 
+        pos = pygame.mouse.get_pos()
+        press = pygame.mouse.get_pressed()
+        if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 620 and pos[1] <= 675:
+            print ("start Card #1", p1, random.choice(cards))
+            print ("start Card #2", p1, random.choice(cards))
+            self.lexD = 2
+        if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 710 and pos[1] <= 775:
+            print ("Normal Card #1", p1, random.choice(cards))
+            self.lexD1 = 1
+
 
 
 
@@ -1681,7 +1693,6 @@ class Game:
         self.bright_yew = (255,255,0)
         self.bright_red = (255, 0, 0)
         self.bright_green = (0, 255, 0)
-        self.lexD = False
 
         
 
@@ -1704,10 +1715,11 @@ class Game:
         self.start_text = self.font.render(str(self.turn_player) + " Turn: "   + str(self.turn),
                                                        1, (255, 255, 255))
         self.screen.blit(self.start_text, (1550, 150))
+        
 
         #kaart button text
         self.textcard5 = self.font3.render("P1 CARDS",
-                                           1, (255, 255, 255))
+                                            1, (255, 255, 255))
         self.textcard6 = self.font3.render(" P1 start cards",1, (255, 255, 255))
         self.textcard7 = self.font3.render("NORMAL",1, (255, 255, 255))
         self.textcard8 = self.font3.render(" P1 -- (1 CARD)", 1, (255,255,255))
@@ -1792,34 +1804,16 @@ class Game:
 
 
 #kaart klikken voor kaart ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        if press[0] == 1:
-            self.lexD == True
-            self.screen.blit(self.card3, [1685, 803])
-            self.screen.blit(self.p1k3, [1740, 803])
 
-
-        if press[0] == 1 and pygame.MOUSEBUTTONDOWN:
-            pos = pygame.mouse.get_pos()
-            press = pygame.mouse.get_pressed()
-            if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 620 and pos[1] <= 675:
-                print ("start Card #1", p1, random.choice(cards))
-                print ("start Card #2", p1, random.choice(cards))
-                self.screen.blit(self.p1k1, [1380, 803])
-                self.screen.blit(self.card3, [1515, 803])
-                self.screen.blit(self.p1k2, [1560, 803])
-            else:
-                if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 510 and pos[1] <= 575:
-                    print ("Normal Card #1", p1, random.choice(cards))
-                    self.lexD = True
-                    self.screen.blit(self.card3, [1685, 803])
-                    self.screen.blit(self.p1k3, [1740, 803])
             
-        if self.lexD == True:
+        if self.lexD == 2:
             self.screen.blit(self.card3, [1685, 803])
-            self.screen.blit(self.p1k3, [1740, 803])
+            self.screen.blit(self.p1k3, [1685, 803])
+        if self.lexD1 == 1:
+            self.screen.blit(self.p1k1, [1380, 803])
+            self.screen.blit(self.card3, [1515, 803])
+            self.screen.blit(self.p1k2, [1560, 803])
             
-
-
             
 
 
