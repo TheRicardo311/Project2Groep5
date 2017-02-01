@@ -1,0 +1,264 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1043{\fonttbl{\f0\fnil Consolas;}{\f1\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red0\green0\blue255;\red0\green0\blue0;\red111\green0\blue138;\red0\green128\blue0;\red163\green21\blue21;\red128\green128\blue128;\red43\green145\blue175;}
+{\*\generator Riched20 10.0.14393}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\cf1\f0\fs19\lang19 import\cf2  \cf3 pygame\cf2\par
+\cf1 import\cf2  \cf3 sys\cf2\par
+\cf1 import\cf2  \cf3 time\cf2\par
+\cf1 import\cf2  \cf3 random\cf2\par
+\par
+\cf4 #kleuren\cf2\par
+BLACK = (0, 0, 0)\par
+WHITE = (255, 255, 255)\par
+GREEN = (0, 200, 0)\par
+RED = (200, 0, 0)\par
+YELLOW = (255,215,0)\par
+bright_yew = (255,255,0)\par
+bright_red = (255, 0, 0)\par
+bright_green = (0, 255, 0)\par
+\par
+\cf4 #scherm lengte / breedte\cf2\par
+SCREENWIDTH = 1920\par
+SCREENHEIGHT = 1050\par
+SIZE = [SCREENWIDTH, SCREENHEIGHT]\par
+screen = \cf3 pygame\cf2 .display.set_mode(SIZE)\par
+\par
+\cf4 #plaatje laden "Game cards"\cf2\par
+offensive = \cf3 pygame\cf2 .image.load(\cf5 "gamecard.png"\cf2 )\par
+\par
+\par
+\par
+\par
+\cf4 #initialize pygame\cf2\par
+\cf3 pygame\cf2 .init()\par
+\par
+\cf4 #KAART LIST\cf2\par
+cards = [\cf5 'FMJ Upgrade'\cf2 , \cf5 'Reinforced Hull'\cf2 , \cf5 'Backup'\cf2 ]\par
+p1 = (\cf5 "player 1 cards: "\cf2 )\par
+p2 = (\cf5 "player 2 cards: "\cf2 )\par
+\cf4 #random keuzes kaarten p1 (3 kaarten)\cf2\par
+p1rand1 = \cf3 random\cf2 .choice(cards)\par
+p1rand2 = \cf3 random\cf2 .choice(cards)\par
+p1rand3 = \cf3 random\cf2 .choice(cards)\par
+\cf4 #random keuzes kaarten p2 (3 kaarten)\cf2\par
+p2rand1 = \cf3 random\cf2 .choice(cards)\par
+p2rand2 = \cf3 random\cf2 .choice(cards)\par
+p2rand3 = \cf3 random\cf2 .choice(cards)\par
+font2 = \cf3 pygame\cf2 .font.SysFont(\cf5 'Arial'\cf2 , 17, \cf1 True\cf2 , \cf1 False\cf2 )\par
+\cf4 #random kaarten printen p1\cf2\par
+p1k1 = font2.render(p1rand1,\cf1 True\cf2 ,WHITE)\par
+p1k2 = font2.render(p1rand2,\cf1 True\cf2 ,WHITE)\par
+p1k3 = font2.render(p1rand3,\cf1 True\cf2 ,WHITE)\par
+\cf4 #random kaarten printen p2\cf2\par
+p2k1 = font2.render(p2rand1,\cf1 True\cf2 ,WHITE)\par
+p2k2 = font2.render(p2rand2,\cf1 True\cf2 ,WHITE)\par
+p2k3 = font2.render(p2rand3,\cf1 True\cf2 ,WHITE)\par
+\par
+card3 = font2.render(\cf5 "<+>"\cf2 ,\cf1 True\cf2 ,WHITE)    \cf4 #om kaarten te onderscheiden\cf2\par
+\par
+\par
+\par
+\cf4 #Cards menu in game \cf2\par
+\cf1 def\cf2  cardsdraw():\par
+    screen.blit(offensive, [1200, 300])\par
+    font = \cf3 pygame\cf2 .font.SysFont(\cf5 'Goudy Stout'\cf2 , 20, \cf1 True\cf2 , \cf1 False\cf2 )\par
+    font2 = \cf3 pygame\cf2 .font.SysFont(\cf5 'Arial'\cf2 , 17, \cf1 True\cf2 , \cf1 False\cf2 )\par
+    text2 = font.render(\cf5 " ---------- Cards in hand ----------"\cf2 ,\cf1 True\cf2 ,WHITE)\par
+    text3 = font.render(\cf5 " P1:"\cf2 ,\cf1 True\cf2 ,GREEN)\par
+    text4 = font.render(\cf5 " P2:"\cf2 ,\cf1 True\cf2 ,YELLOW)\par
+    text5 = font.render(\cf5 " __________________________________________________"\cf2 ,\cf1 True\cf2 ,WHITE)\par
+    text6 = font2.render(\cf5 " P1 start cards"\cf2 ,\cf1 True\cf2 ,WHITE)\par
+    text7 = font2.render(\cf5 " P1 -- (1 CARD)"\cf2 ,\cf1 True\cf2 ,WHITE)\par
+    text8 = font2.render(\cf5 " P2 start cards"\cf2 ,\cf1 True\cf2 ,WHITE)\par
+    text9 = font2.render(\cf5 " P2 -- (1 CARD)"\cf2 ,\cf1 True\cf2 ,WHITE)\par
+\par
+\par
+    screen.blit(text2, [1310,700])\par
+    screen.blit(text3, [1300,800])\par
+    screen.blit(text4, [1300,900])\par
+    screen.blit(text5, [1300,1000])\par
+    screen.blit(text6, [1317,600])\par
+    screen.blit(text7, [1317,500])\par
+    screen.blit(text8, [1788,600])\par
+    screen.blit(text9, [1788,500])\par
+\par
+\par
+\cf4 #?------\cf2\par
+\cf1 def\cf2  text_objects(\cf6 text\cf2 , \cf6 font\cf2 ):\par
+    textSurface = \cf6 font\cf2 .render(\cf6 text\cf2 , \cf1 True\cf2 , WHITE)\par
+\par
+    \cf1 return\cf2  textSurface, textSurface.get_rect()\par
+\par
+\par
+\cf1 def\cf2  text_objectss(\cf6 text\cf2 , \cf6 font\cf2 ):\par
+    textSurface2 = \cf6 font\cf2 .render(\cf6 text\cf2 , \cf1 True\cf2 , BLACK)\par
+    \cf1 return\cf2  textSurface2, textSurface2.get_rect()\par
+\par
+\par
+\par
+\par
+\cf4 #game loop\cf2\par
+\cf1 while\cf2  \cf1 True\cf2 :\par
+\par
+    \cf1 for\cf2  event \cf1 in\cf2  \cf3 pygame\cf2 .event.get():\par
+        \cf1 if\cf2  event.type == \cf3 pygame\cf2 .QUIT:\par
+            \cf3 pygame\cf2 .quit()\par
+            \cf3 sys\cf2 .exit()\par
+\par
+    \par
+\par
+\par
+        \cf4 #player 1 klikken voor start cards\cf2\par
+        \cf1 if\cf2  event.type == \cf3 pygame\cf2 .MOUSEBUTTONDOWN:\par
+            pos = \cf3 pygame\cf2 .mouse.get_pos()\par
+            press = \cf3 pygame\cf2 .mouse.get_pressed()\par
+            \cf1 if\cf2  press[0] == 1 \cf1 and\cf2  pos[0] >= 1320 \cf1 and\cf2  pos[0] <= 1417 \cf1 and\cf2  pos[1] >= 620 \cf1 and\cf2  pos[1] <= 675:\par
+                print (\cf5 "start Card #1"\cf2 , p1, \cf3 random\cf2 .choice(cards))\par
+                print (\cf5 "start Card #2"\cf2 , p1, \cf3 random\cf2 .choice(cards))\par
+                screen.blit(p1k1, [1380, 803])\par
+                screen.blit(card3, [1515, 803])\par
+                screen.blit(p1k2, [1560, 803])\par
+            \cf1 else\cf2 :\par
+                \cf1 if\cf2  press[0] == 1 \cf1 and\cf2  pos[0] >= 1320 \cf1 and\cf2  pos[0] <= 1417 \cf1 and\cf2  pos[1] >= 510 \cf1 and\cf2  pos[1] <= 575:\par
+                    print (\cf5 "Normal Card #1"\cf2 , p1, \cf3 random\cf2 .choice(cards))\par
+                    screen.blit(card3, [1685, 803])\par
+                    screen.blit(p1k3, [1740, 803])\par
+\par
+            \cf1 if\cf2  press[0] == 1 \cf1 and\cf2  pos[0] >= 1790 \cf1 and\cf2  pos[0] <= 1887 \cf1 and\cf2  pos[1] >= 620 \cf1 and\cf2  pos[1] <= 675:\par
+                print (\cf5 "start Card #1"\cf2 , p2, \cf3 random\cf2 .choice(cards))\par
+                print (\cf5 "start Card #2"\cf2 , p2, \cf3 random\cf2 .choice(cards))\par
+                screen.blit(p2k1, [1380, 903])\par
+                screen.blit(card3, [1515, 903])\par
+                screen.blit(p2k2, [1560, 903])\par
+                \par
+            \cf1 else\cf2 :\par
+                \cf1 if\cf2  press[0] == 1 \cf1 and\cf2  pos[0] >= 1790 \cf1 and\cf2  pos[0] <= 1887 \cf1 and\cf2  pos[1] >= 510 \cf1 and\cf2  pos[1] <= 575:\par
+                    print (\cf5 "Normal Card #1"\cf2 , p1, \cf3 random\cf2 .choice(cards))\par
+                    screen.blit(card3, [1685, 903])\par
+                    screen.blit(p2k3, [1740, 903])\par
+\par
+            \par
+\par
+        \par
+               \par
+            \par
+        \par
+\par
+    cardsdraw()\par
+    press = \cf3 pygame\cf2 .mouse.get_pressed()\par
+    pos = \cf3 pygame\cf2 .mouse.get_pos()\par
+\par
+\par
+    \cf4 #   select cards buttons\cf2\par
+    \cf4 #   normal cards\cf2\par
+    \cf4 #   player 1 - 2 start kaarten\cf2\par
+\par
+    \cf1 if\cf2  1320 + 100 > pos[0] > 1300 \cf1 and\cf2  625 + 50 > pos[1] > 625:\par
+        \cf3 pygame\cf2 .draw.rect(screen, bright_green, (1320, 625, 100, 50))\par
+        smallText = \cf3 pygame\cf2 .font.\cf7 Font\cf2 (\cf5 "freesansbold.ttf"\cf2 , 15)\par
+        textSurf, textRect = text_objects(\cf5 "NORMAL"\cf2 , smallText)              \cf4 #BUTTON TEXT\cf2\par
+        textRect.center = ( (1320 + (100 / 2)), (625 + (50 / 2)) )          \cf4 #TEXT BUTTON POSITIE\cf2\par
+        screen.blit(textSurf, textRect)\par
+   \par
+    \cf1 else\cf2 :\par
+        \cf3 pygame\cf2 .draw.rect(screen, GREEN, (1320, 625, 100, 50))\par
+        smallText = \cf3 pygame\cf2 .font.\cf7 Font\cf2 (\cf5 "freesansbold.ttf"\cf2 , 15)\par
+        textSurf, textRect = text_objects(\cf5 "P1 CARDS"\cf2 , smallText)            \cf4 #BUTTON TEXT\cf2\par
+        textRect.center = ( (1320 + (100 / 2)), (625 + (50 / 2)) )          \cf4 #TEXT BUTTON POSITIE\cf2\par
+        screen.blit(textSurf, textRect)\par
+\par
+        \par
+    \cf4 #   select cards button\cf2\par
+    \cf4 #   normal cards\cf2\par
+    \cf4 #   player 1 - 1 kaart kiezen\cf2\par
+\par
+    \cf1 if\cf2  1320 + 100 > pos[0] > 1300 \cf1 and\cf2  530 + 50 > pos[1] > 530:\par
+        \cf3 pygame\cf2 .draw.rect(screen, bright_green, (1320, 530, 100, 50))\par
+        smallText = \cf3 pygame\cf2 .font.\cf7 Font\cf2 (\cf5 "freesansbold.ttf"\cf2 , 15)\par
+        textSurf, textRect = text_objects(\cf5 "NORMAL"\cf2 , smallText)              \cf4 #BUTTON TEXT\cf2\par
+        textRect.center = ( (1320 + (100 / 2)), (530 + (50 / 2)) )          \cf4 #TEXT BUTTON POSITIE\cf2\par
+        screen.blit(textSurf, textRect)\par
+               \par
+    \cf1 else\cf2 :\par
+        \cf3 pygame\cf2 .draw.rect(screen, GREEN, (1320, 530, 100, 50))\par
+        smallText = \cf3 pygame\cf2 .font.\cf7 Font\cf2 (\cf5 "freesansbold.ttf"\cf2 , 15)\par
+        textSurf, textRect = text_objects(\cf5 "P1 CARDS"\cf2 , smallText)               \cf4 #BUTTON TEXT\cf2\par
+        textRect.center = ( (1320 + (100 / 2)), (530 + (50 / 2)) )          \cf4 #TEXT BUTTON POSITIE\cf2\par
+        screen.blit(textSurf, textRect)\par
+\par
+\par
+\par
+\par
+    \cf4 #   select cards buttons\cf2\par
+    \cf4 #   normal cards\cf2\par
+    \cf4 #   player 2 - 2 start kaarten\cf2\par
+\par
+\par
+    \cf1 if\cf2  1790 + 100 > pos[0] > 1780 \cf1 and\cf2  625 + 50 > pos[1] > 625:\par
+        \cf3 pygame\cf2 .draw.rect(screen, bright_yew, (1790, 625, 100, 50))\par
+        smallText = \cf3 pygame\cf2 .font.\cf7 Font\cf2 (\cf5 "freesansbold.ttf"\cf2 , 15)\par
+        textSurf2, textRect = text_objectss(\cf5 "NORMAL"\cf2 , smallText)\par
+        textRect.center = ( (1790 + (100 / 2)), (625 + (50 / 2)) )\par
+        screen.blit(textSurf2, textRect)\par
+       \par
+    \cf1 else\cf2 :\par
+        \cf3 pygame\cf2 .draw.rect(screen, YELLOW, (1790, 625, 100, 50))\par
+        smallText = \cf3 pygame\cf2 .font.\cf7 Font\cf2 (\cf5 "freesansbold.ttf"\cf2 , 15)\par
+        textSurf2, textRect = text_objectss(\cf5 "P2 CARDS"\cf2 , smallText)\par
+        textRect.center = ( (1790 + (100 / 2)), (625 + (50 / 2)) )\par
+        screen.blit(textSurf2, textRect)\par
+\par
+    \cf4 #   select cards button\cf2\par
+    \cf4 #   normal cards\cf2\par
+    \cf4 #   player 2 - 1 kaart kiezen\cf2\par
+\par
+    \cf1 if\cf2  1790 + 100 > pos[0] > 1780 \cf1 and\cf2  530 + 50 > pos[1] > 530:\par
+        \cf3 pygame\cf2 .draw.rect(screen, bright_yew, (1790, 530, 100, 50))\par
+        smallText = \cf3 pygame\cf2 .font.\cf7 Font\cf2 (\cf5 "freesansbold.ttf"\cf2 , 15)\par
+        textSurf2, textRect = text_objectss(\cf5 "NORMAL"\cf2 , smallText)\par
+        textRect.center = ( (1790 + (100 / 2)), (530 + (50 / 2)) )\par
+        screen.blit(textSurf2, textRect)\par
+       \par
+    \cf1 else\cf2 :\par
+        \cf3 pygame\cf2 .draw.rect(screen, YELLOW, (1790, 530, 100, 50))\par
+        smallText = \cf3 pygame\cf2 .font.\cf7 Font\cf2 (\cf5 "freesansbold.ttf"\cf2 , 15)\par
+        textSurf2, textRect = text_objectss(\cf5 "P2 CARDs"\cf2 , smallText)\par
+        textRect.center = ( (1790 + (100 / 2)), (530 + (50 / 2)) )\par
+        screen.blit(textSurf2, textRect)\par
+\par
+        \cf4 #special cards\cf2\par
+    \cf1 if\cf2  1560 + 100 > pos[0] > 1560 \cf1 and\cf2  530 + 50 > pos[1] > 530:\par
+        \cf3 pygame\cf2 .draw.rect(screen, bright_red, (1560, 530, 100, 50))\par
+        smallText = \cf3 pygame\cf2 .font.\cf7 Font\cf2 (\cf5 "freesansbold.ttf"\cf2 , 20)\par
+        textSurf, textRect = text_objects(\cf5 "CARDS"\cf2 , smallText)\par
+        textRect.center = ( (1560 + (100 / 2)), (530 + (50 / 2)) )\par
+        screen.blit(textSurf, textRect)\par
+       \par
+    \cf1 else\cf2 :\par
+        \cf3 pygame\cf2 .draw.rect(screen, RED, (1560, 530, 100, 50))\par
+        smallText = \cf3 pygame\cf2 .font.\cf7 Font\cf2 (\cf5 "freesansbold.ttf"\cf2 , 20)\par
+        textSurf, textRect = text_objects(\cf5 "Special"\cf2 , smallText)\par
+        textRect.center = ( (1560 + (100 / 2)), (530 + (50 / 2)) )\par
+        screen.blit(textSurf, textRect)\par
+    \par
+    \par
+\par
+\par
+        \par
+            \par
+\par
+                \par
+\par
+                \par
+ \par
+\par
+\par
+\par
+\par
+            \par
+                \par
+          \par
+    \par
+    \cf3 time\cf2 .sleep(0.03)\par
+    \cf3 pygame\cf2 .display.update()\cf0\f1\fs22\par
+}
+ 
