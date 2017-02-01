@@ -1298,7 +1298,7 @@ class Game:
         if self.hehe == 1:
 
             pygame.draw.rect(self.screen, self.RED,
-                             (self.x_x, self.FireFurgoY, 50, (55 * self.Player1.Furgo.length)), 0)
+                            (self.x_x, self.FireFurgoY, 50, (55 * self.Player1.Furgo.length)), 0)
 
             self.exdee += 1
             self.x_x -= 1
@@ -1320,12 +1320,13 @@ class Game:
                 self.x_y = 0
             if self.exdee == (self.Player1.Furgo.atk_range * 55):
                 self.hehe = 3
+        print(self.Player1.Furgo.pos_row)
 
         ###2/8
         if self.hehe2 == 2:
-            self.FireFurgoY = self.Player1.Furgo.pos_row * (self.HEIGHT + self.MARGIN) + 5
-            self.FireFurgoX = self.Player1.Furgo.pos_column * (self.WIDTH + self.MARGIN) + 200
-            self.x_x = self.FireFurgoX
+            self.FireIntensityY = self.Player1.Intensity.pos_row * (self.HEIGHT + self.MARGIN) + 5
+            self.FireIntensityX = self.Player1.Intensity.pos_column * (self.WIDTH + self.MARGIN) + 200
+            self.x_x = self.FireIntensityX
         if self.boat == "DrieGroen" and keys[pygame.K_a] and self.hehe2 == 2:
             self.hehe2 = 1
             self.column = (pos[0] - 200) // (self.WIDTH + self.MARGIN)
@@ -1337,34 +1338,34 @@ class Game:
         if self.hehe2 == 1:
 
             pygame.draw.rect(self.screen, self.RED,
-                             (self.x_x, self.FireFurgoY, 50, (55 * self.Player1.Furgo.length)), 0)
+                             (self.x_x, self.FireIntensityY, 50, (55 * self.Player1.Intensity.length)), 0)
 
             self.exdee2 += 1
             self.x_x -= 1
-            if self.Player1.Furgo.pos_column - 1 == self.Player2.Furgo.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row + 2 or self.Player1.Furgo.pos_column - 1 == self.Player2.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row + 2:
-                self.Player2.Furgo.hp -= 1
+            if self.Player1.Intensity.pos_column - 1 == self.Player2.Intensity.pos_column and self.Player2.Intensity.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Intensity.pos_row + 2 or self.Player1.Intensity.pos_column - 1 == self.Player2.Intensity.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Intensity.pos_row <= self.Player1.Intensity.pos_row + 2:
+                self.Player2.Intensity.hp -= 1
                 self.hehe2 = 3
                 self.x_y2 = 0
-            if self.exdee2 == (self.Player1.Furgo.atk_range * 55):
+            if self.exdee2 == (self.Player1.Intensity.atk_range * 55):
                 self.hehe2 = 3
         if self.hehe2 == 4:
 
             pygame.draw.rect(self.screen, self.RED,
-                             (self.x_x, self.FireFurgoY, 50, (55 * self.Player1.Furgo.length)), 0)
+                             (self.x_x, self.FireIntensityY, 50, (55 * self.Player1.Intensity.length)), 0)
             self.exdee2 += 1
             self.x_x += 1
-            if self.Player1.Furgo.pos_column + 1 == self.Player2.Furgo.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row + 2 or self.Player1.Furgo.pos_column + 1 == self.Player2.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row + 2:
-                self.Player2.Furgo.hp -= 1
+            if self.Player1.Intensity.pos_column + 1 == self.Player2.Intensity.pos_column and self.Player2.Intensity.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Intensity.pos_row + 2 or self.Player1.Intensity.pos_column + 1 == self.Player2.Intensity.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Intensity.pos_row <= self.Player1.Intensity.pos_row + 2:
+                self.Player2.Intensity.hp -= 1
                 self.hehe2 = 3
                 self.x_y2 = 0
-            if self.exdee2 == (self.Player1.Furgo.atk_range * 55):
+            if self.exdee2 == (self.Player1.Intensity.atk_range * 55):
                 self.hehe2 = 3
 
         ###3/8
         if self.hehe3 == 2:
-            self.FireFurgoY = self.Player1.Furgo.pos_row * (self.HEIGHT + self.MARGIN) + 5
-            self.FireFurgoX = self.Player1.Furgo.pos_column * (self.WIDTH + self.MARGIN) + 200
-            self.x_x = self.FireFurgoX
+            self.FireSilverY = self.Player1.Silver.pos_row * (self.HEIGHT + self.MARGIN) + 5
+            self.FireSilverX = self.Player1.Silver.pos_column * (self.WIDTH + self.MARGIN) + 200
+            self.x_x = self.FireSilverX
         if self.boat == "DrieGroen" and keys[pygame.K_a] and self.hehe3 == 2:
             self.hehe3 = 1
             self.column = (pos[0] - 200) // (self.WIDTH + self.MARGIN)
@@ -1376,34 +1377,34 @@ class Game:
         if self.hehe3 == 1:
 
             pygame.draw.rect(self.screen, self.RED,
-                             (self.x_x, self.FireFurgoY, 50, (55 * self.Player1.Furgo.length)), 0)
+                             (self.x_x, self.FireSilverY, 50, (55 * self.Player1.Silver.length)), 0)
 
             self.exdee3 += 1
             self.x_x -= 1
-            if self.Player1.Furgo.pos_column - 1 == self.Player2.Furgo.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row + 2 or self.Player1.Furgo.pos_column - 1 == self.Player2.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row + 2:
-                self.Player2.Furgo.hp -= 1
+            if self.Player1.Silver.pos_column - 1 == self.Player2.Silver.pos_column and self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row + 2 or self.Player1.Silver.pos_column - 1 == self.Player2.Silver.pos_column and self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row + 2:
+                self.Player2.Silver.hp -= 1
                 self.hehe3 = 3
                 self.x_y3 = 0
-            if self.exdee3 == (self.Player1.Furgo.atk_range * 55):
+            if self.exdee3 == (self.Player1.Silver.atk_range * 55):
                 self.hehe3 = 3
         if self.hehe3 == 4:
 
             pygame.draw.rect(self.screen, self.RED,
-                             (self.x_x, self.FireFurgoY, 50, (55 * self.Player1.Furgo.length)), 0)
+                             (self.x_x, self.FireSilverY, 50, (55 * self.Player1.Silver.length)), 0)
             self.exdee3 += 1
             self.x_x += 1
-            if self.Player1.Furgo.pos_column + 1 == self.Player2.Furgo.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row + 2 or self.Player1.Furgo.pos_column + 1 == self.Player2.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row + 2:
-                self.Player2.Furgo.hp -= 1
+            if self.Player1.Silver.pos_column + 1 == self.Player2.Silver.pos_column and self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row + 2 or self.Player1.Silver.pos_column + 1 == self.Player2.Silver.pos_column and self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row + 2:
+                self.Player2.Silver.hp -= 1
                 self.hehe3 = 3
                 self.x_y3 = 0
-            if self.exdee3 == (self.Player1.Furgo.atk_range * 55):
+            if self.exdee3 == (self.Player1.Silver.atk_range * 55):
                 self.hehe3 = 3
 
         ###4/8
         if self.hehe4 == 2:
-            self.FireFurgoY = self.Player1.Furgo.pos_row * (self.HEIGHT + self.MARGIN) + 5
-            self.FireFurgoX = self.Player1.Furgo.pos_column * (self.WIDTH + self.MARGIN) + 200
-            self.x_x = self.FireFurgoX
+            self.FireMerapiY = self.Player1.Merapi.pos_row * (self.HEIGHT + self.MARGIN) + 5
+            self.FireMerapiX = self.Player1.Merapi.pos_column * (self.WIDTH + self.MARGIN) + 200
+            self.x_x = self.FireMerapiX
         if self.boat == "DrieGroen" and keys[pygame.K_a] and self.hehe4 == 2:
             self.hehe4 = 1
             self.column = (pos[0] - 200) // (self.WIDTH + self.MARGIN)
@@ -1415,33 +1416,33 @@ class Game:
         if self.hehe4 == 1:
 
             pygame.draw.rect(self.screen, self.RED,
-                             (self.x_x, self.FireFurgoY, 50, (55 * self.Player1.Furgo.length)), 0)
+                             (self.x_x, self.FireMerapiY, 50, (55 * self.Player1.Merapi.length)), 0)
 
             self.exdee4 += 1
             self.x_x -= 1
-            if self.Player1.Furgo.pos_column - 1 == self.Player2.Furgo.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row + 2 or self.Player1.Furgo.pos_column - 1 == self.Player2.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row + 2:
-                self.Player2.Furgo.hp -= 1
+            if self.Player1.Merapi.pos_column - 1 == self.Player2.Merapi.pos_column and self.Player2.Merapi.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Merapi.pos_row + 2 or self.Player1.Merapi.pos_column - 1 == self.Player2.Merapi.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Merapi.pos_row <= self.Player1.Merapi.pos_row + 2:
+                self.Player2.Merapi.hp -= 1
                 self.hehe4 = 3
                 self.x_y4 = 0
-            if self.exdee4 == (self.Player1.Furgo.atk_range * 55):
+            if self.exdee4 == (self.Player1.Merapi.atk_range * 55):
                 self.hehe4 = 3
         if self.hehe4 == 4:
 
             pygame.draw.rect(self.screen, self.RED,
-                             (self.x_x, self.FireFurgoY, 50, (55 * self.Player1.Furgo.length)), 0)
+                             (self.x_x, self.FireMerapiY, 50, (55 * self.Player1.Merapi.length)), 0)
             self.exdee4 += 1
             self.x_x += 1
-            if self.Player1.Furgo.pos_column + 1 == self.Player2.Furgo.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row + 2 or self.Player1.Furgo.pos_column + 1 == self.Player2.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row + 2:
-                self.Player2.Furgo.hp -= 1
+            if self.Player1.Merapi.pos_column + 1 == self.Player2.Merapi.pos_column and self.Player2.Merapi.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Merapi.pos_row + 2 or self.Player1.Merapi.pos_column + 1 == self.Player2.Merapi.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Merapi.pos_row <= self.Player1.Merapi.pos_row + 2:
+                self.Player2.Merapi.hp -= 1
                 self.hehe4 = 3
                 self.x_y4 = 0
-            if self.exdee4 == (self.Player1.Furgo.atk_range * 55):
+            if self.exdee4 == (self.Player1.Merapi.atk_range * 55):
                 self.hehe4 = 3
 
         ###5/8
         if self.hehe5 == 2:
-            self.FireFurgoY = self.Player1.Furgo.pos_row * (self.HEIGHT + self.MARGIN) + 5
-            self.FireFurgoX = self.Player1.Furgo.pos_column * (self.WIDTH + self.MARGIN) + 200
+            self.FireFurgoY = self.Player2.Furgo.pos_row * (self.HEIGHT + self.MARGIN) + 5
+            self.FireFurgoX = self.Player2.Furgo.pos_column * (self.WIDTH + self.MARGIN) + 200
             self.x_x = self.FireFurgoX
         if self.boat == "DrieGroen" and keys[pygame.K_a] and self.hehe5 == 2:
             self.hehe5 = 1
@@ -1454,34 +1455,34 @@ class Game:
         if self.hehe5 == 1:
 
             pygame.draw.rect(self.screen, self.RED,
-                             (self.x_x, self.FireFurgoY, 50, (55 * self.Player1.Furgo.length)), 0)
+                             (self.x_x, self.FireFurgoY, 50, (55 * self.Player2.Furgo.length)), 0)
 
             self.exdee5 += 1
             self.x_x -= 1
-            if self.Player1.Furgo.pos_column - 1 == self.Player2.Furgo.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row + 2 or self.Player1.Furgo.pos_column - 1 == self.Player2.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row + 2:
-                self.Player2.Furgo.hp -= 1
+            if self.Player2.Furgo.pos_column - 1 == self.Player1.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row + 2 or self.Player2.Furgo.pos_column - 1 == self.Player1.Furgo.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row + 2:
+                self.Player1.Furgo.hp -= 1
                 self.hehe5 = 3
                 self.x_y5 = 0
-            if self.exdee5 == (self.Player1.Furgo.atk_range * 55):
+            if self.exdee5 == (self.Player2.Furgo.atk_range * 55):
                 self.hehe5 = 3
         if self.hehe5 == 4:
 
             pygame.draw.rect(self.screen, self.RED,
-                             (self.x_x, self.FireFurgoY, 50, (55 * self.Player1.Furgo.length)), 0)
+                             (self.x_x, self.FireFurgoY, 50, (55 * self.Player2.Furgo.length)), 0)
             self.exdee5 += 1
             self.x_x += 1
-            if self.Player1.Furgo.pos_column + 1 == self.Player2.Furgo.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row + 2 or self.Player1.Furgo.pos_column + 1 == self.Player2.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row + 2:
-                self.Player2.Furgo.hp -= 1
+            if self.Player2.Furgo.pos_column + 1 == self.Player1.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row + 2 or self.Player2.Furgo.pos_column + 1 == self.Player1.Furgo.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row + 2:
+                self.Player1.Furgo.hp -= 1
                 self.hehe5 = 3
                 self.x_y5 = 0
-            if self.exdee5 == (self.Player1.Furgo.atk_range * 55):
+            if self.exdee5 == (self.Player2.Furgo.atk_range * 55):
                 self.hehe5 = 3
 
         ###6/8
         if self.hehe6 == 2:
-            self.FireFurgoY = self.Player1.Furgo.pos_row * (self.HEIGHT + self.MARGIN) + 5
-            self.FireFurgoX = self.Player1.Furgo.pos_column * (self.WIDTH + self.MARGIN) + 200
-            self.x_x = self.FireFurgoX
+            self.FireIntensityY = self.Player2.Intensity.pos_row * (self.HEIGHT + self.MARGIN) + 5
+            self.FireIntensityX = self.Player2.Intensity.pos_column * (self.WIDTH + self.MARGIN) + 200
+            self.x_x = self.FireIntensityX
         if self.boat == "DrieGroen" and keys[pygame.K_a] and self.hehe6 == 2:
             self.hehe6 = 1
             self.column = (pos[0] - 200) // (self.WIDTH + self.MARGIN)
@@ -1493,34 +1494,34 @@ class Game:
         if self.hehe6 == 1:
 
             pygame.draw.rect(self.screen, self.RED,
-                             (self.x_x, self.FireFurgoY, 50, (55 * self.Player1.Furgo.length)), 0)
+                             (self.x_x, self.FireIntensityY, 50, (55 * self.Player2.Intensity.length)), 0)
 
             self.exdee6 += 1
             self.x_x -= 1
-            if self.Player1.Furgo.pos_column - 1 == self.Player2.Furgo.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row + 2 or self.Player1.Furgo.pos_column - 1 == self.Player2.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row + 2:
-                self.Player2.Furgo.hp -= 1
+            if self.Player2.Intensity.pos_column - 1 == self.Player1.Intensity.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Intensity.pos_row <= self.Player1.Intensity.pos_row + 2 or self.Player2.Intensity.pos_column - 1 == self.Player1.Intensity.pos_column and self.Player2.Intensity.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Intensity.pos_row + 2:
+                self.Player1.Intensity.hp -= 1
                 self.hehe6 = 3
                 self.x_y6 = 0
-            if self.exdee6 == (self.Player1.Furgo.atk_range * 55):
+            if self.exdee6 == (self.Player2.Intensity.atk_range * 55):
                 self.hehe6 = 3
         if self.hehe6 == 4:
 
             pygame.draw.rect(self.screen, self.RED,
-                             (self.x_x, self.FireFurgoY, 50, (55 * self.Player1.Furgo.length)), 0)
+                             (self.x_x, self.FireIntensityY, 50, (55 * self.Player1.Intensity.length)), 0)
             self.exdee6 += 1
             self.x_x += 1
-            if self.Player1.Furgo.pos_column + 1 == self.Player2.Furgo.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row + 2 or self.Player1.Furgo.pos_column + 1 == self.Player2.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row + 2:
-                self.Player2.Furgo.hp -= 1
+            if self.Player2.Intensity.pos_column + 1 == self.Player1.Intensity.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Intensity.pos_row <= self.Player1.Intensity.pos_row + 2 or self.Player2.Intensity.pos_column + 1 == self.Player1.Intensity.pos_column and self.Player2.Intensity.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Intensity.pos_row + 2:
+                self.Player1.Intensity.hp -= 1
                 self.hehe6 = 3
                 self.x_y6 = 0
-            if self.exdee6 == (self.Player1.Furgo.atk_range * 55):
+            if self.exdee6 == (self.Player1.Intensity.atk_range * 55):
                 self.hehe6 = 3
 
         ###7/8
         if self.hehe7 == 2:
-            self.FireFurgoY = self.Player1.Furgo.pos_row * (self.HEIGHT + self.MARGIN) + 5
-            self.FireFurgoX = self.Player1.Furgo.pos_column * (self.WIDTH + self.MARGIN) + 200
-            self.x_x = self.FireFurgoX
+            self.FireSilverY = self.Player2.Silver.pos_row * (self.HEIGHT + self.MARGIN) + 5
+            self.FireSilverX = self.Player2.Silver.pos_column * (self.WIDTH + self.MARGIN) + 200
+            self.x_x = self.FireSilverX
         if self.boat == "DrieGroen" and keys[pygame.K_a] and self.hehe7 == 2:
             self.hehe7 = 1
             self.column = (pos[0] - 200) // (self.WIDTH + self.MARGIN)
@@ -1532,34 +1533,34 @@ class Game:
         if self.hehe7 == 1:
 
             pygame.draw.rect(self.screen, self.RED,
-                             (self.x_x, self.FireFurgoY, 50, (55 * self.Player1.Furgo.length)), 0)
+                             (self.x_x, self.FireSilverY, 50, (55 * self.Player2.Silver.length)), 0)
 
             self.exdee7 += 1
             self.x_x -= 1
-            if self.Player1.Furgo.pos_column - 1 == self.Player2.Furgo.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row + 2 or self.Player1.Furgo.pos_column - 1 == self.Player2.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row + 2:
-                self.Player2.Furgo.hp -= 1
+            if self.Player2.Silver.pos_column - 1 == self.Player1.Silver.pos_column and self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row + 2 or self.Player2.Silver.pos_column - 1 == self.Player1.Silver.pos_column and self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row + 2:
+                self.Player2.Silver.hp -= 1
                 self.hehe7 = 3
                 self.x_y7 = 0
-            if self.exdee7 == (self.Player1.Furgo.atk_range * 55):
+            if self.exdee7 == (self.Player2.Silver.atk_range * 55):
                 self.hehe7 = 3
         if self.hehe7 == 4:
 
             pygame.draw.rect(self.screen, self.RED,
-                             (self.x_x, self.FireFurgoY, 50, (55 * self.Player1.Furgo.length)), 0)
+                             (self.x_x, self.FireSilverY, 50, (55 * self.Player2.Silver.length)), 0)
             self.exdee7 += 1
             self.x_x += 1
-            if self.Player1.Furgo.pos_column + 1 == self.Player2.Furgo.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row + 2 or self.Player1.Furgo.pos_column + 1 == self.Player2.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row + 2:
-                self.Player2.Furgo.hp -= 1
+            if self.Player2.Silver.pos_column + 1 == self.Player1.Silver.pos_column and self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row + 2 or self.Player2.Silver.pos_column + 1 == self.Player1.Silver.pos_column and self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row + 2:
+                self.Player1.Silver.hp -= 1
                 self.hehe7 = 3
                 self.x_y7 = 0
-            if self.exdee7 == (self.Player1.Furgo.atk_range * 55):
+            if self.exdee7 == (self.Player2.Silver.atk_range * 55):
                 self.hehe7 = 3
 
         ###8/8
         if self.hehe8 == 2:
-            self.FireFurgoY = self.Player1.Furgo.pos_row * (self.HEIGHT + self.MARGIN) + 5
-            self.FireFurgoX = self.Player1.Furgo.pos_column * (self.WIDTH + self.MARGIN) + 200
-            self.x_x = self.FireFurgoX
+            self.FireMerapiY = self.Player2.Merapi.pos_row * (self.HEIGHT + self.MARGIN) + 5
+            self.FireMerapiX = self.Player2.Merapi.pos_column * (self.WIDTH + self.MARGIN) + 200
+            self.x_x = self.FireMerapiX
         if self.boat == "DrieGroen" and keys[pygame.K_a] and self.hehe8 == 2:
             self.hehe8 = 1
             self.column = (pos[0] - 200) // (self.WIDTH + self.MARGIN)
@@ -1571,29 +1572,29 @@ class Game:
         if self.hehe8 == 1:
 
             pygame.draw.rect(self.screen, self.RED,
-                             (self.x_x, self.FireFurgoY, 50, (55 * self.Player1.Furgo.length)), 0)
+                             (self.x_x, self.FireMerapiY, 50, (55 * self.Player2.Merapi.length)), 0)
 
             self.exdee8 += 1
             self.x_x -= 1
-            if self.Player1.Furgo.pos_column - 1 == self.Player2.Furgo.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row + 2 or self.Player1.Furgo.pos_column - 1 == self.Player2.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row + 2:
-                self.Player2.Furgo.hp -= 1
+            if self.Player2.Merapi.pos_column - 1 == self.Player1.Merapi.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Merapi.pos_row <= self.Player1.Merapi.pos_row + 2 or self.Player2.Merapi.pos_column - 1 == self.Player1.Merapi.pos_column and self.Player2.Merapi.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Merapi.pos_row + 2:
+                self.Player1.Merapi.hp -= 1
                 self.hehe8 = 3
                 self.x_y8 = 0
-            if self.exdee8 == (self.Player1.Furgo.atk_range * 55):
+            if self.exdee8 == (self.Player2.Merapi.atk_range * 55):
                 self.hehe8 = 3
         if self.hehe8 == 4:
 
             pygame.draw.rect(self.screen, self.RED,
-                             (self.x_x, self.FireFurgoY, 50, (55 * self.Player1.Furgo.length)), 0)
+                             (self.x_x, self.FireMerapiY, 50, (55 * self.Player2.Merapi.length)), 0)
             self.exdee8 += 1
             self.x_x += 1
-            if self.Player1.Furgo.pos_column + 1 == self.Player2.Furgo.pos_column and self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row + 2 or self.Player1.Furgo.pos_column + 1 == self.Player2.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Furgo.pos_row <= self.Player1.Furgo.pos_row + 2:
-                self.Player2.Furgo.hp -= 1
+            if self.Player2.Merapi.pos_column + 1 == self.Player1.Merapi.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Merapi.pos_row <= self.Player1.Merapi.pos_row + 2 or self.Player2.Merapi.pos_column + 1 == self.Player1.Merapi.pos_column and self.Player2.Merapi.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Merapi.pos_row + 2:
+                self.Player1.Merapi.hp -= 1
                 self.hehe8 = 3
                 self.x_y8 = 0
-            if self.exdee8 == (self.Player1.Furgo.atk_range * 55):
+            if self.exdee8 == (self.Player2.Merapi.atk_range * 55):
                 self.hehe8 = 3
-        print(self.Player1.Furgo.pos_row)
+
 
 
 
