@@ -446,7 +446,7 @@ class Game:
         pygame.mixer.init()
         pygame.mixer.music.load('mortal_kombat_fatality.ogg')
         pygame.mixer.music.play()
-
+        self.controls = False
         self.BLACK = (0, 0, 0)
         self.WHITE = (255, 255, 255)
         self.GREEN = (0, 255, 0)
@@ -636,12 +636,17 @@ class Game:
     def update(self):
         global x, y, z, u, v, w, t, s, lmao, xD, Pause
         global cards, p1, p2  # voor de kaarten lijst en p1 / p2
+        keys2 = pygame.key.get_pressed()
+        if self.pause == True:
 
-        # random kaarten van lijst
+            if keys2[pygame.K_c]:
+                self.pause = False
+
+        #random kaarten van lijst
         self.p1rand1 = random.choice(cards)
         self.p1rand2 = random.choice(cards)
         self.p1rand3 = random.choice(cards)
-        if Pause == True or self.pause == False:
+        if Pause == True or self.pause == False and self.controls == False:
             self.screen.fill((0,0,0))
             button(1720, 16, 150, 30, program_rules)
             button(1720, 50, 140, 30, pygame.QUIT)
@@ -907,8 +912,9 @@ class Game:
                                 s = False
                                 time.sleep(1)
             keys = pygame.key.get_pressed()
-            if keys[pygame.K_c]:
-                self.pause = False
+            if self.pause == True:
+                if keys[pygame.K_c]:
+                    self.pause = False
             if keys[pygame.K_p]:
                 self.pause = True
             if keys[pygame.K_DOWN] and self.boat == "DrieGroen" and not self.Player1.Furgo.pos_row == 16 and self.Player1.Furgo.moves != 0 and self.Player1.Furgo.pos_off == True and self.Player1.Furgo.hp != 0 and self.turn_player == "player1":
@@ -1860,6 +1866,11 @@ class Game:
         self.bright_red = (255, 0, 0)
         self.bright_green = (0, 255, 0)
 
+        press = pygame.mouse.get_pressed()
+        pos = pygame.mouse.get_pos()
+        if self.controls == True and self.pause == False:
+            if press[0] == 1 and pos[0] >= 1700 and pos[0] <= 1800 and pos[1] >= 180 and pos[1] <= 205:
+                self.controls = False
         if Pause == True:
             self.start_text = self.font.render("Instructions",
                                                1, (255, 255, 255))
@@ -1875,6 +1886,9 @@ class Game:
             self.exit_text = self.font.render("Pause",
                                               1, (255, 255, 255))
             self.screen.blit(self.exit_text, (1700, 118))
+            self.exit_text = self.font.render("Controls",
+                                              1, (255, 255, 255))
+            self.screen.blit(self.exit_text, (1700, 152))
             self.start1_text = self.font.render("End turn",
                                                            1, (255, 255, 255))
             self.screen.blit(self.start1_text, (1350, 16))
@@ -1960,11 +1974,18 @@ class Game:
             press = pygame.mouse.get_pressed()
             pos = pygame.mouse.get_pos()
             boat3 = self.screen.blit(self.ship1, (130,250))
-            if press[0] == 1 and pos[0] >= 1700 and pos[0] <= 1800 and pos[1] >= 118 and pos[1] <= 155:
-                self.pause = True
+            if self.controls == False:
+                if press[0] == 1 and pos[0] >= 1700 and pos[0] <= 1800 and pos[1] >= 118 and pos[1] <= 155:
+                    self.pause = True
+            if self.pause == False:
+                if press[0] == 1 and pos[0] >= 1700 and pos[0] <= 1800 and pos[1] >= 152 and pos[1] <= 192:
+                    self.controls = True
             if self.pause == True:
                 if press[0] == 1 and pos[0] >= 400 and pos[0] <= 1400 and pos[1] >= 800 and pos[1] <= 950:
                     self.pause = False
+            if press[0] == 1 and pos[0] >= 1700 and pos[0] <= 1800 and pos[1] >= 118 and pos[1] <= 155:
+                self.pause = True
+
             if press[0] == 1 and pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 250 and pos[
                 1] <= 360 and self.turn_player == "player1":
                 self.ship1 = self.blank
@@ -2184,6 +2205,73 @@ class Game:
                                                      1, (255, 255, 255))
             self.screen.blit(self.start_textt, (500, 800))
 
+        if self.controls == True:
+
+            if bgrandom == 1:
+                bg = pygame.image.load("background3.jpg")
+            else:
+                bg = pygame.image.load("background.jpg")
+            self.screen.blit(bg, (0, 0))
+            # title
+            self.start_text = self.fontTitle.render("Controls",
+                                                    1, (255, 255, 255))
+            self.screen.blit(self.start_text, (450, 100))
+            self.exit_text = self.font.render("Resume",
+                                              1, (255, 255, 255))
+            self.screen.blit(self.exit_text, (1700, 180))
+            self.start_text = self.font.render(
+                "Placing Ships:",
+                1, (255, 255, 255))
+            self.screen.blit(self.start_text, (450, 300))
+
+            self.start_text = self.font.render(
+                "  Click on the left side of the screen a ship then click on the grid to place it.",
+                1, (255, 255, 255))
+            self.screen.blit(self.start_text, (450, 325))
+            self.start_text = self.font.render(
+                "Moving:",
+                1, (255, 255, 255))
+            self.screen.blit(self.start_text, (450, 375))
+            self.start_text = self.font.render(
+                "  -Click on the front of your ship and navigate with the arrow keys. ",
+                1, (255, 255, 255))
+            self.screen.blit(self.start_text, (450, 400))
+            self.start_text = self.font.render(
+                "       -ARROW UP: Moves ship forward",
+                1, (255, 255, 255))
+            self.screen.blit(self.start_text, (450, 425))
+            self.start_text = self.font.render(
+                "       -ARROW DOWN: Moves ship backward",
+                1, (255, 255, 255))
+            self.screen.blit(self.start_text, (450, 450))
+            self.start_text = self.font.render(
+                "       -ARROW LEFT: Moves ship to the left",
+                1, (255, 255, 255))
+            self.screen.blit(self.start_text, (450, 475))
+            self.start_text = self.font.render(
+                "       -ARROW RIGHT: moves ship to the right ",
+                1, (255, 255, 255))
+            self.screen.blit(self.start_text, (450, 500))
+            self.start_text = self.font.render(
+                "Attack:",
+                1, (255, 255, 255))
+            self.screen.blit(self.start_text, (450, 550))
+            self.start_text = self.font.render(
+                "  -Click on the front of your ship and press A or D To Fire.",
+                1, (255, 255, 255))
+            self.screen.blit(self.start_text, (450, 575))
+            self.start_text = self.font.render(
+                "      -A Attack left side.",
+                1, (255, 255, 255))
+            self.screen.blit(self.start_text, (450, 600))
+            self.start_text = self.font.render(
+                "      -D Attack Right side.",
+                1, (255, 255, 255))
+            self.screen.blit(self.start_text, (450, 625))
+            self.start_text = self.font.render(
+                "-Click on the back of your ship to change its position (Still in progress)",
+                1, (255, 255, 255))
+            self.screen.blit(self.start_text, (450, 675))
         pygame.display.flip()
 
 
