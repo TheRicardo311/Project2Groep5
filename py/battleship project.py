@@ -352,7 +352,7 @@ class Game:
         self.WIDTH = 50
         self.HEIGHT = 50
         self.MARGIN = 5
-
+        self.pause = False
         pygame.mixer.init()
         pygame.mixer.music.load('mortal_kombat_fatality.ogg')
         pygame.mixer.music.play()
@@ -414,6 +414,17 @@ class Game:
         height = 1050
         size = (width, height)
 
+        self.ship1 = pygame.image.load('boot 3.png')
+        self.blank = pygame.image.load('blank.png')
+        self.ship2 = pygame.image.load('Boot4Groen.png')
+        self.ship3 = pygame.image.load('Boot4Groen.png')
+        self.ship5 = pygame.image.load('Boot5Groen.png')
+        self.ship6 = pygame.image.load('Boot3Geel.png')
+        self.ship7 = pygame.image.load('Boot4Geel.png')
+        self.ship8 = pygame.image.load('Boot4Geel.png')
+        self.ship9 = pygame.image.load('Boot5Geel.png')
+
+
         self.Player1 = Player("Henk" , "Groen")
         self.Player2 = Player("Joost", "Geel")
 
@@ -421,7 +432,19 @@ class Game:
         self.font = pygame.font.Font("DroidSans.ttf", 25)
 
         self.titlefont = pygame.font.Font("Capture_it.ttf", 70)
+        self.fontTitle = pygame.font.Font("Capture_it_2.ttf", 150)
+        # start en exit font
+        self.font = pygame.font.Font("DroidSans.ttf", 25)
+        self.fontTitle2 = pygame.font.Font("Capture_it_2.ttf", 300)
+        self.fontinstructions = pygame.font.Font("DroidSans.ttf", 30)
 
+        self.fontsaus = pygame.font.Font("Capture_It.ttf", 30)
+
+        self.fonttitle = pygame.font.Font("Capture_It.ttf", 30)
+
+        self.titlefont = pygame.font.Font("Capture_it.ttf", 70)
+
+        self.font1 = pygame.font.Font("Capture_it.ttf", 70)
         self.game_quit = False
 
         self.screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
@@ -482,7 +505,7 @@ class Game:
 
     def update(self):
         global x, y, z, u, v, w, t, s, lmao, xD, Pause
-        if Pause == True:
+        if Pause == True or self.pause == False:
             self.screen.fill((0,0,0))
             button(1720, 16, 150, 30, program_rules)
             button(1720, 50, 140, 30, pygame.QUIT)
@@ -494,7 +517,7 @@ class Game:
 
             pos = pygame.mouse.get_pos()
             press = pygame.mouse.get_pressed()
-            if press[0] == 1:
+            if press[0] == 1 and self.pause == False:
                     self.column = (pos[0] - 200) // (self.WIDTH + self.MARGIN)
                     self.row = pos[1] // (self.HEIGHT + self.MARGIN)
                     if pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 250 and pos[1] <= 360 or self.column == self.Player1.Furgo.pos_column and self.row == self.Player1.Furgo.pos_row +2 and x == False and y == False and z == False and u == False:
@@ -748,6 +771,10 @@ class Game:
                                 s = False
                                 time.sleep(1)
             keys = pygame.key.get_pressed()
+            if keys[pygame.K_c]:
+                self.pause = False
+            if keys[pygame.K_p]:
+                self.pause = True
             if keys[pygame.K_DOWN] and self.boat == "DrieGroen" and not self.Player1.Furgo.pos_row == 16 and self.Player1.Furgo.moves != 0 and self.Player1.Furgo.pos_off == True and self.Player1.Furgo.hp != 0 and self.turn_player == "player1":
                 self.grid[self.Player1.Furgo.pos_row + 3][self.Player1.Furgo.pos_column] = 1
                 self.grid[self.Player1.Furgo.pos_row + 1][self.Player1.Furgo.pos_column] = 1
@@ -1657,7 +1684,9 @@ class Game:
             self.exit_text = self.font.render("Exit Game",
                                               1, (255, 255, 255))
             self.screen.blit(self.exit_text, (1700, 50))
-
+            self.exit_text = self.font.render("Pause",
+                                              1, (255, 255, 255))
+            self.screen.blit(self.exit_text, (1700, 118))
             self.start1_text = self.font.render("End turn",
                                                            1, (255, 255, 255))
             self.screen.blit(self.start1_text, (1350, 16))
@@ -1719,39 +1748,50 @@ class Game:
 
             press = pygame.mouse.get_pressed()
             pos = pygame.mouse.get_pos()
-            boat3 = pygame.draw.rect(self.screen, color, (130, 250, 40, 110))
-            if press[0] == 1 and pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 250 and pos[1] <= 360 and self.turn_player == "player1":
-                color = self.BLACK
-                block1 = pygame.draw.rect(self.screen, color, (130, 250, 40, 110))
-            boat4 = pygame.draw.rect(self.screen, color1, (130, 50, 40, 140))
-            if press[0] == 1 and pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 40 and pos[1] <= 180 and self.turn_player == "player1":
-                color1 = self.BLACK
-                block2 = pygame.draw.rect(self.screen, color1, (130, 50, 40, 140))
-            boat4x = pygame.draw.rect(self.screen, color2, (50, 50, 40, 140))
-            if press[0] == 1 and pos[0] >= 50 and pos[0] <= 90 and pos[1] >= 50 and pos[1] <= 190 and self.turn_player == "player1":
-                color2 = self.BLACK
-                block3 = pygame.draw.rect(self.screen, color2, (50, 50, 40, 140))
-            boat5 = pygame.draw.rect(self.screen, color3, (50, 250, 40, 200));
-            if press[0] == 1 and pos[0] >= 50 and pos[0] <= 90 and pos[1] >= 250 and pos[1] <= 450 and self.turn_player == "player1":
-                color3 = self.BLACK
-                block4 = pygame.draw.rect(self.screen, color3, (50, 250, 40, 200))
+            boat3 = self.screen.blit(self.ship1, (130,250))
+            if press[0] == 1 and pos[0] >= 1700 and pos[0] <= 1800 and pos[1] >= 118 and pos[1] <= 155:
+                self.pause = True
+            if self.pause == True:
+                if press[0] == 1 and pos[0] >= 400 and pos[0] <= 1400 and pos[1] >= 800 and pos[1] <= 950:
+                    self.pause = False
+            if press[0] == 1 and pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 250 and pos[
+                1] <= 360 and self.turn_player == "player1":
+                self.ship1 = self.blank
 
-            boat33 = pygame.draw.rect(self.screen, color4, (130, 650, 40, 110))
-            if press[0] == 1 and pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 650 and pos[1] <= 760 and self.turn_player == "player2":
-                color4 = self.BLACK
-                block11 = pygame.draw.rect(self.screen, color4, (130, 650, 40, 110))
-            boat44 = pygame.draw.rect(self.screen, color5, (130, 890, 40, 140));
-            if press[0] == 1 and pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 890 and pos[1] <= 1030 and self.turn_player == "player2":
-                color5 = self.BLACK
-                block22 = pygame.draw.rect(self.screen, color5, (130, 890, 40, 140))
-            boat44x = pygame.draw.rect(self.screen, color6, (50, 890, 40, 140))
-            if press[0] == 1 and pos[0] >= 50 and pos[0] <= 90 and pos[1] >= 890 and pos[1] <= 1030 and self.turn_player == "player2":
-                color6 = self.BLACK
-                block33 = pygame.draw.rect(self.screen, color6, (50, 890, 40, 140))
-            boat55 = pygame.draw.rect(self.screen, color7, (50, 650, 40, 200))
-            if press[0] == 1 and pos[0] >= 50 and pos[0] <= 90 and pos[1] >= 650 and pos[1] <= 850 and self.turn_player == "player2":
-                color7 = self.BLACK
-                block44 = pygame.draw.rect(self.screen, color7, (50, 650, 40, 200))
+            boat4 = self.screen.blit(self.ship2, (130, 50))
+            if press[0] == 1 and pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 40 and pos[
+                1] <= 180 and self.turn_player == "player1":
+                self.ship2 = self.blank
+
+            boat4x = self.screen.blit(self.ship3, (50, 50))
+            if press[0] == 1 and pos[0] >= 50 and pos[0] <= 90 and pos[1] >= 50 and pos[
+                1] <= 190 and self.turn_player == "player1":
+                self.ship3 = self.blank
+
+            boat5 = self.screen.blit(self.ship5, (50, 250))
+            if press[0] == 1 and pos[0] >= 50 and pos[0] <= 90 and pos[1] >= 250 and pos[
+                1] <= 450 and self.turn_player == "player1":
+                self.ship5 = self.blank
+
+            boat33 = self.screen.blit(self.ship6, (130, 650))
+            if press[0] == 1 and pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 650 and pos[
+                1] <= 760 and self.turn_player == "player2":
+                self.ship6 = self.blank
+
+            boat44 = self.screen.blit(self.ship7, (130, 890))
+            if press[0] == 1 and pos[0] >= 130 and pos[0] <= 170 and pos[1] >= 890 and pos[
+                1] <= 1030 and self.turn_player == "player2":
+                self.ship7 = self.blank
+
+            boat44x = self.screen.blit(self.ship8, (50, 890))
+            if press[0] == 1 and pos[0] >= 50 and pos[0] <= 90 and pos[1] >= 890 and pos[
+                1] <= 1030 and self.turn_player == "player2":
+                self.ship8 = self.blank
+
+            boat55 = self.screen.blit(self.ship9, (50, 650))
+            if press[0] == 1 and pos[0] >= 50 and pos[0] <= 90 and pos[1] >= 650 and pos[
+                1] <= 850 and self.turn_player == "player2":
+                self.ship9 = self.blank
 
         elif Pause == False:
             bg = pygame.image.load("rules_background.jpg")
@@ -1850,8 +1890,30 @@ class Game:
                 "-een speler wint nadat hij/zij alle schepen van de tegenstander heeft vernietigd.",
                 1, (255, 255, 255))
             self.screen.blit(self.start_text, (100, 970))
+        if self.pause == True:
 
+            # background
+            global bgrandom
+
+            if bgrandom == 1:
+                bg = pygame.image.load("background3.jpg")
+            else:
+                bg = pygame.image.load("background3.jpg")
+            self.screen.blit(bg, (0, 0))
+            # title
+            self.start_text = self.fontTitle2.render("PAUSED",
+                                                     1, (255, 255, 255))
+            self.screen.blit(self.start_text, (400, 100))
+            # start game tekst voor knop
+            self.start_text = self.font1.render("Press 'C' to Continue or",
+                                                1, (255, 255, 255))
+            self.screen.blit(self.start_text, (550, 700))
+            # exit game tekst voor knop
+            self.start_textt = self.fontTitle.render("'CLICK HERE'",
+                                                     1, (255, 255, 255))
+            self.screen.blit(self.start_textt, (500, 800))
         pygame.display.flip()
+
 
 
 
@@ -2147,9 +2209,6 @@ def programAI():
     menu.AI_troll()
     menu.AI_loop()
 
-def terugbrekenen(x):
-        new_x = x * (self.HEIGHT + self.MARGIN)
-        return new_x
 
 def back_game():
     global Pause
