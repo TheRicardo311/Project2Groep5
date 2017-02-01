@@ -1,0 +1,27 @@
+if press[0] == 1 and pos[0] >= 1790 and pos[0] <= 1887 and pos[1] >= 620 and pos[1] <= 675:
+                print ("start Card #1", p2, random.choice(cards))
+                print ("start Card #2", p2, random.choice(cards))
+                screen.blit(p2k1, [1380, 903])
+                screen.blit(card3, [1515, 903])
+                screen.blit(p2k2, [1560, 903])
+                
+            else:
+                if press[0] == 1 and pos[0] >= 1790 and pos[0] <= 1887 and pos[1] >= 510 and pos[1] <= 575:
+                    print ("Normal Card #1", p1, random.choice(cards))
+                    screen.blit(card3, [1685, 903])
+                    screen.blit(p2k3, [1740, 903])
+
+
+
+
+
+
+ #voor de card use
+
+            if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 730 and pos[1] <= 780:
+                    player_one_hp = + 1
+                    print (player_one_hp)
+            else:
+                if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 730 and pos[1] <= 780:
+                    player_one_hp = + 1
+                    print (player_one_hp)

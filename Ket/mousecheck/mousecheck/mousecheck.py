@@ -52,6 +52,11 @@ p2k3 = font2.render(p2rand3,True,WHITE)
 
 card3 = font2.render("<+>",True,WHITE)    #om kaarten te onderscheiden
 
+player_one_hp = 0
+player_two_hp = 0
+
+usecard = font2.render("USE CARD",True,WHITE)
+
 
 
 #Cards menu in game 
@@ -132,6 +137,24 @@ while True:
                     print ("Normal Card #1", p1, random.choice(cards))
                     screen.blit(card3, [1685, 903])
                     screen.blit(p2k3, [1740, 903])
+
+            #voor de card use
+
+            if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 730 and pos[1] <= 780:
+                    player_one_hp = + 1
+                    print (player_one_hp)
+            else:
+                if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 730 and pos[1] <= 780:
+                    player_one_hp = + 1
+                    print (player_one_hp)
+
+            if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 730 and pos[1] <= 780:
+                    player_two_hp = + 0
+                    print (player_two_hp)
+            else:
+                if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 730 and pos[1] <= 780:
+                    player_two_hp = + 0
+                    print (player_two_hp)
 
             
 
@@ -236,6 +259,16 @@ while True:
         textSurf, textRect = text_objects("Special", smallText)
         textRect.center = ( (1560 + (100 / 2)), (530 + (50 / 2)) )
         screen.blit(textSurf, textRect)
+
+
+    if 1320 + 100 > pos[0] > 1320 and 730 + 50 > pos[1] > 730:
+        pygame.draw.rect(screen, bright_red, (1320, 730, 100, 50))
+        screen.blit(usecard, [1330, 740])
+        
+
+    else:
+        pygame.draw.rect(screen, RED, (1320, 730, 100, 50))
+        screen.blit(usecard, [1330, 740])
     
     
 
