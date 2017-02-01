@@ -66,6 +66,8 @@ class Menu:
 
         self.font1 = pygame.font.Font("Capture_it.ttf", 70)
 
+        self.Music = True
+        self.abc = 1
 
         color = green
         color1 = green
@@ -95,6 +97,12 @@ class Menu:
         self.start_text = self.font1.render("Start Game",
                                            1, (255, 255, 255))
         self.screen.blit(self.start_text, (260, 440))
+        if self.Music == True:
+            musicOnOff = pygame.image.load("VolumeOff.png")
+        else:
+            musicOnOff = pygame.image.load("VolumeOn.png")
+
+        self.screen.blit(musicOnOff, (0, 0))
         # exit game tekst voor knop
         self.exit_text = self.font1.render("Exit Game",
                                           1, (255, 255, 255))
@@ -117,6 +125,22 @@ class Menu:
         button(260, 440, 500, 50, program2)
         button2(1720, 16, 165, 50)
         button(260, 800, 60, 50, programAI)
+
+        buttonposition = pygame.mouse.get_pos()
+        clicked = pygame.mouse.get_pressed()
+        if clicked[0] == 1:
+            if buttonposition[0] >= 0 and buttonposition[0] <= 75 and buttonposition[1] >= 0 and buttonposition[1] <= 75:
+                if self.Music == True:
+                    if self.abc == 1:
+                        self.abc -= 1
+                    else:
+                        self.Music = False
+                        pygame.mixer.music.pause()
+                        time.sleep(1)
+                else:
+                    self.Music = True
+                    pygame.mixer.music.unpause()
+                    time.sleep(1)
 
 
     def update_termination(self):
