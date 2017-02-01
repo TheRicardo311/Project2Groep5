@@ -66,10 +66,19 @@ def cardsdraw():
     screen.blit(text4, [1300,900])
     screen.blit(text5, [1300,1000])
 
+#normalcard
+normalCard = ['FMJ Upgrade', 'Riffling', 'Advanced Riffling', 'Naval Mine', 'EMP Upgrade', 'Reinforced Hull', 'Sonar', 'Smoke Screen', 'Sabotage', 'Backup', 'Extra Fuel', 'Rally', 'Adrenaline Rush']
+def normalcard():
+    global normalCard
+    p1 = random.choice(normalCard)
+    font = pygame.font.SysFont('Calibri', 20, True, False)
+    card1 = font.render(p1,True,WHITE)
+
+    screen.blit(card1, [1380, 805])
+
+    print (p1)
 
 
-
-                
 
 # Functions for text : Display Turn text
 def text_objects(text, font):
@@ -83,7 +92,7 @@ def message_display(text):
     screen.blit(TextSurf, TextRect)
 
 
-                      
+                    
 def loop():
     color = GREEN
     color1 = GREEN
@@ -96,6 +105,17 @@ def loop():
     boat = ""
     check = False
     pause = False
+    
+    #card test 1.0
+    font = pygame.font.SysFont('Goudy Stout', 20, True, False)
+    card1 = font.render("card test p1",True,WHITE)
+    card2 = font.render("card test p2",True,WHITE)
+
+    cards = ['FMJ Upgrade', 'Reinforced Hull', 'Backup']
+    p1 = ("player 1 cards: ")
+    p2 = ("player 2 cards: ")
+
+    
     while not check:
         for event in pygame.event.get():  
             if event.type == pygame.QUIT:
@@ -107,8 +127,11 @@ def loop():
 
 
 
+            
 
-           
+            
+                
+
 
 
                 if pos[0] < 199:
@@ -239,7 +262,10 @@ def loop():
         
         screen.fill(BLACK)
         drawgrid()
-        cardsdraw()
+        
+        
+        
+        
         
 
         press = pygame.mouse.get_pressed()
@@ -251,6 +277,8 @@ def loop():
         #normal cards
         if 1320 + 100 > pos[0] > 1300 and 625 + 50 > pos[1] > 625:
             pygame.draw.rect(screen, bright_green, (1320, 625, 100, 50))
+            
+            
        
         else:
             pygame.draw.rect(screen, GREEN, (1320, 625, 100, 50))
@@ -271,19 +299,17 @@ def loop():
         screen.blit(textSurf, textRect)
         #print (pos)
 
+        if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 620 and pos[1] <= 675:
+            if pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 620 and pos[1] <= 675:
+                print ("start Card #1", p1, random.choice(cards))
+                print ("start Card #2", p1, random.choice(cards))
+                screen.blit(card1, [150, 100])
+
         def choosenormal():
-
-            normalCard = ('FMJ Upgrade', 'Riffling', 'Advanced Riffling', 'Naval Mine', 'EMP Upgrade', 'Reinforced Hull', 'Sonar', 'Smoke Screen', 'Sabotage', 'Backup', 'Extra Fuel', 'Rally', 'Adrenaline Rush')
-            normal = False
             if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 620 and pos[1] <= 675:
-                font = pygame.font.SysFont('Arial', 10, True, False)
-                K1 = font.render("Normal Choice",True,WHITE)
-                normal = True
-                print (normal)        
-                
-                
+                mouseclick()
 
-                
+
 
         def chooseSpec():
             if press[0] == 1 and pos[0] >= 1790 and pos[0] <= 1880 and pos[1] >= 620 and pos[1] <= 675:
@@ -343,24 +369,15 @@ def loop():
 
         
 
-        
-
-
-
-
-        
-
-
-
-            
-
             
 
         
         message_display("VS")
         cardsdraw()
-        choosenormal()
-        chooseSpec()
+
+        
+        
+
         pygame.display.flip()
         
         
@@ -369,3 +386,8 @@ def loop():
 pygame.init()
 loop()
 pygame.quit()
+
+
+
+
+
