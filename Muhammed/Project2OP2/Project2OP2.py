@@ -50,20 +50,24 @@ def read_db():
 
 score = read_db()
 
+def read_dbid():
+    return init_database("SELECT * FROM nummer")
+    
 def show_scores():
     lijst=[]
     for i in score:
         x = "{} played {} turn(s)".format(i[1],i[0])
         lijst.append(x)
+        print(x)
     return lijst
    
-
-
-player1 = "Anton"
-player2 = "Rico"
-punten1 = 5
-punten2 = 0
 show_scores()
+
+#player1 = "Anton"
+#player2 = "Rico"
+#punten1 = 5
+#punten2 = 0
+#show_scores()
 #insert_db(punten1,player1)
 #insert_db(punten2,player2)
 #delete_db(player1,player2)
@@ -115,7 +119,7 @@ def texthighscore():
     fontrenderer = pygame.font.Font(defaultfont,30)
     a = show_scores()
     for x in a:
-        g = fontrenderer.render(x,1,BLACK)
+        g = fontrenderer.render(x,1,WHITE)
         screen.blit(g,(1355,z))
         z+=50
 
