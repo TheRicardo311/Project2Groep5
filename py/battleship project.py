@@ -459,6 +459,7 @@ class Game:
         self.scorep1 = 1
         self.scorep2 = 1
 
+
         ###1/8
         self.hehe = 2
         self.exdee = 0
@@ -545,6 +546,10 @@ class Game:
 
         self.lexD1 = 0
 
+        self.lexD2 = 0
+
+        self.lexD3 = 0
+
         # kaarten text set up--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         self.font2 = pygame.font.SysFont('Goudy Stout', 20, True, False)
         self.font3 = pygame.font.SysFont('Arial', 17, True, False)
@@ -564,6 +569,8 @@ class Game:
         self.p1k1 = self.font3.render(self.p1rand1, 1, self.WHITE)
         self.p1k2 = self.font3.render(self.p1rand2, 1, self.WHITE)
         self.p1k3 = self.font3.render(self.p1rand3, 1, self.WHITE)
+
+        self.usecard = self.font3.render("USE CARD", 1, (255, 255, 255))
 
         self.screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
 
@@ -1787,7 +1794,7 @@ class Game:
 
             gameplaybg = pygame.image.load(
                 "gamecard.png")  # game card loaden en printen -------------------------------------------------------------------------------------------------------------------------
-            self.screen.blit(gameplaybg, [1270, 400])
+            self.screen.blit(gameplaybg, [1210, 400])
 
             pos = pygame.mouse.get_pos()
             press = pygame.mouse.get_pressed()
@@ -1798,6 +1805,35 @@ class Game:
             if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 710 and pos[1] <= 775:
                 print("Normal Card #1", p1, random.choice(cards))
                 self.lexD1 = 1
+
+            if press[0] == 1 and pos[0] >= 1790 and pos[0] <= 1887 and pos[1] >= 620 and pos[1] <= 675:
+                print("start Card #1", p2, random.choice(cards))
+                print("start Card #2", p2, random.choice(cards))
+                self.lexD2 = 1
+
+            if press[0] == 1 and pos[0] >= 1790 and pos[0] <= 1887 and pos[1] >= 510 and pos[1] <= 575:
+                print("Normal Card #1", p1, random.choice(cards))
+                self.lexD3 = 1
+
+            if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1420 and pos[1] >= 780 and pos[1] <= 780 + 50:
+                self.Player1.Furgo.hp += 1
+                time.sleep(0.5)
+
+            else:
+                if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1420 and pos[1] >= 780 and pos[1] <= 780 + 50:
+                    self.Player1.Furgo.hp += 1
+                    time.sleep(0.5)
+
+            if 1320 + 100 > pos[0] > 1320 and 780 + 50 > pos[1] > 780:
+                pygame.draw.rect(self.screen, self.bright_red, (1320, 780, 100, 50))
+                self.screen.blit(self.usecard, [1330, 790])
+
+
+            else:
+                pygame.draw.rect(self.screen, (255,0,255), (1320, 780, 100, 50))
+                self.screen.blit(self.usecard, [1330, 790])
+
+            print(self.Player1.Furgo.hp)
 
         else:
             button(1720, 100, 50, 50, back_game)
@@ -1904,11 +1940,20 @@ class Game:
             self.textcard7 = self.font3.render("NORMAL", 1, (255, 255, 255))
             self.textcard8 = self.font3.render(" P1 -- (1 CARD)", 1, (255, 255, 255))
 
+            self.textcard9 = self.font3.render(" P2 START CARD", 1, (255, 255, 255))
+            self.textcard10 = self.font3.render(" P2 -- (1 CARD)", 1, (255, 255, 255))
+
+            self.textcard11 = self.font3.render("P2 CARDS",
+                                               1, (255, 255, 255))
+
             # kaart text menu tekenen ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
             self.screen.blit(self.textcard1, [1310, 780])
             self.screen.blit(self.textcard3, [1300, 850])
             self.screen.blit(self.textcard4, [1300, 950])
+
+            self.screen.blit(self.textcard9, [1790, 710])
+            self.screen.blit(self.textcard10, [1790, 600])
             # self.screen.blit(self.textcard5, [1320,725])
 
 
@@ -1983,11 +2028,35 @@ class Game:
                 self.screen.blit(self.textcard8, [1318, 605])
 
 
+            if 1790 + 100 > pos[0] > 1790 and 740 + 50 > pos[1] > 700:
+
+                pygame.draw.rect(self.screen, bright_green, (1790, 730, 100, 50))
+                self.screen.blit(self.textcard7, [1790, 740])
+            else:
+                pygame.draw.rect(self.screen, green2, (1790, 730, 100, 50))
+                self.screen.blit(self.textcard11, [1790, 740])
+
+                #   select cards button   normal cards    player 1 - 1 kaart kiezen
+
+            if 1790 + 100 > pos[0] > 1780 and 630 + 50 > pos[1] > 630:
+                pygame.draw.rect(self.screen, bright_green, (1790, 630, 100, 50))
+                self.screen.blit(self.textcard7, [1790, 640])
+
+
+            else:
+                pygame.draw.rect(self.screen, green2, (1790, 630, 100, 50))
+                self.screen.blit(self.textcard11, [1790, 640])
+
             if self.lexD == 2:
                 self.screen.blit(self.p1k3, [1685, 803])
             if self.lexD1 == 1:
                 self.screen.blit(self.p1k1, [1400, 803])
                 self.screen.blit(self.p1k2, [1560, 803])
+            if self.lexD2 == 1:
+                screen.blit(p2k1, [1380, 903])
+                screen.blit(p2k2, [1560, 903])
+            if self.lexD3 == 1:
+                screen.blit(p2k3, [1740, 903])
 
 
                 # kaart klikken voor kaart ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
