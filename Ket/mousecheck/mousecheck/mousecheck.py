@@ -70,8 +70,8 @@ def cardsdraw():
     text5 = font.render(" __________________________________________________",True,WHITE)
     text6 = font2.render(" P1 start cards",True,WHITE)
     text7 = font2.render(" P1 -- (1 CARD)",True,WHITE)
-    text8 = font2.render(" P2 start cards",True,WHITE)
-    text9 = font2.render(" P2 -- (1 CARD)",True,WHITE)
+    text8 = font2.render(" P2 start cards",True,WHITE)#1
+    text9 = font2.render(" P2 -- (1 CARD)",True,WHITE)#1
 
 
     screen.blit(text2, [1310,700])
@@ -140,21 +140,23 @@ while True:
 
             #voor de card use
 
-            if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 730 and pos[1] <= 780:
+            if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 850 and pos[1] <= 900:
                     player_one_hp = + 1
                     print (player_one_hp)
             else:
-                if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 730 and pos[1] <= 780:
+                if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 850 and pos[1] <= 900:
                     player_one_hp = + 1
                     print (player_one_hp)
 
-            if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 730 and pos[1] <= 780:
+            
+            #player 2
+            if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 850 and pos[1] <= 900:
                     player_two_hp = + 0
-                    print (player_two_hp)
+                    
             else:
-                if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 730 and pos[1] <= 780:
+                if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 850 and pos[1] <= 900:
                     player_two_hp = + 0
-                    print (player_two_hp)
+                    
 
             
 
@@ -260,15 +262,15 @@ while True:
         textRect.center = ( (1560 + (100 / 2)), (530 + (50 / 2)) )
         screen.blit(textSurf, textRect)
 
-
-    if 1320 + 100 > pos[0] > 1320 and 730 + 50 > pos[1] > 730:
-        pygame.draw.rect(screen, bright_red, (1320, 730, 100, 50))
-        screen.blit(usecard, [1330, 740])
+#use cards detection
+    if 1320 + 100 > pos[0] > 1320 and 780 + 50 > pos[1] > 780:
+        pygame.draw.rect(screen, bright_red, (1320, 780, 100, 50))
+        screen.blit(usecard, [1330, 790])
         
 
     else:
-        pygame.draw.rect(screen, RED, (1320, 730, 100, 50))
-        screen.blit(usecard, [1330, 740])
+        pygame.draw.rect(screen, RED, (1320, 780, 100, 50))
+        screen.blit(usecard, [1330, 790])
     
     
 

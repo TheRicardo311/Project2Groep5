@@ -1,0 +1,49 @@
+
+
+
+usecard = font3.render("USE CARD",1,(255, 255, 255))
+
+
+
+
+
+
+
+
+
+
+#voor de card use
+
+            if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 730 and pos[1] <= 780:
+                    player_one_hp = + 1
+                    print (player_one_hp)
+            else:
+                if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 730 and pos[1] <= 780:
+                    player_one_hp = + 1
+                    print (player_one_hp)
+
+            
+            #player 2
+            if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 800 and pos[1] <= 850:
+                    player_two_hp = + 0
+                    
+            else:
+                if press[0] == 1 and pos[0] >= 1320 and pos[0] <= 1417 and pos[1] >= 850 and pos[1] <= 900:
+                    player_two_hp = + 0
+
+
+
+
+
+#use cards detection (kaart tekenen)
+    if 1320 + 100 > pos[0] > 1320 and 780 + 50 > pos[1] > 780:
+        pygame.draw.rect(screen, bright_red, (1320, 780, 100, 50))
+        screen.blit(usecard, [1330, 790])
+        
+
+    else:
+        pygame.draw.rect(screen, RED, (1320, 780, 100, 50))
+        screen.blit(usecard, [1330, 790])
+
+
+
