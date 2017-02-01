@@ -642,6 +642,8 @@ class Game:
             if keys2[pygame.K_c]:
                 self.pause = False
 
+        button(0,0,50,50,program_victory)
+
         #random kaarten van lijst
         self.p1rand1 = random.choice(cards)
         self.p1rand2 = random.choice(cards)
@@ -792,7 +794,7 @@ class Game:
                                 print("Oops you went out the playfield, Try again!")
                             elif self.grid[self.row][self.column] == 1 or self.grid[self.row + 1][self.column] == 1 or self.grid[self.row + 2][self.column] == 1:
                                 print("Oops there is already a boat here, Try again!")
-                            else:
+                            elif self.row == 0:
                                 self.grid[self.row][self.column] = 1
                                 self.grid[self.row + 1][self.column] = 1
                                 self.grid[self.row + 2][self.column] = 1
@@ -858,7 +860,7 @@ class Game:
                         elif self.boat == "DrieGeel" and v == True and self.turn_player == "player2":
                             if self.row == 20:
                                 print("Oops you went out the playfield, Try again!")
-                            else:
+                            elif self.row == 18:
                                 self.grid[self.row][self.column] = 2
                                 self.grid[self.row - 1][self.column] = 2
                                 self.grid[self.row - 2][self.column] = 2
@@ -1909,19 +1911,19 @@ class Game:
                 self.exdee7 += 1
                 self.x_x6 += 1
                 if self.Player2.Silver.pos_column + 1 == self.Player1.Furgo.pos_column and self.Player1.Furgo.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Furgo.pos_row + 3 or self.Player2.Silver.pos_column + 1 == self.Player1.Furgo.pos_column and self.Player2.Silver.pos_row <= self.Player1.Furgo.pos_row <= self.Player2.Silver.pos_row + 2:
-                    self.Player2.Furgo.hp -= 1
+                    self.Player1.Furgo.hp -= 1
                     self.hehe7 = 3
                     self.x_y7 = 0
                 elif self.Player2.Silver.pos_column + 1 == self.Player1.Intensity.pos_column and self.Player1.Intensity.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Intensity.pos_row + 3 or self.Player2.Silver.pos_column + 1 == self.Player1.Intensity.pos_column and self.Player2.Silver.pos_row <= self.Player1.Intensity.pos_row <= self.Player2.Silver.pos_row + 2:
-                    self.Player2.Intensity.hp -= 1
+                    self.Player1.Intensity.hp -= 1
                     self.hehe7 = 3
                     self.x_y7 = 0
                 elif self.Player2.Silver.pos_column + 1 == self.Player1.Silver.pos_column and self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row + 3 or self.Player2.Silver.pos_column + 1 == self.Player1.Silver.pos_column and self.Player2.Silver.pos_row <= self.Player1.Silver.pos_row <= self.Player2.Silver.pos_row + 2:
-                    self.Player2.Silver.hp -= 1
+                    self.Player1.Silver.hp -= 1
                     self.hehe7 = 3
                     self.x_y7 = 0
                 elif self.Player2.Silver.pos_column + 1 == self.Player1.Merapi.pos_column and self.Player1.Merapi.pos_row <= self.Player2.Silver.pos_row <= self.Player1.Merapi.pos_row + 3 or self.Player2.Silver.pos_column + 1 == self.Player1.Merapi.pos_column and self.Player2.Silver.pos_row <= self.Player1.Merapi.pos_row <= self.Player2.Silver.pos_row + 2:
-                    self.Player2.Merapi.hp -= 1
+                    self.Player1.Merapi.hp -= 1
                     self.hehe7 = 3
                     self.x_y7 = 0
                 if self.exdee7 == (self.Player2.Silver.atk_range * 55):
@@ -2301,18 +2303,15 @@ class Game:
                                                1, (255, 255, 255))
             self.screen.blit(self.start_text, (100, 300))
 
-            self.start_text = self.font.render(
-                "(-Ook kun je de positie van je schepen veranderen, wanneer je dit doet telt dat als 1 stap)(Kan wel, werkt niet),
+            self.start_text = self.font.render("(-Ook kun je de positie van je schepen veranderen, wanneer je dit doet telt dat als 1 stap)(Kan wel, werkt niet" ,
                 1, (255, 255, 255))
             self.screen.blit(self.start_text, (100, 350))
 
-            self.start_text = self.font.render(
-                "-De bereik van een aanval staat gelijk aan de lengte van de boot..",
+            self.start_text = self.font.render("-De bereik van een aanval staat gelijk aan de lengte van de boot..",
                 1, (255, 255, 255))
             self.screen.blit(self.start_text, (150, 400))
 
-            self.start_text = self.font.render(
-                "aanvallen kan alleen wanneer een schip van de tegenstander in het bereik staat van een een van jouw schepen. ",
+            self.start_text = self.font.render("aanvallen kan alleen wanneer een schip van de tegenstander in het bereik staat van een een van jouw schepen. ",
                 1, (255, 255, 255))
             self.screen.blit(self.start_text, (100, 480))
 
@@ -2443,7 +2442,7 @@ class Game:
                 update_dbx(str(int(haalnummereruit()) + 1))
 
             if self.game_quit == True:
-                break
+                quit()
 
             if game_quit == True:
                 break
